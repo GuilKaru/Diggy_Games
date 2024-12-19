@@ -74,10 +74,7 @@ namespace Diggy_MiniGame_1
 			_moveAction.performed += OnMoveInput;
 			_moveAction.canceled += OnMoveInput;
 
-			if (_attackAction != null) // Null check before adding event listener
-			{
-				_attackAction.performed += OnAttack;
-			}
+			_attackAction.started += OnAttackStart;
 
 		}
 
@@ -85,11 +82,8 @@ namespace Diggy_MiniGame_1
 		{
 			_moveAction.performed -= OnMoveInput;
 			_moveAction.canceled -= OnMoveInput;
-			if (_attackAction != null) // Null check before removing event listener
-			{
-				_attackAction.performed -= OnAttack;
-			}
-
+			
+			_attackAction.started -= OnAttackStart;
 		}
 
 		#endregion
@@ -171,7 +165,7 @@ namespace Diggy_MiniGame_1
 		#endregion
 
 		#region Attack
-		private void OnAttack(InputAction.CallbackContext context)
+		private void OnAttackStart(InputAction.CallbackContext context)
 		{
 			// Instantiate the red circle in front of the player
 			Vector3 spawnPosition = transform.position + Vector3.right * attackDistance;
