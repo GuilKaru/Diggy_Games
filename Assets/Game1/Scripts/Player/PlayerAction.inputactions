@@ -81,7 +81,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "WASD",
+                    "name": "ArrowKeys",
                     "id": "d44e565e-d370-4ffd-a7b1-71dc10a4c122",
                     "path": "2DVector",
                     "interactions": "",
@@ -116,7 +116,7 @@
                 {
                     "name": "left",
                     "id": "415591a4-b947-490e-9255-c73d5c7365a5",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
