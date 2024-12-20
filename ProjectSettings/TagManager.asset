@@ -6,6 +6,8 @@ TagManager:
   tags:
   - AttackPoint
   - Barrel
+  - Shield
+  - House
   layers:
   - Default
   - TransparentFX
@@ -13,11 +15,11 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - AttackPoint
+  - Shield
+  - Enemy
+  - BarrelTNT
   - 
   - 
   - 

@@ -5,7 +5,8 @@ using System.Collections;
 namespace Diggy_MiniGame_1
 {
 	public class PlayerController : MonoBehaviour
-	{ // Serialize Fields
+	{
+		// Serialize Fields
 		#region Serialize Fields
 
 		[Header("Player Movement")]
@@ -33,6 +34,12 @@ namespace Diggy_MiniGame_1
 		private float attackDistance = 1.5f; // Distance in front of player where attack will appear
 		[SerializeField]
 		private float attackDuration = 1f;
+
+		[Header("Shield Settings")]
+		[SerializeField]
+		private GameObject shieldObject; 
+		[SerializeField]
+		private Collider2D playerCollider;
 		#endregion
 
 		// Private Variables
@@ -42,7 +49,11 @@ namespace Diggy_MiniGame_1
 		private PlayerInput _playerInput;
 		private InputAction _moveAction;
 		private InputAction _attackAction;
+		private InputAction shieldAction;
+		private bool isShieldActive = false;
 		private bool _canTeleport = true; // Tracks if teleportation is allowed
+		private bool isStunned = false; // Tracks if the player is stunned
+		private float stunEndTime = 0f; // Time when the stun effect ends
 		#endregion
 
 		// Initialization
@@ -67,6 +78,7 @@ namespace Diggy_MiniGame_1
 			// Setup input actions
 			_moveAction = _playerInput.actions["Move"];
 			_attackAction = _playerInput.actions["Attack"];
+			shieldAction = _playerInput.actions["Shield"];
 		}
 
 		private void OnEnable()
@@ -75,6 +87,8 @@ namespace Diggy_MiniGame_1
 			_moveAction.canceled += OnMoveInput;
 
 			_attackAction.started += OnAttackStart;
+			shieldAction.performed += OnShieldHold;
+			shieldAction.canceled += OnShieldRelease;
 
 		}
 
@@ -84,6 +98,8 @@ namespace Diggy_MiniGame_1
 			_moveAction.canceled -= OnMoveInput;
 			
 			_attackAction.started -= OnAttackStart;
+			shieldAction.performed -= OnShieldHold;
+			shieldAction.canceled -= OnShieldRelease;
 		}
 
 		#endregion
@@ -93,21 +109,46 @@ namespace Diggy_MiniGame_1
 
 		private void FixedUpdate()
 		{
-			HandleHorizontalMovement();
+			// Handle Stun Logic
+			if (isStunned && Time.time >= stunEndTime)
+			{
+				isStunned = false; // End the stun effect
+				Debug.Log("Player is no longer stunned.");
+			}
+
+			// Allow movement and teleportation only if the player is not stunned or shielding
+			if (!isStunned)
+			{
+				if (!isShieldActive)
+				{
+					HandleHorizontalMovement(); // Allow normal movement
+				}
+			}
+			else
+			{
+				_moveInput = Vector2.zero; // Block movement input while stunned
+			}
 		}
 
 		private void OnMoveInput(InputAction.CallbackContext context)
 		{
-			_moveInput = context.ReadValue<Vector2>();
+			if (!isShieldActive) // Only allow movement/teleport when the shield is not active
+			{
+				_moveInput = context.ReadValue<Vector2>();
 
-			// Check for teleportation input (W or S keys)
-			if (_moveInput.y > 0) // W key pressed
-			{
-				TryTeleport(Vector3.up);
+				// Check for teleportation input (W or S keys)
+				if (_moveInput.y > 0) // W key pressed
+				{
+					TryTeleport(Vector3.up);
+				}
+				else if (_moveInput.y < 0) // S key pressed
+				{
+					TryTeleport(Vector3.down);
+				}
 			}
-			else if (_moveInput.y < 0) // S key pressed
+			else
 			{
-				TryTeleport(Vector3.down);
+				_moveInput = Vector2.zero; // Block movement input while shield is active
 			}
 		}
 
@@ -164,13 +205,60 @@ namespace Diggy_MiniGame_1
 		}
 		#endregion
 
+		//Attack
 		#region Attack
 		private void OnAttackStart(InputAction.CallbackContext context)
 		{
+			if (isShieldActive)
+			{
+				Debug.Log("Attack blocked because the shield is active.");
+				return; // Prevent attack if shield is active
+			}
+
 			// Instantiate the red circle in front of the player
 			Vector3 spawnPosition = transform.position + Vector3.right * attackDistance;
 			GameObject attackObject = Instantiate(attackPrefab, spawnPosition, Quaternion.identity);
 			Destroy(attackObject, attackDuration);
+		}
+		#endregion
+
+		//Shield
+		#region Shield
+		private void OnShieldHold(InputAction.CallbackContext context)
+		{
+			ActivateShield(); // Called when the shield button is held
+		}
+
+		private void OnShieldRelease(InputAction.CallbackContext context)
+		{
+			DeactivateShield(); // Called when the shield button is released
+		}
+
+		private void ActivateShield()
+		{
+			isShieldActive = true;
+			playerCollider.enabled = false; // Disable player collider
+			shieldObject.SetActive(true); // Activate shield visual/effect
+			Debug.Log("Shield Activated: Player movement and teleportation disabled.");
+		}
+
+		private void DeactivateShield()
+		{
+			isShieldActive = false;
+			playerCollider.enabled = true; // Enable player collider
+			shieldObject.SetActive(false); // Deactivate shield visual/effect
+			Debug.Log("Shield Deactivated: Player movement and teleportation enabled.");
+		}
+
+		#endregion
+
+		//Stun
+		#region Stun
+		public void StunPlayer(float duration)
+		{
+			isStunned = true;
+			stunEndTime = Time.time + duration; // Calculate when the stun ends
+			Debug.Log("Player stunned for " + duration + " seconds.");
 		}
 		#endregion
 

@@ -18,8 +18,8 @@ namespace Diggy_MiniGame_1
 		//Private Variables
 		#region Private Variables
 		private ScoreManager _scoreManager;
+		private PlayerHealth _playerHealth;
 		#endregion
-
 
 		// Initialization
 		#region Initialization
@@ -28,7 +28,7 @@ namespace Diggy_MiniGame_1
 		{
 			// Find the ScoreManager script in the scene
 			_scoreManager = FindObjectOfType<ScoreManager>();
-
+			_playerHealth = FindObjectOfType<PlayerHealth>();
 			if (_scoreManager == null)
 			{
 				Debug.LogError("ScoreManager not found in the scene. Ensure there is a GameObject with the ScoreManager script.");
@@ -48,7 +48,7 @@ namespace Diggy_MiniGame_1
 		#endregion
 
 		// Movement Methods
-		#region MovementMethods
+		#region Movement Methods
 		private void MoveLeft()
 		{
 			transform.Translate(Vector3.left * _speed * Time.deltaTime);
@@ -65,11 +65,17 @@ namespace Diggy_MiniGame_1
 				_scoreManager.AddScore(_scoreValue); 
 				DestroyBarrel();
 			}
+
+			if (collision.gameObject.CompareTag("House"))
+			{
+				_playerHealth.Damage(1);
+				DestroyBarrel();
+			}
 		}
 		#endregion
 
 		// Utility Methods
-		#region UtilityMethods
+		#region Utility Methods
 		private void DestroyBarrel()
 		{
 			Destroy(gameObject);

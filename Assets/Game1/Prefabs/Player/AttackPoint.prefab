@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3268295231085328380}
   - component: {fileID: 7165092475297529591}
   - component: {fileID: 2415034186017065034}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: AttackPoint
   m_TagString: AttackPoint
   m_Icon: {fileID: 0}
