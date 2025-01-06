@@ -66,6 +66,12 @@ namespace Diggy_MiniGame_1
 				DestroyBarrel();
 			}
 
+			if (collision.gameObject.CompareTag("Boomerang"))
+			{
+				_scoreManager.AddScore(_scoreValue);
+				DestroyBarrel();
+			}
+
 			if (collision.gameObject.CompareTag("House"))
 			{
 				_playerHealth.Damage(1);

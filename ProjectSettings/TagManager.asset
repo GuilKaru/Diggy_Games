@@ -8,6 +8,7 @@ TagManager:
   - Barrel
   - Shield
   - House
+  - Boomerang
   layers:
   - Default
   - TransparentFX

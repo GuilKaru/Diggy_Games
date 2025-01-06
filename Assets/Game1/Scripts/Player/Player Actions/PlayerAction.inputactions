@@ -24,6 +24,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Boomerang",
+                    "type": "Button",
+                    "id": "45341563-6e53-4b96-ae39-ac028423f9ad",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Shield",
                     "type": "Button",
                     "id": "d2fb1dbd-2f18-426e-b93d-acff235276f9",
@@ -152,6 +161,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ac516a80-3a43-4543-b954-00520f3317db",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boomerang",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

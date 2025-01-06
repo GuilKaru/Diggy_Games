@@ -40,6 +40,14 @@ namespace Diggy_MiniGame_1
 		private GameObject shieldObject; 
 		[SerializeField]
 		private Collider2D playerCollider;
+
+		[Header("Boomerang Settings")]
+		[SerializeField]
+		private GameObject boomerangPrefab;
+		[SerializeField]
+		private Transform boomerangSpawnPoint;
+		[SerializeField]
+		private float boomerangCooldown = 2f;
 		#endregion
 
 		// Private Variables
@@ -49,11 +57,14 @@ namespace Diggy_MiniGame_1
 		private PlayerInput _playerInput;
 		private InputAction _moveAction;
 		private InputAction _attackAction;
-		private InputAction shieldAction;
-		private bool isShieldActive = false;
+		private InputAction _shieldAction;
+		private InputAction _boomerangAction;
+		private bool _isShieldActive = false;
 		private bool _canTeleport = true; // Tracks if teleportation is allowed
-		private bool isStunned = false; // Tracks if the player is stunned
-		private float stunEndTime = 0f; // Time when the stun effect ends
+		private bool _isStunned = false; // Tracks if the player is stunned
+		private float _stunEndTime = 0f; // Time when the stun effect ends
+		private GameObject _currentBoomerang = null;
+		private bool _canThrowBoomerang = true;
 		#endregion
 
 		// Initialization
@@ -78,7 +89,8 @@ namespace Diggy_MiniGame_1
 			// Setup input actions
 			_moveAction = _playerInput.actions["Move"];
 			_attackAction = _playerInput.actions["Attack"];
-			shieldAction = _playerInput.actions["Shield"];
+			_shieldAction = _playerInput.actions["Shield"];
+			_boomerangAction = _playerInput.actions["Boomerang"];
 		}
 
 		private void OnEnable()
@@ -87,8 +99,9 @@ namespace Diggy_MiniGame_1
 			_moveAction.canceled += OnMoveInput;
 
 			_attackAction.started += OnAttackStart;
-			shieldAction.performed += OnShieldHold;
-			shieldAction.canceled += OnShieldRelease;
+			_shieldAction.performed += OnShieldHold;
+			_shieldAction.canceled += OnShieldRelease;
+			_boomerangAction.started += OnBoomerangThrow;
 
 		}
 
@@ -98,8 +111,9 @@ namespace Diggy_MiniGame_1
 			_moveAction.canceled -= OnMoveInput;
 			
 			_attackAction.started -= OnAttackStart;
-			shieldAction.performed -= OnShieldHold;
-			shieldAction.canceled -= OnShieldRelease;
+			_shieldAction.performed -= OnShieldHold;
+			_shieldAction.canceled -= OnShieldRelease;
+			_boomerangAction.started -= OnBoomerangThrow;
 		}
 
 		#endregion
@@ -110,16 +124,16 @@ namespace Diggy_MiniGame_1
 		private void FixedUpdate()
 		{
 			// Handle Stun Logic
-			if (isStunned && Time.time >= stunEndTime)
+			if (_isStunned && Time.time >= _stunEndTime)
 			{
-				isStunned = false; // End the stun effect
+				_isStunned = false; // End the stun effect
 				Debug.Log("Player is no longer stunned.");
 			}
 
 			// Allow movement and teleportation only if the player is not stunned or shielding
-			if (!isStunned)
+			if (!_isStunned)
 			{
-				if (!isShieldActive)
+				if (!_isShieldActive)
 				{
 					HandleHorizontalMovement(); // Allow normal movement
 				}
@@ -132,7 +146,7 @@ namespace Diggy_MiniGame_1
 
 		private void OnMoveInput(InputAction.CallbackContext context)
 		{
-			if (!isShieldActive) // Only allow movement/teleport when the shield is not active
+			if (!_isShieldActive) // Only allow movement/teleport when the shield is not active
 			{
 				_moveInput = context.ReadValue<Vector2>();
 
@@ -209,7 +223,7 @@ namespace Diggy_MiniGame_1
 		#region Attack
 		private void OnAttackStart(InputAction.CallbackContext context)
 		{
-			if (isShieldActive)
+			if (_isShieldActive)
 			{
 				Debug.Log("Attack blocked because the shield is active.");
 				return; // Prevent attack if shield is active
@@ -236,7 +250,7 @@ namespace Diggy_MiniGame_1
 
 		private void ActivateShield()
 		{
-			isShieldActive = true;
+			_isShieldActive = true;
 			playerCollider.enabled = false; // Disable player collider
 			shieldObject.SetActive(true); // Activate shield visual/effect
 			Debug.Log("Shield Activated: Player movement and teleportation disabled.");
@@ -244,7 +258,7 @@ namespace Diggy_MiniGame_1
 
 		private void DeactivateShield()
 		{
-			isShieldActive = false;
+			_isShieldActive = false;
 			playerCollider.enabled = true; // Enable player collider
 			shieldObject.SetActive(false); // Deactivate shield visual/effect
 			Debug.Log("Shield Deactivated: Player movement and teleportation enabled.");
@@ -256,9 +270,56 @@ namespace Diggy_MiniGame_1
 		#region Stun
 		public void StunPlayer(float duration)
 		{
-			isStunned = true;
-			stunEndTime = Time.time + duration; // Calculate when the stun ends
+			_isStunned = true;
+			_stunEndTime = Time.time + duration; // Calculate when the stun ends
 			Debug.Log("Player stunned for " + duration + " seconds.");
+		}
+		#endregion
+
+		//Boomerang
+		#region Boomerang
+		private void OnBoomerangThrow(InputAction.CallbackContext context)
+		{
+			if (_canThrowBoomerang && _currentBoomerang == null)
+			{
+				ThrowBoomerang();
+			}
+		}
+
+		private void ThrowBoomerang()
+		{
+			// Spawn the boomerang
+			_currentBoomerang = Instantiate(boomerangPrefab, boomerangSpawnPoint.position, Quaternion.identity);
+
+			// Assign callbacks for boomerang events
+			Boomerang boomerangScript = _currentBoomerang.GetComponent<Boomerang>();
+			if (boomerangScript != null)
+			{
+				boomerangScript.OnBoomerangCaught += HandleBoomerangCaught;
+				boomerangScript.OnBoomerangMissed += HandleBoomerangMissed;
+			}
+		}
+
+		private void HandleBoomerangCaught()
+		{
+			Debug.Log("Boomerang caught by player. Ready to throw again!");
+			_currentBoomerang = null;
+			_canThrowBoomerang = true; // Allow immediate re-throw
+		}
+
+		private void HandleBoomerangMissed()
+		{
+			Debug.Log("Boomerang missed. Cooldown applied.");
+			_currentBoomerang = null;
+			StartCoroutine(StartBoomerangCooldown(30f)); // 30-second cooldown
+		}
+
+		private IEnumerator StartBoomerangCooldown(float cooldownDuration)
+		{
+			_canThrowBoomerang = false;
+			yield return new WaitForSeconds(cooldownDuration);
+			_canThrowBoomerang = true;
+			Debug.Log("Boomerang cooldown finished.");
 		}
 		#endregion
 
