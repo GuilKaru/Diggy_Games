@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System;
 
 namespace Diggy_MiniGame_1
 {
@@ -29,25 +30,25 @@ namespace Diggy_MiniGame_1
 
 		[Header("Attack Settings")]
 		[SerializeField] 
-		private GameObject attackPrefab; // Red circle prefab for attack
+		private GameObject _attackPrefab; // Red circle prefab for attack
 		[SerializeField] 
-		private float attackDistance = 1.5f; // Distance in front of player where attack will appear
+		private float _attackDistance = 1.5f; // Distance in front of player where attack will appear
 		[SerializeField]
-		private float attackDuration = 1f;
+		private float _attackDuration = 1f;
 
 		[Header("Shield Settings")]
 		[SerializeField]
-		private GameObject shieldObject; 
+		private GameObject _shieldObject; 
 		[SerializeField]
-		private Collider2D playerCollider;
+		private Collider2D _playerCollider;
 
 		[Header("Boomerang Settings")]
 		[SerializeField]
-		private GameObject boomerangPrefab;
+		private GameObject _boomerangPrefab;
 		[SerializeField]
-		private Transform boomerangSpawnPoint;
+		private Transform _boomerangSpawnPoint;
 		[SerializeField]
-		private float boomerangCooldown = 2f;
+		private float _boomerangCooldown = 2f;
 		#endregion
 
 		// Private Variables
@@ -230,9 +231,9 @@ namespace Diggy_MiniGame_1
 			}
 
 			// Instantiate the red circle in front of the player
-			Vector3 spawnPosition = transform.position + Vector3.right * attackDistance;
-			GameObject attackObject = Instantiate(attackPrefab, spawnPosition, Quaternion.identity);
-			Destroy(attackObject, attackDuration);
+			Vector3 spawnPosition = transform.position + Vector3.right * _attackDistance;
+			GameObject attackObject = Instantiate(_attackPrefab, spawnPosition, Quaternion.identity);
+			Destroy(attackObject, _attackDuration);
 		}
 		#endregion
 
@@ -251,16 +252,16 @@ namespace Diggy_MiniGame_1
 		private void ActivateShield()
 		{
 			_isShieldActive = true;
-			playerCollider.enabled = false; // Disable player collider
-			shieldObject.SetActive(true); // Activate shield visual/effect
+			_playerCollider.enabled = false; // Disable player collider
+			_shieldObject.SetActive(true); // Activate shield visual/effect
 			Debug.Log("Shield Activated: Player movement and teleportation disabled.");
 		}
 
 		private void DeactivateShield()
 		{
 			_isShieldActive = false;
-			playerCollider.enabled = true; // Enable player collider
-			shieldObject.SetActive(false); // Deactivate shield visual/effect
+			_playerCollider.enabled = true; // Enable player collider
+			_shieldObject.SetActive(false); // Deactivate shield visual/effect
 			Debug.Log("Shield Deactivated: Player movement and teleportation enabled.");
 		}
 
@@ -289,7 +290,7 @@ namespace Diggy_MiniGame_1
 		private void ThrowBoomerang()
 		{
 			// Spawn the boomerang
-			_currentBoomerang = Instantiate(boomerangPrefab, boomerangSpawnPoint.position, Quaternion.identity);
+			_currentBoomerang = Instantiate(_boomerangPrefab, _boomerangSpawnPoint.position, Quaternion.identity);
 
 			// Assign callbacks for boomerang events
 			Boomerang boomerangScript = _currentBoomerang.GetComponent<Boomerang>();
@@ -322,6 +323,36 @@ namespace Diggy_MiniGame_1
 			Debug.Log("Boomerang cooldown finished.");
 		}
 		#endregion
+
+		//Slow Effect
+		#region Slow Effect
+		public void ApplySlowEffect(float slowAmount, float duration)
+		{
+			StartCoroutine(SlowEffectCoroutine(slowAmount, duration));
+		}
+
+		private IEnumerator SlowEffectCoroutine(float slowAmount, float duration)
+		{
+			float originalSpeed = _moveSpeed;
+			_moveSpeed *= slowAmount; // Reduce the movement speed
+			Debug.Log($"Player slowed to {_moveSpeed} for {duration} seconds.");
+
+			yield return new WaitForSeconds(duration);
+
+			_moveSpeed = originalSpeed; // Restore original speed
+			Debug.Log("Player speed restored.");
+		}
+		#endregion
+
+		//Buffs Properties
+		#region Buffs Properties
+		public float MoveSpeed
+		{
+			get => _moveSpeed;
+			set => _moveSpeed = value;
+		}
+		#endregion
+
 
 	}
 
