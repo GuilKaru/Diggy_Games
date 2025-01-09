@@ -11,6 +11,10 @@ namespace Diggy_MiniGame_1
 		public int maxHearts = 6; // Maximum number of hearts
 		public int currentHearts = 6; // Current number of hearts
 		public GameObject heartContainerObject;
+
+		[Header("Health Bar")]
+		[SerializeField]
+		private HealthBar _healthBar; // Reference to the health bar component
 		#endregion
 
 		//Private Variables
@@ -30,6 +34,7 @@ namespace Diggy_MiniGame_1
 		{
 			_heartContainer = heartContainerObject.GetComponent<HeartContainer>();
 			_heartContainer.SetMaxHearts(maxHearts);
+			_healthBar.SetMaxHealth(maxHearts);
 			_initialPosition = transform.position;
 
 		}
@@ -52,6 +57,7 @@ namespace Diggy_MiniGame_1
 		{
 			currentHearts = hearts;
 			_heartContainer.SetHearts(currentHearts);
+			_healthBar.UpdateHealth(currentHearts);
 		}
 
 		public void Damage(int heartAmount)
@@ -66,7 +72,7 @@ namespace Diggy_MiniGame_1
 			// Deduct the health based on heartAmount (1 heart = 2 health points)
 			currentHearts -= heartAmount; // Multiply by 2 to reflect the hearts
 
-
+			_healthBar.UpdateHealth(currentHearts);
 
 			// Clamp the current health to ensure it does not go below 0
 			currentHearts = Mathf.Clamp(currentHearts, 0, maxHearts * 2); // 10 max health

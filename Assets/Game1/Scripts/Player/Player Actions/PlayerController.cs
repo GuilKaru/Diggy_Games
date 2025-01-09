@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System;
+using System.Collections.Generic;
 
 namespace Diggy_MiniGame_1
 {
@@ -49,6 +50,12 @@ namespace Diggy_MiniGame_1
 		private Transform _boomerangSpawnPoint;
 		[SerializeField]
 		private float _boomerangCooldown = 2f;
+
+		[Header("Sprite Settings")]
+		[SerializeField]
+		private List<Sprite> _playerSprites; // List of sprites to switch between
+		[SerializeField]
+		private SpriteRenderer _spriteRenderer; // Reference to the player's SpriteRenderer
 		#endregion
 
 		// Private Variables
@@ -60,12 +67,14 @@ namespace Diggy_MiniGame_1
 		private InputAction _attackAction;
 		private InputAction _shieldAction;
 		private InputAction _boomerangAction;
+		private InputAction _switchSpriteAction;
 		private bool _isShieldActive = false;
 		private bool _canTeleport = true; // Tracks if teleportation is allowed
 		private bool _isStunned = false; // Tracks if the player is stunned
 		private float _stunEndTime = 0f; // Time when the stun effect ends
 		private GameObject _currentBoomerang = null;
 		private bool _canThrowBoomerang = true;
+		private int _currentSpriteIndex = 0;
 		#endregion
 
 		// Initialization
@@ -86,12 +95,24 @@ namespace Diggy_MiniGame_1
 				Debug.LogError("PlayerInput component is missing!");
 			}
 
+			// Ensure the SpriteRenderer is assigned
+			if (_spriteRenderer == null)
+			{
+				_spriteRenderer = GetComponent<SpriteRenderer>();
+				if (_spriteRenderer == null)
+				{
+					Debug.LogError("SpriteRenderer component is missing!");
+				}
+			}
+
+
 
 			// Setup input actions
 			_moveAction = _playerInput.actions["Move"];
 			_attackAction = _playerInput.actions["Attack"];
 			_shieldAction = _playerInput.actions["Shield"];
 			_boomerangAction = _playerInput.actions["Boomerang"];
+			_switchSpriteAction = _playerInput.actions["SwitchSprite"];
 		}
 
 		private void OnEnable()
@@ -103,7 +124,7 @@ namespace Diggy_MiniGame_1
 			_shieldAction.performed += OnShieldHold;
 			_shieldAction.canceled += OnShieldRelease;
 			_boomerangAction.started += OnBoomerangThrow;
-
+			_switchSpriteAction.started += OnSwitchSpriteStart;
 		}
 
 		private void OnDisable()
@@ -115,6 +136,8 @@ namespace Diggy_MiniGame_1
 			_shieldAction.performed -= OnShieldHold;
 			_shieldAction.canceled -= OnShieldRelease;
 			_boomerangAction.started -= OnBoomerangThrow;
+			_switchSpriteAction.started -= OnSwitchSpriteStart;
+
 		}
 
 		#endregion
@@ -353,7 +376,19 @@ namespace Diggy_MiniGame_1
 		}
 		#endregion
 
+		//Sprite Switching
+		#region Sprite Switching
+		private void OnSwitchSpriteStart(InputAction.CallbackContext context)
+		{
 
+			// Cycle to the next sprite
+			_currentSpriteIndex = (_currentSpriteIndex + 1) % _playerSprites.Count;
+
+			// Update the sprite
+			_spriteRenderer.sprite = _playerSprites[_currentSpriteIndex];
+			Debug.Log($"Switched to sprite {_currentSpriteIndex}");
+		}
+		#endregion
 	}
 
 }

@@ -33,6 +33,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SwitchSprite",
+                    "type": "Button",
+                    "id": "077899d2-26a7-4b84-8f55-b814353ee49a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Shield",
                     "type": "Button",
                     "id": "d2fb1dbd-2f18-426e-b93d-acff235276f9",
@@ -172,6 +181,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Boomerang",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baf2e18a-7ec7-4f22-a3be-0051668d0e9d",
+                    "path": "<Keyboard>/j",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchSprite",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

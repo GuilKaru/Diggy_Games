@@ -21,6 +21,12 @@ namespace Diggy_MiniGame_1
 		private float _slowDuration = 3f; // Duration of the slow effect
 		[SerializeField]
 		private float _slowAmount = 0.5f; // Percentage of speed reduction
+
+		[Header("Visual Effect Settings")]
+		[SerializeField]
+		private GameObject _fireEffectPrefab; // Prefab for the fire/tar effect
+		[SerializeField]
+		private float _fireEffectDuration = 2f; // Duration before the fire effect disappears
 		#endregion
 
 		// Private Variables
@@ -81,6 +87,7 @@ namespace Diggy_MiniGame_1
 				{
 					player.ApplySlowEffect(_slowAmount, _slowDuration);
 				}
+				SpawnFireEffect();
 				Destroy(gameObject); // Destroy the TarBarrel after applying the effect
 			}
 
@@ -107,6 +114,18 @@ namespace Diggy_MiniGame_1
 
 		// Utility Methods
 		#region Utility Methods
+
+		private void SpawnFireEffect()
+		{
+			if (_fireEffectPrefab != null)
+			{
+				// Instantiate the fire effect at the current position
+				GameObject fireEffect = Instantiate(_fireEffectPrefab, transform.position, Quaternion.identity);
+
+				// Destroy the fire effect after the specified duration
+				Destroy(fireEffect, _fireEffectDuration);
+			}
+		}
 
 		private void DestroyBarrel()
 		{
