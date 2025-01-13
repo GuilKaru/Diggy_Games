@@ -48,11 +48,23 @@ namespace Diggy_MiniGame_1
 			float randomY = _fixedYPositions[Random.Range(0, _fixedYPositions.Length)]; // Random fixed Y position
 			Vector3 spawnPosition = new Vector3(randomX, randomY, 0f);
 
-			// Spawn the enemy
-			Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _spawnRotation);
-			Instantiate(buffToSpawn, spawnPosition, spawnRotation, _buffParent);
+			if (SpawnManager.TryRegisterPosition(spawnPosition))
+			{
+				Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _spawnRotation);
+				Instantiate(buffToSpawn, new Vector3(spawnPosition.x, spawnPosition.y, 0f), spawnRotation, _buffParent);
+				return; // Exit after successful spawn
+			}
 		}
 		#endregion
+
+		#region OnDestroy Cleanup
+		private void OnDestroy()
+		{
+			// Cleanup positions if spawner is destroyed (optional)
+			SpawnManager.ClearAllPositions();
+		}
+		#endregion
+
 
 		// Gizmos
 		#region Gizmos
