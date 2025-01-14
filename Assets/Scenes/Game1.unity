@@ -244,6 +244,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 723911149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &58718630
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 58718631}
+  - component: {fileID: 58718632}
+  m_Layer: 0
+  m_Name: DifficultyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &58718631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58718630}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2118088302}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &58718632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 58718630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16dfac3ee00c6ce4dbf14ede72ca3017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreManager: {fileID: 29782462}
+  _enemySpawner: {fileID: 1139669584}
+  _pointsPerLevel: 50
 --- !u!1 &64547585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,7 +2564,7 @@ MonoBehaviour:
   _buffPrefabs:
   - {fileID: 7969139918600390860, guid: 0d60b1b88622a064c870100799bd025e, type: 3}
   _spawnInterval: 6
-  _spawnXRange: {x: 18, y: 17.5}
+  _spawnXRange: {x: 25, y: 24}
   _fixedYPositions:
   - 4
   - 3
@@ -3499,6 +3546,7 @@ MonoBehaviour:
   - {fileID: -8304920996909070223, guid: 49a5a478d9c64c04b90442327b3ba322, type: 3}
   - {fileID: -7399362636155597608, guid: c027f6cf90af6264695a15d5eb4e9880, type: 3}
   - {fileID: 8519440210539594582, guid: b67da450c4019cf458414492aa0eab19, type: 3}
+  - {fileID: 8104382938848839087, guid: 4d13f9970e928ef439d7ad8361a0bc88, type: 3}
   _spriteRenderer: {fileID: 1583556022}
 --- !u!212 &1583556022
 SpriteRenderer:
@@ -4733,6 +4781,7 @@ Transform:
   m_Children:
   - {fileID: 29782461}
   - {fileID: 1577993705}
+  - {fileID: 58718631}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2139215472

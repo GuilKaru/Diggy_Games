@@ -10,16 +10,17 @@ namespace Diggy_MiniGame_1
 		// Register a position
 		public static bool TryRegisterPosition(Vector2 position)
 		{
+			// Instead of checking each position every time, we will use a simple register-unregister system
 			if (_occupiedPositions.Contains(position))
 			{
-				return false; // Position is already occupied
+				return false; // Position already occupied
 			}
 
 			_occupiedPositions.Add(position);
 			return true;
 		}
 
-		// Unregister a position (if needed, e.g., when an object is destroyed)
+		// Unregister a position when an object is destroyed or moved
 		public static void UnregisterPosition(Vector2 position)
 		{
 			_occupiedPositions.Remove(position);

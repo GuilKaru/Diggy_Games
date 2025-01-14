@@ -51,8 +51,12 @@ namespace Diggy_MiniGame_1
 			if (SpawnManager.TryRegisterPosition(spawnPosition))
 			{
 				Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _spawnRotation);
-				Instantiate(buffToSpawn, new Vector3(spawnPosition.x, spawnPosition.y, 0f), spawnRotation, _buffParent);
-				return; // Exit after successful spawn
+				Instantiate(buffToSpawn, spawnPosition, spawnRotation, _buffParent);
+			}
+			else
+			{
+				// If position is occupied, try again (you can limit retry count to avoid infinite loops)
+				Debug.LogWarning("Failed to spawn buff at position: " + spawnPosition);
 			}
 		}
 		#endregion

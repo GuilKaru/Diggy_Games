@@ -28,6 +28,7 @@ namespace Diggy_MiniGame_1
 		//Private variables
 		#region Private variables
 		private const int MaxAttempts = 10;
+		private int _unlockedEnemyIndex = 0;
 		#endregion
 
 		// Initialization
@@ -44,25 +45,38 @@ namespace Diggy_MiniGame_1
 		{
 			if (_enemyPrefabs == null || _enemyPrefabs.Length == 0) return;
 
-			// Pick a random enemy prefab
-			int randomEnemyIndex = Random.Range(0, _enemyPrefabs.Length);
+			// Ensure we only spawn unlocked enemies
+			int randomEnemyIndex = Random.Range(0, _unlockedEnemyIndex + 1);
 			GameObject enemyToSpawn = _enemyPrefabs[randomEnemyIndex];
 
-			// Randomize the spawn position
-			float randomX = Random.Range(_spawnXRange.x, _spawnXRange.y); // Random X position
-			float randomY = _fixedYPositions[Random.Range(0, _fixedYPositions.Length)]; // Random fixed Y position
+			// Rest of the spawn logic remains unchanged...
+			float randomX = Random.Range(_spawnXRange.x, _spawnXRange.y);
+			float randomY = _fixedYPositions[Random.Range(0, _fixedYPositions.Length)];
 			Vector3 spawnPosition = new Vector3(randomX, randomY, 0f);
 
-			// Check if the position is free
 			if (SpawnManager.TryRegisterPosition(spawnPosition))
 			{
 				Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _spawnRotation);
 				Instantiate(enemyToSpawn, new Vector3(spawnPosition.x, spawnPosition.y, 0f), spawnRotation, _enemyParent);
-				return; // Exit after successful spawn
+				return;
 			}
 		}
 		#endregion
 
+		//Difficulty
+		#region Difficulty
+		public void IncreaseDifficulty(int difficultyLevel)
+		{
+			// Unlock new enemy type if within bounds
+			if (difficultyLevel < _enemyPrefabs.Length)
+			{
+				_unlockedEnemyIndex = difficultyLevel;
+			}
+		}
+		#endregion
+
+
+		//On DestroyCleanup
 		#region OnDestroy Cleanup
 		private void OnDestroy()
 		{
