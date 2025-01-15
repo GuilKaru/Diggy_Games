@@ -75,6 +75,9 @@ namespace Diggy_MiniGame_1
 		private GameObject _currentBoomerang = null;
 		private bool _canThrowBoomerang = true;
 		private int _currentSpriteIndex = 0;
+		private Queue<string> _recentActions = new Queue<string>(); // Tracks the last few actions
+		private int _maxActionHistory = 3; // Maximum number of recent actions to track
+		private readonly int _maxSameActionsAllowed = 3; // Maximum consecutive same actions allowed
 		#endregion
 
 		// Initialization
@@ -253,6 +256,8 @@ namespace Diggy_MiniGame_1
 				return; // Prevent attack if shield is active
 			}
 
+			TrackAction("Attack");
+
 			// Instantiate the red circle in front of the player
 			Vector3 spawnPosition = transform.position + Vector3.right * _attackDistance;
 			GameObject attackObject = Instantiate(_attackPrefab, spawnPosition, Quaternion.identity);
@@ -264,6 +269,9 @@ namespace Diggy_MiniGame_1
 		#region Shield
 		private void OnShieldHold(InputAction.CallbackContext context)
 		{
+			if (_isStunned) return; // Prevent action while stunned
+
+			TrackAction("Shield");
 			ActivateShield(); // Called when the shield button is held
 		}
 
@@ -304,10 +312,10 @@ namespace Diggy_MiniGame_1
 		#region Boomerang
 		private void OnBoomerangThrow(InputAction.CallbackContext context)
 		{
-			if (_canThrowBoomerang && _currentBoomerang == null)
-			{
-				ThrowBoomerang();
-			}
+			if (_isStunned || !_canThrowBoomerang || _currentBoomerang != null) return;
+
+			TrackAction("Boomerang"); // Track the player's action
+			ThrowBoomerang();
 		}
 
 		private void ThrowBoomerang()
@@ -373,6 +381,47 @@ namespace Diggy_MiniGame_1
 		{
 			get => _moveSpeed;
 			set => _moveSpeed = value;
+		}
+		#endregion
+
+		//Track Action
+		#region Track Action
+		private void TrackAction(string action)
+		{
+			// Add the action to the queue
+			_recentActions.Enqueue(action);
+
+			// If the queue exceeds the max history size, remove the oldest action
+			if (_recentActions.Count > _maxActionHistory)
+			{
+				_recentActions.Dequeue();
+			}
+
+			// Check if the player spammed the same action
+			if (IsSpamming())
+			{
+				Debug.Log("Player spammed the same action! Stunned.");
+				StunPlayer(3f); // Stun for 2 seconds
+				_recentActions.Clear(); // Clear the history to reset the combo tracking
+			}
+		}
+
+		private bool IsSpamming()
+		{
+			// If there are fewer actions than the max history, no need to check
+			if (_recentActions.Count < _maxActionHistory) return false;
+
+			// Get the unique actions in the queue
+			string firstAction = _recentActions.Peek(); // Peek at the first action
+			foreach (var action in _recentActions)
+			{
+				if (action != firstAction)
+				{
+					return false; // Found a different action, so not spamming
+				}
+			}
+
+			return true; // All actions are the same
 		}
 		#endregion
 
