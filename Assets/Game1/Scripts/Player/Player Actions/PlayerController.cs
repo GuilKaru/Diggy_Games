@@ -21,11 +21,7 @@ namespace Diggy_MiniGame_1
 
 		[Header("Teleport Settings")]
 		[SerializeField]
-		private float _teleportDistance = 5f; // Distance to teleport up or down
-		[SerializeField]
-		private float _upperLimit = 3f; // Upper boundary for Y position
-		[SerializeField]
-		private float _lowerLimit = -5f; // Lower boundary for Y position
+		private List<float> _verticalPositions = new List<float> { 3.24f, 2.48f, 1.69f, 0.85f, 0.04f, -0.82f };
 		[SerializeField]
 		private float _teleportCooldown = 0.5f; // Cooldown time between teleports
 
@@ -70,6 +66,7 @@ namespace Diggy_MiniGame_1
 		private InputAction _switchSpriteAction;
 		private bool _isShieldActive = false;
 		private bool _canTeleport = true; // Tracks if teleportation is allowed
+		private int _currentVerticalIndex = 3;
 		private bool _isStunned = false; // Tracks if the player is stunned
 		private float _stunEndTime = 0f; // Time when the stun effect ends
 		private GameObject _currentBoomerang = null;
@@ -217,23 +214,29 @@ namespace Diggy_MiniGame_1
 			// Check if teleportation is allowed
 			if (!_canTeleport) return;
 
-			// Calculate the new position
-			Vector3 newPosition = transform.position + direction * _teleportDistance;
+			// Determine the new index based on direction
+			int newIndex = _currentVerticalIndex;
 
-			// Check boundaries
-			if (direction == Vector3.up && newPosition.y > _upperLimit)
+			if (direction == Vector3.down) // Move down
 			{
-				Debug.Log("Cannot teleport up, reached the upper limit!");
-				return;
+				newIndex++;
 			}
-			else if (direction == Vector3.down && newPosition.y < _lowerLimit)
+			else if (direction == Vector3.up) // Move up
 			{
-				Debug.Log("Cannot teleport down, reached the lower limit!");
-				return;
+				newIndex--;
 			}
 
-			// Start teleportation with horizontal limits applied
-			newPosition.x = Mathf.Clamp(newPosition.x, _leftLimit, _rightLimit);
+			// Ensure the index stays within the valid range
+			if (newIndex < 0 || newIndex >= _verticalPositions.Count)
+			{
+				Debug.Log("Cannot teleport, reached the vertical boundary!");
+				return;
+			}
+
+			// Update the current index and calculate the new position
+			_currentVerticalIndex = newIndex;
+			Vector3 newPosition = new Vector3(transform.position.x, _verticalPositions[_currentVerticalIndex], transform.position.z);
+
 			StartCoroutine(TeleportCooldown(newPosition));
 		}
 

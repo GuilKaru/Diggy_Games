@@ -33,6 +33,7 @@ namespace Diggy_MiniGame_1
 		#region Private Variables
 		private ScoreManager _scoreManager;
 		private PlayerHealth _playerHealth;
+		private PlayerController _playerController;
 		#endregion
 
 		// Initialization
@@ -101,6 +102,19 @@ namespace Diggy_MiniGame_1
 			{
 				_scoreManager.AddScore(_scoreValue);
 				DestroyBarrel();
+			}
+
+			if (collision.gameObject.CompareTag("Shield"))
+			{
+				PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+				if (player != null)
+				{
+					player.ApplySlowEffect(_slowAmount, _slowDuration);
+				}
+				_playerController.StunPlayer(3f);
+				SpawnFireEffect();
+				DestroyBarrel();
+
 			}
 
 			if (collision.gameObject.CompareTag("Boomerang"))

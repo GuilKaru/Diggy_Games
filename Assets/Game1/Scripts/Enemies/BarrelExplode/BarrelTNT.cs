@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 namespace Diggy_MiniGame_1
 {
 	public class BarrelTNT : MonoBehaviour
@@ -28,6 +29,7 @@ namespace Diggy_MiniGame_1
 		#region Private Variables
 		private ScoreManager _scoreManager;
 		private PlayerHealth _playerHealth;
+		private PlayerController _playerController;
 		private bool hasExploded = false; // Tracks if the TNT has already exploded
 		#endregion
 
@@ -39,7 +41,7 @@ namespace Diggy_MiniGame_1
 			// Find necessary components in the scene
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
-
+			_playerController = FindObjectOfType<PlayerController>();
 			if (_scoreManager == null)
 			{
 				Debug.LogError("ScoreManager not found in the scene. Ensure there is a GameObject with the ScoreManager script.");
@@ -80,11 +82,18 @@ namespace Diggy_MiniGame_1
 		{
 			if (hasExploded) return; // Prevent multiple explosions
 
-			if (collision.gameObject.CompareTag("AttackPoint"))
+			if (collision.gameObject.CompareTag("Shield"))
 			{
 				_scoreManager.AddScore(_scoreValue);
 				DestroyBarrel();
 			}
+
+			if (collision.gameObject.CompareTag("AttackPoint"))
+			{
+				_playerController.StunPlayer(3f);
+				StartCoroutine(DisableColliderTemporarily(1f));
+			}
+
 
 			if (collision.gameObject.CompareTag("Boomerang"))
 			{
@@ -144,6 +153,17 @@ namespace Diggy_MiniGame_1
 
 		// Utility Methods
 		#region Utility Methods
+
+		private IEnumerator DisableColliderTemporarily(float duration)
+		{
+			Collider2D barrelCollider = GetComponent<Collider2D>();
+			if (barrelCollider != null)
+			{
+				barrelCollider.enabled = false; // Disable the collider
+				yield return new WaitForSeconds(duration); // Wait for the specified duration
+				barrelCollider.enabled = true; // Re-enable the collider
+			}
+		}
 
 		private void DestroyBarrel()
 		{
