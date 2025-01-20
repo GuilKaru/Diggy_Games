@@ -15,18 +15,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Attack",
+                    "name": "ThrowShovel",
                     "type": "Button",
-                    "id": "436e7fe6-5413-43a2-9baa-1ceb4945b442",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Boomerang",
-                    "type": "Button",
-                    "id": "45341563-6e53-4b96-ae39-ac028423f9ad",
+                    "id": "0c4dfa2c-a521-458c-b1fa-d2c20b9aef63",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -36,15 +27,6 @@
                     "name": "SwitchSprite",
                     "type": "Button",
                     "id": "077899d2-26a7-4b84-8f55-b814353ee49a",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Shield",
-                    "type": "Button",
-                    "id": "d2fb1dbd-2f18-426e-b93d-acff235276f9",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -164,23 +146,12 @@
                 },
                 {
                     "name": "",
-                    "id": "31fb7620-a6ce-4f27-875f-d6871d12dca0",
+                    "id": "36063f58-f7d0-4feb-a8b7-988e26e70954",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ac516a80-3a43-4543-b954-00520f3317db",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Boomerang",
+                    "action": "ThrowShovel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -192,17 +163,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "SwitchSprite",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1f7fa6ee-22cb-4ff6-a4da-8eb7c30cfc1b",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shield",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -15,37 +15,27 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private float _moveSpeed = 5f;
 		[SerializeField]
-		private float _leftLimit = -8f; // Left boundary for X position
+		private Vector2 _minBounds; // Minimum X and Y values
 		[SerializeField]
-		private float _rightLimit = 8f; // Right boundary for X position
+		private Vector2 _maxBounds; // Maximum X and Y values
 
-		[Header("Teleport Settings")]
+		[Header("Shovel Throw")]
 		[SerializeField]
-		private List<float> _verticalPositions = new List<float> { 3.24f, 2.48f, 1.69f, 0.85f, 0.04f, -0.82f };
+		private GameObject _shovelPrefab;
 		[SerializeField]
-		private float _teleportCooldown = 0.5f; // Cooldown time between teleports
+		private Transform _shovelThrowTransform;
+		[SerializeField]
+		private Transform _shovelParent;
+		[SerializeField]
+		private float _automaticFireRate = 0.1f;
+		[SerializeField]
+		private float _shovelHitMissDistance = 25f;
 
-		[Header("Attack Settings")]
-		[SerializeField] 
-		private GameObject _attackPrefab; // Red circle prefab for attack
-		[SerializeField] 
-		private float _attackDistance = 1.5f; // Distance in front of player where attack will appear
+		[Header("Knockback")]
 		[SerializeField]
-		private float _attackDuration = 1f;
-
-		[Header("Shield Settings")]
+		private float knockbackDistance = 1f;
 		[SerializeField]
-		private GameObject _shieldObject; 
-		[SerializeField]
-		private Collider2D _playerCollider;
-
-		[Header("Boomerang Settings")]
-		[SerializeField]
-		private GameObject _boomerangPrefab;
-		[SerializeField]
-		private Transform _boomerangSpawnPoint;
-		[SerializeField]
-		private float _boomerangCooldown = 2f;
+		private float knockbackDuration = 0.2f;
 
 		[Header("Sprite Settings")]
 		[SerializeField]
@@ -60,21 +50,17 @@ namespace Diggy_MiniGame_1
 		private Rigidbody2D _rb;
 		private PlayerInput _playerInput;
 		private InputAction _moveAction;
-		private InputAction _attackAction;
-		private InputAction _shieldAction;
-		private InputAction _boomerangAction;
+		private InputAction _throwAction;
 		private InputAction _switchSpriteAction;
-		private bool _isShieldActive = false;
-		private bool _canTeleport = true; // Tracks if teleportation is allowed
-		private int _currentVerticalIndex = 3;
 		private bool _isStunned = false; // Tracks if the player is stunned
 		private float _stunEndTime = 0f; // Time when the stun effect ends
-		private GameObject _currentBoomerang = null;
-		private bool _canThrowBoomerang = true;
 		private int _currentSpriteIndex = 0;
-		private Queue<string> _recentActions = new Queue<string>(); // Tracks the last few actions
-		private int _maxActionHistory = 3; // Maximum number of recent actions to track
-		private readonly int _maxSameActionsAllowed = 3; // Maximum consecutive same actions allowed
+		private int _currentShootMode = 1;
+		private Coroutine _shootingCoroutine;
+		private bool _isShooting;
+		private bool _isKnockedBack = false;
+		private Vector3 _knockbackTargetPosition;
+		private float _knockbackStartTime;
 		#endregion
 
 		// Initialization
@@ -105,13 +91,9 @@ namespace Diggy_MiniGame_1
 				}
 			}
 
-
-
 			// Setup input actions
 			_moveAction = _playerInput.actions["Move"];
-			_attackAction = _playerInput.actions["Attack"];
-			_shieldAction = _playerInput.actions["Shield"];
-			_boomerangAction = _playerInput.actions["Boomerang"];
+			_throwAction = _playerInput.actions["ThrowShovel"];
 			_switchSpriteAction = _playerInput.actions["SwitchSprite"];
 		}
 
@@ -119,11 +101,8 @@ namespace Diggy_MiniGame_1
 		{
 			_moveAction.performed += OnMoveInput;
 			_moveAction.canceled += OnMoveInput;
-
-			_attackAction.started += OnAttackStart;
-			_shieldAction.performed += OnShieldHold;
-			_shieldAction.canceled += OnShieldRelease;
-			_boomerangAction.started += OnBoomerangThrow;
+			_throwAction.started += OnShootStart;
+			_throwAction.canceled += OnShootStop;
 			_switchSpriteAction.started += OnSwitchSpriteStart;
 		}
 
@@ -131,13 +110,9 @@ namespace Diggy_MiniGame_1
 		{
 			_moveAction.performed -= OnMoveInput;
 			_moveAction.canceled -= OnMoveInput;
-			
-			_attackAction.started -= OnAttackStart;
-			_shieldAction.performed -= OnShieldHold;
-			_shieldAction.canceled -= OnShieldRelease;
-			_boomerangAction.started -= OnBoomerangThrow;
 			_switchSpriteAction.started -= OnSwitchSpriteStart;
-
+			_throwAction.started -= OnShootStart;
+			_throwAction.canceled -= OnShootStop;
 		}
 
 		#endregion
@@ -155,12 +130,13 @@ namespace Diggy_MiniGame_1
 			}
 
 			// Allow movement and teleportation only if the player is not stunned or shielding
-			if (!_isStunned)
+			if (!_isStunned && !_isKnockedBack)
 			{
-				if (!_isShieldActive)
-				{
-					HandleHorizontalMovement(); // Allow normal movement
-				}
+				MovePlayer();// Allow normal movement
+			}
+			else if (_isKnockedBack)
+			{
+				ApplyKnockback(); // Apply knockback movement
 			}
 			else
 			{
@@ -170,135 +146,73 @@ namespace Diggy_MiniGame_1
 
 		private void OnMoveInput(InputAction.CallbackContext context)
 		{
-			if (!_isShieldActive) // Only allow movement/teleport when the shield is not active
-			{
 				_moveInput = context.ReadValue<Vector2>();
+		}
 
-				// Check for teleportation input (W or S keys)
-				if (_moveInput.y > 0) // W key pressed
+		private void MovePlayer()
+		{
+			// Calculate movement
+			Vector2 movement = _moveInput * _moveSpeed * Time.fixedDeltaTime;
+
+			// New position after movement
+			Vector2 newPosition = _rb.position + movement;
+
+			// Clamp position to stay within the bounds
+			newPosition.x = Mathf.Clamp(newPosition.x, _minBounds.x, _maxBounds.x);
+			newPosition.y = Mathf.Clamp(newPosition.y, _minBounds.y, _maxBounds.y);
+
+			// Move the Rigidbody to the clamped position
+			_rb.MovePosition(newPosition);
+
+		}
+		#endregion
+
+		//Throw Shovel
+		#region Throw Shovel
+		private void OnShootStart(InputAction.CallbackContext context)
+		{
+
+			if (_shootingCoroutine == null)
+			{
+				_isShooting = true;
+				_shootingCoroutine = StartCoroutine(ShootingCoroutine());
+
+			}
+		}
+
+		private void OnShootStop(InputAction.CallbackContext context)
+		{
+			if (_shootingCoroutine != null)
+			{
+				StopCoroutine(_shootingCoroutine);
+				_shootingCoroutine = null;
+			}
+		}
+
+		private IEnumerator ShootingCoroutine()
+		{
+			while (_isShooting)
+			{
+				if (_currentShootMode == 1)
 				{
-					TryTeleport(Vector3.up);
+					AutomaticShoot();
+
 				}
-				else if (_moveInput.y < 0) // S key pressed
-				{
-					TryTeleport(Vector3.down);
-				}
+				
+
+				yield return new WaitForSeconds(_automaticFireRate);
 			}
-			else
+		}
+
+		private void AutomaticShoot()
+		{
+			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, Quaternion.identity, _shovelParent);
+			Shovel bulletController = bullet.GetComponent<Shovel>();
+			if (bulletController != null)
 			{
-				_moveInput = Vector2.zero; // Block movement input while shield is active
+				bulletController.target = _shovelThrowTransform.position + _shovelThrowTransform.up * _shovelHitMissDistance;
 			}
 		}
-
-		private void HandleHorizontalMovement()
-		{
-			if (_moveInput.x != 0) // Horizontal movement only
-			{
-				Vector2 newPosition = _rb.position + new Vector2(_moveInput.x * _moveSpeed * Time.fixedDeltaTime, 0);
-
-				// Clamp the new position to the horizontal limits
-				newPosition.x = Mathf.Clamp(newPosition.x, _leftLimit, _rightLimit);
-
-				// Apply the movement
-				_rb.MovePosition(newPosition);
-			}
-		}
-
-		#endregion
-
-		// Teleportation
-		#region Teleportation
-
-		private void TryTeleport(Vector3 direction)
-		{
-			// Check if teleportation is allowed
-			if (!_canTeleport) return;
-
-			// Determine the new index based on direction
-			int newIndex = _currentVerticalIndex;
-
-			if (direction == Vector3.down) // Move down
-			{
-				newIndex++;
-			}
-			else if (direction == Vector3.up) // Move up
-			{
-				newIndex--;
-			}
-
-			// Ensure the index stays within the valid range
-			if (newIndex < 0 || newIndex >= _verticalPositions.Count)
-			{
-				Debug.Log("Cannot teleport, reached the vertical boundary!");
-				return;
-			}
-
-			// Update the current index and calculate the new position
-			_currentVerticalIndex = newIndex;
-			Vector3 newPosition = new Vector3(transform.position.x, _verticalPositions[_currentVerticalIndex], transform.position.z);
-
-			StartCoroutine(TeleportCooldown(newPosition));
-		}
-
-		private IEnumerator TeleportCooldown(Vector3 targetPosition)
-		{
-			_canTeleport = false; // Prevent further teleportation during cooldown
-			transform.position = targetPosition; // Teleport the player
-			yield return new WaitForSeconds(_teleportCooldown); // Wait for the cooldown
-			_canTeleport = true; // Allow teleportation again
-		}
-		#endregion
-
-		//Attack
-		#region Attack
-		private void OnAttackStart(InputAction.CallbackContext context)
-		{
-			if (_isShieldActive)
-			{
-				Debug.Log("Attack blocked because the shield is active.");
-				return; // Prevent attack if shield is active
-			}
-
-			TrackAction("Attack");
-
-			// Instantiate the red circle in front of the player
-			Vector3 spawnPosition = transform.position + Vector3.right * _attackDistance;
-			GameObject attackObject = Instantiate(_attackPrefab, spawnPosition, Quaternion.identity);
-			Destroy(attackObject, _attackDuration);
-		}
-		#endregion
-
-		//Shield
-		#region Shield
-		private void OnShieldHold(InputAction.CallbackContext context)
-		{
-			if (_isStunned) return; // Prevent action while stunned
-
-			TrackAction("Shield");
-			ActivateShield(); // Called when the shield button is held
-		}
-
-		private void OnShieldRelease(InputAction.CallbackContext context)
-		{
-			DeactivateShield(); // Called when the shield button is released
-		}
-
-		private void ActivateShield()
-		{
-			_isShieldActive = true;
-			_playerCollider.enabled = false; // Disable player collider
-			_shieldObject.SetActive(true); // Activate shield visual/effect
-			Debug.Log("Shield Activated: Player movement and teleportation disabled.");
-		}
-
-		private void DeactivateShield()
-		{
-			_isShieldActive = false;
-			_playerCollider.enabled = true; // Enable player collider
-			_shieldObject.SetActive(false); // Deactivate shield visual/effect
-			Debug.Log("Shield Deactivated: Player movement and teleportation enabled.");
-		}
-
 		#endregion
 
 		//Stun
@@ -311,50 +225,29 @@ namespace Diggy_MiniGame_1
 		}
 		#endregion
 
-		//Boomerang
-		#region Boomerang
-		private void OnBoomerangThrow(InputAction.CallbackContext context)
+		//Knockback
+		#region Knockback
+		private void ApplyKnockback()
 		{
-			if (_isStunned || !_canThrowBoomerang || _currentBoomerang != null) return;
-
-			TrackAction("Boomerang"); // Track the player's action
-			ThrowBoomerang();
+			// Calculate the interpolation factor
+			float t = (Time.time - _knockbackStartTime) / knockbackDuration; // If the knockback duration is over, stop the knockback
+			if (t >= 1.0f) { _isKnockedBack = false; t = 1.0f; } 
+			// Interpolate the player's position
+			transform.position = Vector3.Lerp(transform.position, _knockbackTargetPosition, t);
 		}
 
-		private void ThrowBoomerang()
+		private void OnCollisionEnter2D(Collision2D collision)
 		{
-			// Spawn the boomerang
-			_currentBoomerang = Instantiate(_boomerangPrefab, _boomerangSpawnPoint.position, Quaternion.identity);
-
-			// Assign callbacks for boomerang events
-			Boomerang boomerangScript = _currentBoomerang.GetComponent<Boomerang>();
-			if (boomerangScript != null)
+			// Check if the collided object is a barrel
+			if (collision.gameObject.CompareTag("Barrel"))
 			{
-				boomerangScript.OnBoomerangCaught += HandleBoomerangCaught;
-				boomerangScript.OnBoomerangMissed += HandleBoomerangMissed;
+				// Calculate the knockback target position (move left on x-axis)
+				_knockbackTargetPosition = new Vector3(transform.position.x - knockbackDistance, transform.position.y, transform.position.z);
+				// Set knockback start time 
+				_knockbackStartTime = Time.time; _isKnockedBack = true; // Destroy the barrel
+				Destroy(collision.gameObject);
+
 			}
-		}
-
-		private void HandleBoomerangCaught()
-		{
-			Debug.Log("Boomerang caught by player. Ready to throw again!");
-			_currentBoomerang = null;
-			_canThrowBoomerang = true; // Allow immediate re-throw
-		}
-
-		private void HandleBoomerangMissed()
-		{
-			Debug.Log("Boomerang missed. Cooldown applied.");
-			_currentBoomerang = null;
-			StartCoroutine(StartBoomerangCooldown(30f)); // 30-second cooldown
-		}
-
-		private IEnumerator StartBoomerangCooldown(float cooldownDuration)
-		{
-			_canThrowBoomerang = false;
-			yield return new WaitForSeconds(cooldownDuration);
-			_canThrowBoomerang = true;
-			Debug.Log("Boomerang cooldown finished.");
 		}
 		#endregion
 
@@ -384,47 +277,6 @@ namespace Diggy_MiniGame_1
 		{
 			get => _moveSpeed;
 			set => _moveSpeed = value;
-		}
-		#endregion
-
-		//Track Action
-		#region Track Action
-		private void TrackAction(string action)
-		{
-			// Add the action to the queue
-			_recentActions.Enqueue(action);
-
-			// If the queue exceeds the max history size, remove the oldest action
-			if (_recentActions.Count > _maxActionHistory)
-			{
-				_recentActions.Dequeue();
-			}
-
-			// Check if the player spammed the same action
-			if (IsSpamming())
-			{
-				Debug.Log("Player spammed the same action! Stunned.");
-				StunPlayer(3f); // Stun for 2 seconds
-				_recentActions.Clear(); // Clear the history to reset the combo tracking
-			}
-		}
-
-		private bool IsSpamming()
-		{
-			// If there are fewer actions than the max history, no need to check
-			if (_recentActions.Count < _maxActionHistory) return false;
-
-			// Get the unique actions in the queue
-			string firstAction = _recentActions.Peek(); // Peek at the first action
-			foreach (var action in _recentActions)
-			{
-				if (action != firstAction)
-				{
-					return false; // Found a different action, so not spamming
-				}
-			}
-
-			return true; // All actions are the same
 		}
 		#endregion
 

@@ -70,6 +70,11 @@ namespace Diggy_MiniGame_1
 				DestroyBarrel();
 			}
 
+			if (collision.gameObject.CompareTag("Player"))
+			{
+				DestroyBarrel();
+			}
+
 			if (collision.gameObject.CompareTag("Shield"))
 			{
 				_playerController.StunPlayer(3);

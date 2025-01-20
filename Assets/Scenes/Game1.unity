@@ -1430,7 +1430,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 187, y: -500}
+  m_AnchoredPosition: {x: 258, y: -235}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &522471072
@@ -2240,7 +2240,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -380, y: -500}
+  m_AnchoredPosition: {x: -570, y: -235}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &857789464
@@ -2665,7 +2665,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1055341522}
   m_Layer: 6
-  m_Name: BoomerangSpawner
+  m_Name: ShovelThrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2679,13 +2679,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1055341521}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -0, z: 0.7071068, w: -0.7071068}
+  m_LocalPosition: {x: 1.12, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583556023}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 270}
 --- !u!1 &1127308750
 GameObject:
   m_ObjectHideFlags: 0
@@ -3587,7 +3587,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0, y: -500}
+  m_AnchoredPosition: {x: -190, y: -235}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1415633855
@@ -3628,6 +3628,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1415633853}
   m_CullTransparentMesh: 1
+--- !u!1 &1426810159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1426810160}
+  m_Layer: 0
+  m_Name: ShovelParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1426810160
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1426810159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1829022089}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1440583106
 GameObject:
   m_ObjectHideFlags: 0
@@ -3916,24 +3947,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 3
-  _leftLimit: -6
-  _rightLimit: 12
-  _verticalPositions:
-  - 3.24
-  - 2.48
-  - 1.69
-  - 0.85
-  - 0.04
-  - -0.82
-  _teleportCooldown: 0.2
-  _attackPrefab: {fileID: 8190890404874678647, guid: 6c2d9570eeb97484ebdda29f0e6f8c58, type: 3}
-  _attackDistance: 0.75
-  _attackDuration: 1
-  _shieldObject: {fileID: 1921989529}
-  _playerCollider: {fileID: 1583556026}
-  _boomerangPrefab: {fileID: 5986342045573443500, guid: 7cbc24b531db35d44ac3baa90397d802, type: 3}
-  _boomerangSpawnPoint: {fileID: 1055341522}
-  _boomerangCooldown: 2
+  _minBounds: {x: -7, y: -0.83}
+  _maxBounds: {x: 6.84, y: 3.3}
+  _shovelPrefab: {fileID: 5986342045573443500, guid: 7cbc24b531db35d44ac3baa90397d802, type: 3}
+  _shovelThrowTransform: {fileID: 1055341522}
+  _shovelParent: {fileID: 1426810160}
+  _automaticFireRate: 0.75
+  _shovelHitMissDistance: 25
+  knockbackDistance: 2
+  knockbackDuration: 0.05
   _playerSprites:
   - {fileID: -8553869724627758701, guid: 1af55ce1ee7598e46b6a1cc56de05c83, type: 3}
   - {fileID: 7381506913286251343, guid: 81ca91ef72dc4464493c7f13d8d1df32, type: 3}
@@ -4007,7 +4029,7 @@ Transform:
   m_GameObject: {fileID: 1583556019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 1.69, z: 0}
+  m_LocalPosition: {x: -0.75, y: 1.68, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4660,7 +4682,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 378, y: -500}
+  m_AnchoredPosition: {x: 449, y: -235}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1733003663
@@ -4734,6 +4756,7 @@ Transform:
   - {fileID: 351756944}
   - {fileID: 1157117933}
   - {fileID: 2114386129}
+  - {fileID: 1426810160}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1864168984
@@ -4771,7 +4794,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -187, y: -500}
+  m_AnchoredPosition: {x: -377, y: -235}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1864168986

@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 4059854295410731473}
   - component: {fileID: 32670635902759247}
   - component: {fileID: 3223139148212868573}
-  - component: {fileID: 6212954271231721724}
+  - component: {fileID: 3576583460400728891}
   m_Layer: 11
-  m_Name: Boomerang
+  m_Name: Shovel
   m_TagString: Boomerang
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,7 +167,7 @@ PolygonCollider2D:
       - {x: -0.5, y: -0.28866667}
       - {x: 0.5, y: -0.28866667}
   m_UseDelaunayMesh: 0
---- !u!114 &6212954271231721724
+--- !u!114 &3576583460400728891
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,10 +176,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5986342045573443500}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65c46b463079cde47802ae9d011c517b, type: 3}
+  m_Script: {fileID: 11500000, guid: d7208302514de544080b7b5bb586dc99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 7
-  _maxDistance: 6.5
-  _returnThresholdX: -18
-  _isReturning: 0
+  target: {x: 0, y: 0, z: 0}
