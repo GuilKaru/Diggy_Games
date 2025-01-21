@@ -89,13 +89,8 @@ namespace Diggy_MiniGame_1
 					player.ApplySlowEffect(_slowAmount, _slowDuration);
 				}
 				SpawnFireEffect();
-				Destroy(gameObject); // Destroy the TarBarrel after applying the effect
-			}
-
-			if (collision.gameObject.CompareTag("House"))
-			{
 				_playerHealth.Damage(1);
-				DestroyBarrel();
+				Destroy(gameObject); // Destroy the TarBarrel after applying the effect
 			}
 
 			if (collision.gameObject.CompareTag("AttackPoint"))

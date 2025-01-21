@@ -16,6 +16,14 @@ namespace Diggy_MiniGame_1
 				Destroy(gameObject);
 			}
 		}
+
+		private void OnCollisionEnter2D(Collision2D collision)
+		{
+			if (collision.gameObject.CompareTag("Barrel"))
+			{
+				Destroy(gameObject);
+			}
+		}
 	}
 }
 

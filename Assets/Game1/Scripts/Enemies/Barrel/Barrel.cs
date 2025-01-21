@@ -72,6 +72,7 @@ namespace Diggy_MiniGame_1
 
 			if (collision.gameObject.CompareTag("Player"))
 			{
+				_playerHealth.Damage(1);
 				DestroyBarrel();
 			}
 
@@ -87,11 +88,6 @@ namespace Diggy_MiniGame_1
 				DestroyBarrel();
 			}
 
-			if (collision.gameObject.CompareTag("House"))
-			{
-				_playerHealth.Damage(1);
-				DestroyBarrel();
-			}
 		}
 		#endregion
 

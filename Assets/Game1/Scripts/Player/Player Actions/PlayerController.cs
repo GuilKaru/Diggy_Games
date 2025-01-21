@@ -248,6 +248,7 @@ namespace Diggy_MiniGame_1
 				Destroy(collision.gameObject);
 
 			}
+
 		}
 		#endregion
 

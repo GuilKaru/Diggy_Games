@@ -7,7 +7,7 @@ TagManager:
   - AttackPoint
   - Barrel
   - Shield
-  - House
+  - LavaPool
   - Boomerang
   layers:
   - Default

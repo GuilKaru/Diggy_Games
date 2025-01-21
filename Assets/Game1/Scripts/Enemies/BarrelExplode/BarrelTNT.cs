@@ -94,22 +94,16 @@ namespace Diggy_MiniGame_1
 				StartCoroutine(DisableColliderTemporarily(1f));
 			}
 
-
 			if (collision.gameObject.CompareTag("Boomerang"))
 			{
 				_scoreManager.AddScore(_scoreValue);
 				DestroyBarrel();
 			}
 
-			if (collision.gameObject.CompareTag("House"))
-			{
-				_playerHealth.Damage(1);
-				DestroyBarrel();
-			}
-
 			if (collision.gameObject.CompareTag("Player"))
 			{
 				ExplodeAndStun(collision.gameObject);
+				_playerHealth.Damage(1);
 			}
 		}
 
