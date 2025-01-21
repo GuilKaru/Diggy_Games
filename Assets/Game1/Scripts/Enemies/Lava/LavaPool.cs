@@ -26,6 +26,11 @@ namespace Diggy_MiniGame_1
 				_playerHealth.Damage(2);
 			}
 
+			if (collision.CompareTag("PushBarrel"))
+			{
+				Destroy(collision.gameObject);
+			}
+
 			if (collision.CompareTag("Barrel"))
 			{
 				Destroy(collision.gameObject);

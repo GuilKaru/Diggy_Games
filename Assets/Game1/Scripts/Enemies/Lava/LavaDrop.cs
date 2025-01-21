@@ -30,8 +30,8 @@ namespace Diggy_MiniGame_1
 		}
 		#endregion
 
-		// Update Loop
-		#region Update Loop
+		// Movement
+		#region Movement
 		private void Update()
 		{
 			// Move the lava drop downward

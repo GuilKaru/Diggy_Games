@@ -23,6 +23,13 @@ namespace Diggy_MiniGame_1
 		private float stunDuration = 2f; // Duration for which the player is stunned
 		[SerializeField]
 		private LayerMask playerLayer; // LayerMask to detect the player
+
+		[Header("Visual Effect Settings")]
+		[SerializeField]
+		private GameObject _explosionEffectPrefab; // Prefab for the fire/tar effect
+		[SerializeField]
+		private float _fireEffectDuration = 2f; // Duration before the fire effect disappears
+
 		#endregion
 
 		// Private Variables
@@ -97,12 +104,14 @@ namespace Diggy_MiniGame_1
 			if (collision.gameObject.CompareTag("Boomerang"))
 			{
 				_scoreManager.AddScore(_scoreValue);
+				SpawnExplosionEffect();
 				DestroyBarrel();
 			}
 
 			if (collision.gameObject.CompareTag("Player"))
 			{
 				ExplodeAndStun(collision.gameObject);
+				SpawnExplosionEffect();
 				_playerHealth.Damage(1);
 			}
 		}
@@ -158,6 +167,17 @@ namespace Diggy_MiniGame_1
 				barrelCollider.enabled = true; // Re-enable the collider
 			}
 		}
+
+		private void SpawnExplosionEffect()
+		{
+			if (_explosionEffectPrefab != null)
+			{
+				// Instantiate the fire effect at the current position
+				GameObject fireEffect = Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity);
+
+			}
+		}
+
 
 		private void DestroyBarrel()
 		{

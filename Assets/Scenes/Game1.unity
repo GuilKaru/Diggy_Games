@@ -292,7 +292,7 @@ MonoBehaviour:
   _lavaDropSpawner: {fileID: 661602919}
   _scoreManager: {fileID: 29782462}
   _pointsPerLevel: 50
-  _lavaSpawnerUnlockScore: 100
+  _lavaSpawnerUnlockScore: 300
 --- !u!1 &64547585
 GameObject:
   m_ObjectHideFlags: 0
@@ -3010,6 +3010,7 @@ MonoBehaviour:
   - {fileID: 400318207792145101, guid: 99591f8ce40ca214c8a2dd6b32cb07df, type: 3}
   - {fileID: 1351057240806695389, guid: 471fa7f8167a1a84d97fdc13ee6b01f8, type: 3}
   - {fileID: 5816634765662804416, guid: 3802aa110670cb34ab8a7ba65907a9eb, type: 3}
+  - {fileID: 267205390302910531, guid: dab2c371aabdfd34da7b1b083d1cb26c, type: 3}
   _spawnInterval: 5
   _spawnXRange: {x: 16.7, y: 17.3}
   _fixedYPositions:
@@ -4146,7 +4147,7 @@ Transform:
   m_GameObject: {fileID: 1583556019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 2.47, z: 0}
+  m_LocalPosition: {x: -2.1, y: 0.97, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4245,8 +4246,8 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.5
+  m_Offset: {x: 0, y: -0.8}
+  m_Radius: 0.62
 --- !u!114 &1583556027
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4263,6 +4264,8 @@ MonoBehaviour:
   currentHearts: 6
   heartContainerObject: {fileID: 1525983055}
   _healthBar: {fileID: 64547586}
+  _spriteRenderer: {fileID: 1583556022}
+  _collider2D: {fileID: 1583556026}
   invincibilityToggleKey: 105
 --- !u!1 &1583811787
 GameObject:

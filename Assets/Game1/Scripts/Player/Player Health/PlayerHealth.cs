@@ -1,4 +1,5 @@
 using Diggy_MiniGame_1;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace Diggy_MiniGame_1
@@ -15,6 +16,16 @@ namespace Diggy_MiniGame_1
 		[Header("Health Bar")]
 		[SerializeField]
 		private HealthBar _healthBar; // Reference to the health bar component
+
+		[Header("Player Hit")]
+		[SerializeField]
+		private SpriteRenderer _spriteRenderer;
+
+		[Header("Player Collider")]
+		[SerializeField]
+		private Collider2D _collider2D;
+
+
 		#endregion
 
 		//Private Variables
@@ -89,9 +100,38 @@ namespace Diggy_MiniGame_1
 				SceneManager.LoadScene(0);
 				_timer.ResetTimer();
 			}
+			StartCoroutine(ToggleSpriteAndCollider(0.2f));
 		}
 
+
+		private IEnumerator ToggleSpriteAndCollider(float delay)
+		{
+			_collider2D.enabled = !_collider2D.enabled;
+			yield return new WaitForSeconds(delay);
+
+			float _toggleDuration = 2.0f; 
+			float _toggleInterval = 0.2f;
+
+			float endTime = Time.time + _toggleDuration;
+
+			while (Time.time < endTime)
+			{
+				_spriteRenderer.enabled = !_spriteRenderer.enabled;
+				yield return new WaitForSeconds(_toggleInterval);
+			}
+			_spriteRenderer.enabled = true;
+			_collider2D.enabled = true;
+
+		}
+
+
+
+
+
+
 		#endregion
+
 	}
+
 }
 

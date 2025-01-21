@@ -115,6 +115,7 @@ namespace Diggy_MiniGame_1
 			if (collision.gameObject.CompareTag("Boomerang"))
 			{
 				_scoreManager.AddScore(_scoreValue);
+				SpawnFireEffect();
 				DestroyBarrel();
 			}
 
@@ -131,8 +132,6 @@ namespace Diggy_MiniGame_1
 				// Instantiate the fire effect at the current position
 				GameObject fireEffect = Instantiate(_fireEffectPrefab, transform.position, Quaternion.identity);
 
-				// Destroy the fire effect after the specified duration
-				Destroy(fireEffect, _fireEffectDuration);
 			}
 		}
 

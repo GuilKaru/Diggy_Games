@@ -9,6 +9,7 @@ TagManager:
   - Shield
   - LavaPool
   - Boomerang
+  - PushBarrel
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Shield
   - Enemy
   - BarrelTNT
-  - Boomerang
+  - Shovel
   - Buff
   - 
   - 
