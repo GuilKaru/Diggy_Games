@@ -37,7 +37,9 @@ namespace Diggy_MiniGame_1
 		private ScoreManager _scoreManager;
 		private PlayerHealth _playerHealth;
 		private PlayerController _playerController;
+		private Rock _rock;
 		private bool hasExploded = false; // Tracks if the TNT has already exploded
+		private float _originalSpeed;
 		#endregion
 
 		// Initialization
@@ -49,6 +51,8 @@ namespace Diggy_MiniGame_1
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_playerController = FindObjectOfType<PlayerController>();
+			_rock = FindObjectOfType<Rock>();
+			_originalSpeed = _speed;
 			if (_scoreManager == null)
 			{
 				Debug.LogError("ScoreManager not found in the scene. Ensure there is a GameObject with the ScoreManager script.");
@@ -82,6 +86,20 @@ namespace Diggy_MiniGame_1
 
 		#endregion
 
+		// Speed Modification Method (for external control)
+		#region Speed Control
+		public void SetSpeed(float newSpeed)
+		{
+			_speed = newSpeed;
+		}
+
+		// Method to restore speed to its original value
+		public void RestoreSpeed()
+		{
+			_speed = _originalSpeed; // Restore the speed
+		}
+		#endregion
+
 		// Collision
 		#region Collision
 
@@ -105,6 +123,12 @@ namespace Diggy_MiniGame_1
 			{
 				_scoreManager.AddScore(_scoreValue);
 				SpawnExplosionEffect();
+				DestroyBarrel();
+			}
+
+			if (collision.gameObject.CompareTag("Rock"))
+			{
+				_rock.RockTakeDamage();
 				DestroyBarrel();
 			}
 

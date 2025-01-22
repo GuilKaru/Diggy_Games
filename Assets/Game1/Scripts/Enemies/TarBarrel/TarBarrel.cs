@@ -34,6 +34,8 @@ namespace Diggy_MiniGame_1
 		private ScoreManager _scoreManager;
 		private PlayerHealth _playerHealth;
 		private PlayerController _playerController;
+		private Rock _rock;
+		private float _originalSpeed;
 		#endregion
 
 		// Initialization
@@ -44,7 +46,8 @@ namespace Diggy_MiniGame_1
 			// Find necessary components in the scene
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
-
+			_rock = FindObjectOfType<Rock>();
+			_originalSpeed = _speed;
 			if (_scoreManager == null)
 			{
 				Debug.LogError("ScoreManager not found in the scene. Ensure there is a GameObject with the ScoreManager script.");
@@ -73,6 +76,20 @@ namespace Diggy_MiniGame_1
 		private void MoveLeft()
 		{
 			transform.Translate(Vector3.left * _speed * Time.deltaTime);
+		}
+		#endregion
+
+		// Speed Modification Method (for external control)
+		#region Speed Control
+		public void SetSpeed(float newSpeed)
+		{
+			_speed = newSpeed;
+		}
+
+		// Method to restore speed to its original value
+		public void RestoreSpeed()
+		{
+			_speed = _originalSpeed; // Restore the speed
 		}
 		#endregion
 
@@ -110,6 +127,12 @@ namespace Diggy_MiniGame_1
 				SpawnFireEffect();
 				DestroyBarrel();
 
+			}
+
+			if (collision.gameObject.CompareTag("Rock"))
+			{
+				_rock.RockTakeDamage();
+				DestroyBarrel();
 			}
 
 			if (collision.gameObject.CompareTag("Boomerang"))

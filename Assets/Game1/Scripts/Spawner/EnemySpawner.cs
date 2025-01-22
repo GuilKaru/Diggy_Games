@@ -12,8 +12,7 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private GameObject[] _enemyPrefabs;
 
-		[SerializeField]
-		private float _spawnInterval = 2f; // Time between spawns
+		public float _spawnInterval = 2f; // Time between spawns
 
 		[SerializeField]
 		private Vector2 _spawnXRange = new Vector2(-5f, 5f); // Random x position range
@@ -29,6 +28,7 @@ namespace Diggy_MiniGame_1
 		#region Private variables
 		private const int MaxAttempts = 10;
 		private int _unlockedEnemyIndex = 0;
+		private bool canSpawn = true;
 		#endregion
 
 		// Initialization
@@ -41,8 +41,10 @@ namespace Diggy_MiniGame_1
 
 		// Spawn Logic
 		#region Spawn Logic
-		private void SpawnEnemy()
+		public void SpawnEnemy()
 		{
+			if (!canSpawn) return;
+
 			if (_enemyPrefabs == null || _enemyPrefabs.Length == 0) return;
 
 			// Ensure we only spawn unlocked enemies
@@ -82,6 +84,13 @@ namespace Diggy_MiniGame_1
 		{
 			// Cleanup positions if spawner is destroyed (optional)
 			SpawnManager.ClearAllPositions();
+		}
+		#endregion
+
+		#region Control Spawning
+		public void SetSpawning(bool value)
+		{
+			canSpawn = value; // Enable or disable spawning
 		}
 		#endregion
 

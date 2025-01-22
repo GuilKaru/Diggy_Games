@@ -31,6 +31,12 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private float _shovelHitMissDistance = 25f;
 
+		[Header("Shotgun Settings")]
+		[SerializeField]
+		private int _shotgunPelletCount = 3;
+		[SerializeField]
+		private float[] _shotgunSpreadAngles = { -30f, 0f, 30f };
+
 		[Header("Knockback")]
 		[SerializeField]
 		private float knockbackDistance = 1f;
@@ -52,12 +58,16 @@ namespace Diggy_MiniGame_1
 		private InputAction _moveAction;
 		private InputAction _throwAction;
 		private InputAction _switchSpriteAction;
+
 		private bool _isStunned = false; // Tracks if the player is stunned
 		private float _stunEndTime = 0f; // Time when the stun effect ends
+
 		private int _currentSpriteIndex = 0;
+
 		private int _currentShootMode = 1;
 		private Coroutine _shootingCoroutine;
 		private bool _isShooting;
+
 		private bool _isKnockedBack = false;
 		private Vector3 _knockbackTargetPosition;
 		private float _knockbackStartTime;
@@ -193,14 +203,19 @@ namespace Diggy_MiniGame_1
 		{
 			while (_isShooting)
 			{
-				if (_currentShootMode == 1)
+				while (_isShooting)
 				{
-					AutomaticShoot();
+					if (_currentShootMode == 1)
+					{
+						AutomaticShoot();
+					}
+					else if (_currentShootMode == 2)
+					{
+						ShotgunShoot();
+					}
 
+					yield return new WaitForSeconds(_automaticFireRate);
 				}
-				
-
-				yield return new WaitForSeconds(_automaticFireRate);
 			}
 		}
 
@@ -213,6 +228,41 @@ namespace Diggy_MiniGame_1
 				bulletController.target = _shovelThrowTransform.position + _shovelThrowTransform.up * _shovelHitMissDistance;
 			}
 		}
+
+		private void ShotgunShoot()
+		{
+			for (int i = 0; i < _shotgunPelletCount; i++)
+			{
+				float spread = _shotgunSpreadAngles[i];
+				Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
+
+				GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, spreadRotation * Quaternion.identity, _shovelParent);
+				Shovel bulletController = bullet.GetComponent<Shovel>();
+				if (bulletController != null)
+				{
+					bulletController.target = _shovelThrowTransform.position + (spreadRotation * _shovelThrowTransform.up) * _shovelHitMissDistance;
+				}
+			}
+		}
+
+		private void InstantiateBullet(float angleOffset)
+		{
+			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, Quaternion.identity, _shovelParent);
+			Vector2 direction = Quaternion.Euler(0, 0, angleOffset) * _shovelThrowTransform.up;
+			bullet.GetComponent<Rigidbody2D>().linearVelocity = direction * _shovelHitMissDistance;
+		}
+
+		public void ActivateShotgunBuff(float duration)
+		{
+			_currentShootMode = 2;
+			Invoke(nameof(DeactivateShotgunBuff), duration);
+		}
+
+		private void DeactivateShotgunBuff()
+		{
+			_currentShootMode = 1;
+		}
+
 		#endregion
 
 		//Stun
