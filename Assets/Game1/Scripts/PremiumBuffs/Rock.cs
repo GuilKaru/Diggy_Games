@@ -8,7 +8,6 @@ namespace Diggy_MiniGame_1
 		private int _health;
 		private float _lifetime;
 		private System.Action _onDestroyedCallback;
-
 		#endregion
 
 		#region Public Methods
@@ -44,12 +43,19 @@ namespace Diggy_MiniGame_1
 
 		#region Private Methods
 
+		private void OnCollisionEnter2D(Collision2D collision)
+		{
+			if (collision.gameObject.CompareTag("Barrel"))
+			{
+				RockTakeDamage();
+			}
+		}
+
 		/// <summary>
 		/// Destroys the rock and triggers the callback.
 		/// </summary>
 		private void DestroyRock()
 		{
-			_onDestroyedCallback?.Invoke();
 			Destroy(gameObject);
 		}
 

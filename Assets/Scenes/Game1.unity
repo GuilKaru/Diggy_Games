@@ -2333,7 +2333,7 @@ MonoBehaviour:
     cooldownTime: 5
   - buffName: SpawnRockBuff
     targetGameObject: {fileID: 1855480665}
-    cooldownTime: 5
+    cooldownTime: 10
   - buffName: ShotgunBuff
     targetGameObject: {fileID: 1583556019}
     cooldownTime: 5
@@ -4652,6 +4652,7 @@ GameObject:
   - component: {fileID: 1583556024}
   - component: {fileID: 1583556026}
   - component: {fileID: 1583556027}
+  - component: {fileID: 1583556028}
   m_Layer: 6
   m_Name: Diggy
   m_TagString: Player
@@ -4695,6 +4696,10 @@ MonoBehaviour:
   - {fileID: 8519440210539594582, guid: b67da450c4019cf458414492aa0eab19, type: 3}
   - {fileID: 8104382938848839087, guid: 4d13f9970e928ef439d7ad8361a0bc88, type: 3}
   _spriteRenderer: {fileID: 1583556022}
+  _uiLayerMask:
+    serializedVersion: 2
+    m_Bits: 32
+  _animator: {fileID: 1583556028}
 --- !u!212 &1583556022
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4739,12 +4744,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8553869724627758701, guid: 1af55ce1ee7598e46b6a1cc56de05c83, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 414ecf73662b76a49bdad431b0d21fd1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 26.701347, y: 23.820002}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4760,7 +4765,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.38, y: 3.27, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0}
+  m_LocalScale: {x: 0.06, y: 0.06, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1921989532}
@@ -4879,6 +4884,28 @@ MonoBehaviour:
   _spriteRenderer: {fileID: 1583556022}
   _collider2D: {fileID: 1583556026}
   invincibilityToggleKey: 105
+--- !u!95 &1583556028
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1583556019}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ea8db049ecf3fa7479eb45c4c6b5bc57, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1583811787
 GameObject:
   m_ObjectHideFlags: 0
@@ -5736,7 +5763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9421ee20bf97f784497e10daf38c2ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rockPrefab: {fileID: 5575601271466149379, guid: 1b1b5aa50335dae4d9760a03357e3358, type: 3}
+  _rockPrefab: {fileID: 474950384749677183, guid: 1b1b5aa50335dae4d9760a03357e3358, type: 3}
   _rockParent: {fileID: 2027488054}
   _spawnPositions:
   - {fileID: 806903132}
@@ -5933,7 +5960,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.90289295, g: 1, b: 0, a: 0.7529412}
+  m_Color: {r: 0.90289295, g: 1, b: 0, a: 0.31764707}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5952,8 +5979,8 @@ Transform:
   m_GameObject: {fileID: 1921989529}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.05, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalPosition: {x: -0.05, y: -2.2, z: 0}
+  m_LocalScale: {x: 21.429188, y: 21.429188, z: 6}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1583556023}

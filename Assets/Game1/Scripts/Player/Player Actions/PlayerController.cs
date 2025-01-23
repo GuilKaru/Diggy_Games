@@ -3,6 +3,7 @@ using UnityEngine.InputSystem;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 namespace Diggy_MiniGame_1
 {
@@ -48,6 +49,14 @@ namespace Diggy_MiniGame_1
 		private List<Sprite> _playerSprites; // List of sprites to switch between
 		[SerializeField]
 		private SpriteRenderer _spriteRenderer; // Reference to the player's SpriteRenderer
+
+		[Header("UI Settings")]
+		[SerializeField]
+		private LayerMask _uiLayerMask; // LayerMask for UI elements
+
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
 		#endregion
 
 		// Private Variables
@@ -71,6 +80,18 @@ namespace Diggy_MiniGame_1
 		private bool _isKnockedBack = false;
 		private Vector3 _knockbackTargetPosition;
 		private float _knockbackStartTime;
+
+		private bool _isPointerOverUI = false;
+		#endregion
+
+		//Animations
+		#region Animations
+		private string _currentState;
+		private string _idleAnim = "Player_Idle";
+		private string _walkingAnim = "Player_Walk";
+		private string _shootStartAnim = "Player_Shoot_Start";
+		private string _shootEndAnim = "Player_Shoot_End";
+		private string _stunAnim = "Player_Stun";
 		#endregion
 
 		// Initialization
@@ -105,6 +126,14 @@ namespace Diggy_MiniGame_1
 			_moveAction = _playerInput.actions["Move"];
 			_throwAction = _playerInput.actions["ThrowShovel"];
 			_switchSpriteAction = _playerInput.actions["SwitchSprite"];
+
+			ChangeAnimationState(_idleAnim);
+
+		}
+
+		private void Update()
+		{
+			_isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
 		}
 
 		private void OnEnable()
@@ -139,10 +168,11 @@ namespace Diggy_MiniGame_1
 				Debug.Log("Player is no longer stunned.");
 			}
 
-			// Allow movement and teleportation only if the player is not stunned or shielding
+			// Allow movement only if the player is not stunned knocked back
 			if (!_isStunned && !_isKnockedBack)
 			{
-				MovePlayer();// Allow normal movement
+				MovePlayer();
+				HandleAnimationState();
 			}
 			else if (_isKnockedBack)
 			{
@@ -156,7 +186,7 @@ namespace Diggy_MiniGame_1
 
 		private void OnMoveInput(InputAction.CallbackContext context)
 		{
-				_moveInput = context.ReadValue<Vector2>();
+			_moveInput = context.ReadValue<Vector2>();
 		}
 
 		private void MovePlayer()
@@ -182,7 +212,7 @@ namespace Diggy_MiniGame_1
 		private void OnShootStart(InputAction.CallbackContext context)
 		{
 
-			if (_shootingCoroutine == null)
+			if (_isPointerOverUI && _shootingCoroutine == null)
 			{
 				_isShooting = true;
 				_shootingCoroutine = StartCoroutine(ShootingCoroutine());
@@ -196,11 +226,24 @@ namespace Diggy_MiniGame_1
 			{
 				StopCoroutine(_shootingCoroutine);
 				_shootingCoroutine = null;
+				_isShooting = false;
+
+				// Decide next animation based on movement
+				if (_moveInput != Vector2.zero)
+				{
+					ChangeAnimationState(_walkingAnim);
+				}
+				else
+				{
+					StartCoroutine(WaitForShootEndAnimation()); // Small delay for smooth transition
+				}
 			}
 		}
 
 		private IEnumerator ShootingCoroutine()
 		{
+			float initialDelay = 0.8f; // Adjust this value based on your animation length
+			yield return new WaitForSeconds(initialDelay);
 			while (_isShooting)
 			{
 				while (_isShooting)
@@ -272,6 +315,7 @@ namespace Diggy_MiniGame_1
 			_isStunned = true;
 			_stunEndTime = Time.time + duration; // Calculate when the stun ends
 			Debug.Log("Player stunned for " + duration + " seconds.");
+			ChangeAnimationState(_stunAnim);
 		}
 		#endregion
 
@@ -281,8 +325,11 @@ namespace Diggy_MiniGame_1
 		{
 			// Calculate the interpolation factor
 			float t = (Time.time - _knockbackStartTime) / knockbackDuration; // If the knockback duration is over, stop the knockback
-			if (t >= 1.0f) { _isKnockedBack = false; t = 1.0f; } 
 			// Interpolate the player's position
+			if (t >= 1.0f) 
+			{
+				_isKnockedBack = false; t = 1.0f;
+			}
 			transform.position = Vector3.Lerp(transform.position, _knockbackTargetPosition, t);
 		}
 
@@ -296,7 +343,6 @@ namespace Diggy_MiniGame_1
 				// Set knockback start time 
 				_knockbackStartTime = Time.time; _isKnockedBack = true; // Destroy the barrel
 				Destroy(collision.gameObject);
-
 			}
 
 		}
@@ -331,6 +377,97 @@ namespace Diggy_MiniGame_1
 		}
 		#endregion
 
+		//Player Animations
+		#region Player Animations
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
+		}
+
+		private void HandleAnimationState()
+		{
+			if (_isShooting)
+			{
+				// If the player is shooting, ensure shooting animations are playing
+				if (_currentState != _shootStartAnim && _shootingCoroutine != null)
+				{
+					ChangeAnimationState(_shootStartAnim);
+				}
+			}
+			else if (_moveInput != Vector2.zero)
+			{
+				// If the player is moving, play walking animation
+				if (_currentState != _walkingAnim)
+				{
+					ChangeAnimationState(_walkingAnim);
+				}
+			}
+			else
+			{
+				// If the player is idle, transition to idle animation
+				if (_currentState != _idleAnim)
+				{
+					ChangeAnimationState(_idleAnim);
+				}
+			}
+		}
+
+		private void ResetToIdleAnimation()
+		{
+			if (!_isShooting && _moveInput == Vector2.zero)
+			{
+				ChangeAnimationState(_idleAnim);
+			}
+		}
+
+		private IEnumerator WaitForShootEndAnimation()
+		{
+			// Assuming the animation length is 0.5 seconds (adjust to your actual duration)
+			float shootEndDuration = 0.5f;
+
+			yield return new WaitForSeconds(shootEndDuration);
+
+			// Transition based on movement input
+			if (_moveInput != Vector2.zero)
+			{
+				ChangeAnimationState(_walkingAnim);
+			}
+			else
+			{
+				ChangeAnimationState(_idleAnim);
+			}
+		}
+
+		private IEnumerator WaitForStunAnimation(float duration)
+		{
+			yield return new WaitForSeconds(duration);
+
+			_isStunned = false;
+
+			// Decide next animation based on current input
+			if (_moveInput != Vector2.zero)
+			{
+				ChangeAnimationState(_walkingAnim);
+			}
+			else if (_isShooting)
+			{
+				ChangeAnimationState(_shootStartAnim);
+			}
+			else
+			{
+				ChangeAnimationState(_idleAnim);
+			}
+		}
+		#endregion
+
 		//Sprite Switching
 		#region Sprite Switching
 		private void OnSwitchSpriteStart(InputAction.CallbackContext context)
@@ -344,6 +481,7 @@ namespace Diggy_MiniGame_1
 			Debug.Log($"Switched to sprite {_currentSpriteIndex}");
 		}
 		#endregion
+
 	}
 
 }

@@ -35,7 +35,7 @@ namespace Diggy_MiniGame_1
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_playerController = FindObjectOfType<PlayerController>();
-			_rock= FindObjectOfType<Rock>();
+			_rock = FindObjectOfType<Rock>();
 			_originalSpeed = _speed;
 			if (_scoreManager == null)
 			{
@@ -94,12 +94,6 @@ namespace Diggy_MiniGame_1
 				DestroyBarrel();
 			}
 
-			if (collision.gameObject.CompareTag("Shield"))
-			{
-				_playerController.StunPlayer(3);
-				StartCoroutine(DisableColliderTemporarily(0.5f));
-			}
-
 			if (collision.gameObject.CompareTag("Boomerang"))
 			{
 				_scoreManager.AddScore(_scoreValue);
@@ -108,7 +102,6 @@ namespace Diggy_MiniGame_1
 
 			if (collision.gameObject.CompareTag("Rock"))
 			{
-				_rock.RockTakeDamage();
 				DestroyBarrel();
 			}
 
@@ -120,17 +113,6 @@ namespace Diggy_MiniGame_1
 		private void DestroyBarrel()
 		{
 			Destroy(gameObject);
-		}
-
-		private IEnumerator DisableColliderTemporarily(float duration)
-		{
-			Collider2D barrelCollider = GetComponent<Collider2D>();
-			if (barrelCollider != null)
-			{
-				barrelCollider.enabled = false; // Disable the collider
-				yield return new WaitForSeconds(duration); // Wait for the specified duration
-				barrelCollider.enabled = true; // Re-enable the collider
-			}
 		}
 		#endregion
 	}

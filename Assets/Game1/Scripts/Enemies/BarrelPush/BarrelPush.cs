@@ -38,7 +38,7 @@ namespace Diggy_MiniGame_1
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_playerController = FindObjectOfType<PlayerController>();
-			_rock = FindObjectOfType<Rock>();
+			_rock= FindObjectOfType<Rock>();
 			_originalSpeed = _speed;
 			if (_scoreManager == null)
 			{
@@ -98,7 +98,6 @@ namespace Diggy_MiniGame_1
 
 			if (collision.gameObject.CompareTag("Rock"))
 			{
-				_rock.RockTakeDamage();
 				DestroyBarrel();
 			}
 

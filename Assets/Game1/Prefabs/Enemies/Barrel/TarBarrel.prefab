@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7167148924347280017}
   - component: {fileID: 2537941959590598402}
   - component: {fileID: 6073145733919871908}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: TarBarrel
   m_TagString: Barrel
   m_Icon: {fileID: 0}

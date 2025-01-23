@@ -31,7 +31,6 @@ namespace Diggy_MiniGame_1
 		//Private Variables
 		#region Private Variables
 		public bool IsDead { get; private set; } = false;
-
 		private HeartContainer _heartContainer;
 		private Timer _timer;
 		public KeyCode invincibilityToggleKey = KeyCode.I; // Key to toggle invincibility

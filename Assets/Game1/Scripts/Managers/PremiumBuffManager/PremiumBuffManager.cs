@@ -217,7 +217,7 @@ namespace Diggy_MiniGame_1
 				return;
 			}
 
-			spawner.SpawnRock();
+			spawner.SpawnRock(2);
 		}
 		#endregion
 

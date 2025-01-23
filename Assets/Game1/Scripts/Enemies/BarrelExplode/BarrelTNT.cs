@@ -113,12 +113,6 @@ namespace Diggy_MiniGame_1
 				DestroyBarrel();
 			}
 
-			if (collision.gameObject.CompareTag("AttackPoint"))
-			{
-				_playerController.StunPlayer(3f);
-				StartCoroutine(DisableColliderTemporarily(1f));
-			}
-
 			if (collision.gameObject.CompareTag("Boomerang"))
 			{
 				_scoreManager.AddScore(_scoreValue);
@@ -128,7 +122,6 @@ namespace Diggy_MiniGame_1
 
 			if (collision.gameObject.CompareTag("Rock"))
 			{
-				_rock.RockTakeDamage();
 				DestroyBarrel();
 			}
 
@@ -180,17 +173,6 @@ namespace Diggy_MiniGame_1
 
 		// Utility Methods
 		#region Utility Methods
-
-		private IEnumerator DisableColliderTemporarily(float duration)
-		{
-			Collider2D barrelCollider = GetComponent<Collider2D>();
-			if (barrelCollider != null)
-			{
-				barrelCollider.enabled = false; // Disable the collider
-				yield return new WaitForSeconds(duration); // Wait for the specified duration
-				barrelCollider.enabled = true; // Re-enable the collider
-			}
-		}
 
 		private void SpawnExplosionEffect()
 		{

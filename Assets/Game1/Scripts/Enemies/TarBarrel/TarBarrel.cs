@@ -131,7 +131,6 @@ namespace Diggy_MiniGame_1
 
 			if (collision.gameObject.CompareTag("Rock"))
 			{
-				_rock.RockTakeDamage();
 				DestroyBarrel();
 			}
 
