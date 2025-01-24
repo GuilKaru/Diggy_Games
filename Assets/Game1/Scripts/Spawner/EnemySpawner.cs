@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Diggy_MiniGame_1
@@ -12,6 +13,12 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private GameObject[] _enemyPrefabs;
 
+		[SerializeField]
+		private GameObject[] _specialEnemyPrefabs;
+
+		[SerializeField]
+		private int _enemiesPerInterval = 1;
+
 		public float _spawnInterval = 2f; // Time between spawns
 
 		[SerializeField]
@@ -22,6 +29,9 @@ namespace Diggy_MiniGame_1
 
 		[SerializeField]
 		private float _spawnRotation = 0f; // Default spawn rotation
+
+		[SerializeField, Range(0f, 100f)]
+		private float _specialEnemyChance = 30f;
 		#endregion
 
 		//Private variables
@@ -43,24 +53,46 @@ namespace Diggy_MiniGame_1
 		#region Spawn Logic
 		public void SpawnEnemy()
 		{
-			if (!canSpawn) return;
+			if (!canSpawn || (_enemyPrefabs == null && _specialEnemyPrefabs == null)) return;
 
-			if (_enemyPrefabs == null || _enemyPrefabs.Length == 0) return;
+			// Shuffle the available Y positions to ensure randomness
+			List<float> availablePositions = new List<float>(_fixedYPositions);
+			availablePositions = ShuffleList(availablePositions);
 
-			// Ensure we only spawn unlocked enemies
-			int randomEnemyIndex = Random.Range(0, _unlockedEnemyIndex + 1);
-			GameObject enemyToSpawn = _enemyPrefabs[randomEnemyIndex];
+			// Determine how many enemies to spawn (capped by available positions)
+			int enemiesToSpawn = Mathf.Min(_enemiesPerInterval, availablePositions.Count);
 
-			// Rest of the spawn logic remains unchanged...
-			float randomX = Random.Range(_spawnXRange.x, _spawnXRange.y);
-			float randomY = _fixedYPositions[Random.Range(0, _fixedYPositions.Length)];
-			Vector3 spawnPosition = new Vector3(randomX, randomY, 0f);
-
-			if (SpawnManager.TryRegisterPosition(spawnPosition))
+			for (int i = 0; i < enemiesToSpawn; i++)
 			{
-				Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _spawnRotation);
-				Instantiate(enemyToSpawn, new Vector3(spawnPosition.x, spawnPosition.y, 0f), spawnRotation, _enemyParent);
-				return;
+				GameObject enemyToSpawn;
+
+				// 30% chance to spawn a special enemy
+				if (_specialEnemyPrefabs != null && _specialEnemyPrefabs.Length > 0 && Random.value * 100f <= _specialEnemyChance)
+				{
+					int randomSpecialIndex = Random.Range(0, _specialEnemyPrefabs.Length);
+					enemyToSpawn = _specialEnemyPrefabs[randomSpecialIndex];
+				}
+				else
+				{
+					// Spawn a regular enemy
+					int randomEnemyIndex = Random.Range(0, _unlockedEnemyIndex + 1);
+					enemyToSpawn = _enemyPrefabs[randomEnemyIndex];
+				}
+
+				// Get a unique Y position
+				float randomY = availablePositions[i];
+
+				// Randomize spawn X position
+				float randomX = Random.Range(_spawnXRange.x, _spawnXRange.y);
+
+				Vector3 spawnPosition = new Vector3(randomX, randomY, 0f);
+
+				// Check and spawn
+				if (SpawnManager.TryRegisterPosition(spawnPosition))
+				{
+					Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _spawnRotation);
+					Instantiate(enemyToSpawn, spawnPosition, spawnRotation, _enemyParent);
+				}
 			}
 		}
 		#endregion
@@ -75,6 +107,16 @@ namespace Diggy_MiniGame_1
 				_unlockedEnemyIndex = difficultyLevel;
 			}
 		}
+
+		public void IncreaseEnemiesPerInterval()
+		{
+			if (_enemiesPerInterval < 4)
+			{
+				_enemiesPerInterval++;
+				Debug.Log($"Enemies per interval increased to: {_enemiesPerInterval}");
+			}
+		}
+
 		#endregion
 
 
@@ -92,6 +134,20 @@ namespace Diggy_MiniGame_1
 		{
 			canSpawn = value; // Enable or disable spawning
 		}
+
+		// Utility method to shuffle a list
+		private List<T> ShuffleList<T>(List<T> list)
+		{
+			for (int i = 0; i < list.Count; i++)
+			{
+				int randomIndex = Random.Range(i, list.Count);
+				T temp = list[i];
+				list[i] = list[randomIndex];
+				list[randomIndex] = temp;
+			}
+			return list;
+		}
+
 		#endregion
 
 		// Gizmos

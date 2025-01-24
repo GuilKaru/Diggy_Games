@@ -8,18 +8,15 @@ namespace Diggy_MiniGame_1
 		private float _moveSpeed = 2f; // Speed at which the pickup moves
 		[SerializeField]
 		private float _destroyPositionX = -10f; // Position to destroy the pickup
+		[SerializeField]
+		private int _scoreValue = 10;
 
-		private BuffManager _buffManager;
+		private ScoreManager _scoreManager;
 
 		private void Start()
 		{
 			// Find the BuffManager in the scene dynamically
-			_buffManager = FindObjectOfType<BuffManager>();
-
-			if (_buffManager == null)
-			{
-				Debug.LogError("BuffManager not found in the scene!");
-			}
+			_scoreManager = FindObjectOfType<ScoreManager>();
 		}
 
 		private void Update()
@@ -39,7 +36,7 @@ namespace Diggy_MiniGame_1
 			// Check if the player collects the pickup
 			if (other.TryGetComponent<PlayerController>(out PlayerController player))
 			{
-				_buffManager.ActivateSpeedBuff(); // Activate the speed buff
+				_scoreManager.AddScore(_scoreValue);
 				Destroy(gameObject); // Destroy the pickup after collection
 			}
 		}

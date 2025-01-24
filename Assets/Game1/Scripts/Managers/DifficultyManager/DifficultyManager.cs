@@ -70,8 +70,10 @@ namespace Diggy_MiniGame_1
 
 				// Notify the EnemySpawner to unlock a new enemy
 				_sideSpawner.IncreaseDifficulty(_currentDifficultyLevel);
-			}
 
+				// Increase the number of enemies per interval
+				_sideSpawner.IncreaseEnemiesPerInterval();
+			}
 
 		}
 		#endregion

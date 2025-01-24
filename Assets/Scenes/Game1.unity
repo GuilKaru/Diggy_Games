@@ -3408,6 +3408,11 @@ MonoBehaviour:
   - {fileID: 1351057240806695389, guid: 471fa7f8167a1a84d97fdc13ee6b01f8, type: 3}
   - {fileID: 5816634765662804416, guid: 3802aa110670cb34ab8a7ba65907a9eb, type: 3}
   - {fileID: 267205390302910531, guid: dab2c371aabdfd34da7b1b083d1cb26c, type: 3}
+  _specialEnemyPrefabs:
+  - {fileID: 7969139918600390860, guid: 0d60b1b88622a064c870100799bd025e, type: 3}
+  - {fileID: 8192879724473971925, guid: 7e155ef4f0db45f4ca48fb6b200c1982, type: 3}
+  - {fileID: 3223524509383567576, guid: 3648ed8b49e020b4487b05382bc8e7f3, type: 3}
+  _enemiesPerInterval: 1
   _spawnInterval: 5
   _spawnXRange: {x: 16.7, y: 17.3}
   _fixedYPositions:
@@ -3418,63 +3423,7 @@ MonoBehaviour:
   - -0.02
   - -0.88
   _spawnRotation: 0
---- !u!1 &1157117932
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1157117933}
-  - component: {fileID: 1157117934}
-  m_Layer: 0
-  m_Name: BuffSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1157117933
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1157117932}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1829022089}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1157117934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1157117932}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e16a4b8f767004db2c69a71813a61e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _buffParent: {fileID: 2114386129}
-  _buffPrefabs:
-  - {fileID: 7969139918600390860, guid: 0d60b1b88622a064c870100799bd025e, type: 3}
-  _spawnInterval: 6
-  _spawnXRange: {x: 25, y: 24}
-  _fixedYPositions:
-  - 3.18
-  - 2.37
-  - 1.58
-  - 0.77
-  - -0.02
-  - -0.88
-  _spawnRotation: 0
+  _specialEnemyChance: 10
 --- !u!1 &1161110648
 GameObject:
   m_ObjectHideFlags: 0
@@ -5710,8 +5659,6 @@ Transform:
   m_Children:
   - {fileID: 1139669583}
   - {fileID: 351756944}
-  - {fileID: 1157117933}
-  - {fileID: 2114386129}
   - {fileID: 1426810160}
   - {fileID: 661602918}
   - {fileID: 1583811788}
@@ -6628,37 +6575,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &2114386128
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2114386129}
-  m_Layer: 0
-  m_Name: BuffParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2114386129
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2114386128}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1829022089}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2118088301
 GameObject:
   m_ObjectHideFlags: 0
