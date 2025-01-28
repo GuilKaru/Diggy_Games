@@ -32,6 +32,7 @@ namespace Diggy_MiniGame_1
 		#region Private Variables
 		public bool IsDead { get; private set; } = false;
 		private HeartContainer _heartContainer;
+		private GameManager _gameManager;
 		private Timer _timer;
 		public KeyCode invincibilityToggleKey = KeyCode.I; // Key to toggle invincibility
 		private bool _isInvincible = false; // Whether the player is currently invincible
@@ -44,6 +45,7 @@ namespace Diggy_MiniGame_1
 		void Start()
 		{
 			_heartContainer = heartContainerObject.GetComponent<HeartContainer>();
+			_gameManager = FindAnyObjectByType<GameManager>();
 			_timer = FindAnyObjectByType<Timer>();
 			_heartContainer.SetMaxHearts(maxHearts);
 			_healthBar.SetMaxHealth(maxHearts);
@@ -96,7 +98,7 @@ namespace Diggy_MiniGame_1
 			if (currentHearts <= 0 && !IsDead)
 			{
 				IsDead = true; // Set IsDead to true
-				SceneManager.LoadScene(0);
+				_gameManager.GameOver();
 				_timer.ResetTimer();
 			}
 			StartCoroutine(ToggleSpriteAndCollider(0.2f));
