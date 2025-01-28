@@ -10,13 +10,9 @@ namespace MainMenu
 
         [SerializeField] private GameObject _usernameMenu;
         [SerializeField] private GameObject _loginMenu;
-        [SerializeField] private GameObject _mainMenu;
-        [SerializeField] private GameObject _tutorialCanvas;
+        [SerializeField] private GameObject _gameSelectorMenu;
+        [SerializeField] private GameObject _furnaceFrenzyMenu;
         
-        //[SerializeField] public PlayerData _playerData;
-
-        [SerializeField] private TextMeshProUGUI _scoreText;
-
         #endregion
         #region Unity Methods
 
@@ -29,9 +25,23 @@ namespace MainMenu
         public void UsernameMenuChange()
         {
             _usernameMenu.SetActive(false);
-            _mainMenu.SetActive(true);
+            _gameSelectorMenu.SetActive(true);
         }
-        
+
+        public void GameMenuOpen(string gameName)
+        {
+            if (gameName == "FurnaceFrenzy")
+            {
+                _furnaceFrenzyMenu.SetActive(true);
+            }
+        }
+
+        public void NameSafe(string username)
+        {
+            GameManager.instance.playerData.username = username;
+            _usernameMenu.SetActive(false);
+            _gameSelectorMenu.SetActive(true);
+        }
         #endregion
     }
 }
