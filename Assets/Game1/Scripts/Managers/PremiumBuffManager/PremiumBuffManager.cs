@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
 namespace Diggy_MiniGame_1
 {
 	public class PremiumBuffManager : MonoBehaviour
@@ -270,14 +271,42 @@ namespace Diggy_MiniGame_1
 		// Starts the cooldown for a specific buff.
 		private IEnumerator StartBuffCooldown(BuffData buff)
 		{
-			_buffCooldownStates[buff.buffName] = true; // Set buff on cooldown
+			_buffCooldownStates[buff.buffName] = true; // Mark buff as on cooldown
 			Debug.Log($"Buff '{buff.buffName}' is on cooldown for {buff.cooldownTime} seconds.");
 
-			yield return new WaitForSeconds(buff.cooldownTime);
+			float elapsedTime = 0f;
 
-			_buffCooldownStates[buff.buffName] = false; // Reset cooldown
+			// Ensure the cooldownImage is visible and start filling it
+			if (buff.cooldownImage != null)
+			{
+				buff.cooldownImage.fillAmount = 1f; // Start full
+				buff.cooldownImage.gameObject.SetActive(true);
+			}
+
+			while (elapsedTime < buff.cooldownTime)
+			{
+				elapsedTime += Time.deltaTime;
+				float fillValue = 1f - (elapsedTime / buff.cooldownTime); // Decrease fill over time
+
+				if (buff.cooldownImage != null)
+				{
+					buff.cooldownImage.fillAmount = fillValue;
+				}
+
+				yield return null;
+			}
+
+			// Reset cooldown
+			_buffCooldownStates[buff.buffName] = false;
 			Debug.Log($"Buff '{buff.buffName}' is ready to use again.");
 			_isAnyBuffActive = false;
+
+			// Hide cooldown UI when cooldown is over
+			if (buff.cooldownImage != null)
+			{
+				buff.cooldownImage.fillAmount = 1f; // Reset to 0
+				//buff.cooldownImage.gameObject.SetActive(false);
+			}
 		}
 
 		#endregion
@@ -289,6 +318,7 @@ namespace Diggy_MiniGame_1
 		public string buffName; // Name of the buff
 		public GameObject targetGameObject; // The GameObject affected by the buff
 		public float cooldownTime; // Cooldown time for the buff
+		public Image cooldownImage;
 	}
 }
 
