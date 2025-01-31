@@ -77,6 +77,26 @@ namespace Diggy_MiniGame_1
 		{
 			_isAnyBuffActive = true;
 
+			_isAnyBuffActive = true;
+			foreach (var b in _buffs)
+			{
+				if (b != buff)
+				{
+					if (b.buffButton != null)
+					{
+						b.buffButton.SetActive(false); // Disable other buffs
+					}
+					if (b.cooldownImage != null)
+					{
+						b.cooldownImage.fillAmount = 0f; // Set fill amount to zero
+						b.cooldownImage.gameObject.SetActive(false); // Hide cooldown images for inactive buffs
+						b.lightImage.gameObject.SetActive(false);
+					}
+				}
+			}
+
+
+
 			switch (buff.buffName)
 			{
 				case "StopEnemiesBuff":
@@ -271,78 +291,41 @@ namespace Diggy_MiniGame_1
 		// Starts the cooldown for a specific buff.
 		private IEnumerator StartBuffCooldown(BuffData activeBuff)
 		{
-			_buffCooldownStates[activeBuff.buffName] = true; // Mark the selected buff as on cooldown
+			_buffCooldownStates[activeBuff.buffName] = true;
 			Debug.Log($"Buff '{activeBuff.buffName}' is on cooldown for {activeBuff.cooldownTime} seconds.");
 
-			// Lock all other buffs visually
-			foreach (var buff in _buffs)
-			{
-				if (buff != activeBuff) // Ignore the currently activated buff
-				{
-					_buffCooldownStates[buff.buffName] = true; // Mark as temporarily unavailable
-
-					// Apply cooldown visuals to all other buffs
-					if (buff.cooldownImage != null)
-					{
-						buff.cooldownImage.fillAmount = 1f;
-						buff.cooldownImage.gameObject.SetActive(true);
-					}
-					if (buff.lightImage != null)
-					{
-						buff.lightImage.SetActive(false);
-					}
-				}
-			}
-
-			// Apply cooldown visuals to the currently selected buff
-			if (activeBuff.cooldownImage != null)
-			{
-				activeBuff.cooldownImage.fillAmount = 1f;
-				activeBuff.cooldownImage.gameObject.SetActive(true);
-			}
-			if (activeBuff.lightImage != null)
-			{
-				activeBuff.lightImage.SetActive(false);
-			}
-
 			float elapsedTime = 0f;
-
 			while (elapsedTime < activeBuff.cooldownTime)
 			{
 				elapsedTime += Time.deltaTime;
-				float fillValue = 1f - (elapsedTime / activeBuff.cooldownTime); // Decrease fill over time
-
-				// Update cooldown visuals for all buffs
-				foreach (var buff in _buffs)
+				float fillValue = elapsedTime / activeBuff.cooldownTime;
+				if (activeBuff.cooldownImage != null)
 				{
-					if (buff.cooldownImage != null)
-					{
-						buff.cooldownImage.fillAmount = fillValue;
-					}
+					activeBuff.cooldownImage.fillAmount = fillValue;
+					activeBuff.cooldownImage.gameObject.SetActive(true); // Show cooldown image for active buff
+					activeBuff.lightImage.gameObject.SetActive(false);
 				}
-
 				yield return null;
 			}
 
-			// Unlock all buffs after cooldown
-			foreach (var buff in _buffs)
-			{
-				_buffCooldownStates[buff.buffName] = false; // Mark as available
+			_buffCooldownStates[activeBuff.buffName] = false;
+			_isAnyBuffActive = false;
 
-				if (buff.cooldownImage != null)
+			foreach (var b in _buffs)
+			{
+				if (b.buffButton != null)
 				{
-					buff.cooldownImage.fillAmount = 1f;
+					b.buffButton.SetActive(true);
 				}
-				if (buff.lightImage != null)
+				if (b.cooldownImage != null)
 				{
-					buff.lightImage.SetActive(true);
+					b.cooldownImage.gameObject.SetActive(true); // Re-enable cooldown images after cooldown ends
+					b.lightImage.gameObject.SetActive(true);
+					activeBuff.lightImage.gameObject.SetActive(true);
+					b.cooldownImage.fillAmount = 1f;
 				}
 			}
-
-			_isAnyBuffActive = false;
 			Debug.Log("All buffs are now available again!");
-
-
 		}
 
 		#endregion
@@ -355,6 +338,7 @@ namespace Diggy_MiniGame_1
 		public GameObject targetGameObject; // The GameObject affected by the buff
 		public float cooldownTime; // Cooldown time for the buff
 		public Image cooldownImage;
+		public GameObject buffButton;
 		public GameObject lightImage;
 	}
 }

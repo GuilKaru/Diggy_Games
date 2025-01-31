@@ -264,7 +264,8 @@ namespace Diggy_MiniGame_1
 
 		private void AutomaticShoot()
 		{
-			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, Quaternion.identity, _shovelParent);
+			Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
+			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, _bulletRotation, _shovelParent);
 			Shovel bulletController = bullet.GetComponent<Shovel>();
 			if (bulletController != null)
 			{

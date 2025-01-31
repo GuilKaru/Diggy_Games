@@ -26,6 +26,20 @@ namespace Diggy_MiniGame_1
 		private Collider2D _collider2D;
 
 
+		[Header("Boilers")]
+		[SerializeField]
+		private GameObject[] boiler1Objects; // Array of GameObjects for Boiler 1
+		[SerializeField]
+		private GameObject[] boiler2Objects; // Array of GameObjects for Boiler 2
+		[SerializeField]
+		private GameObject[] boiler3Objects; // Array of GameObjects for Boiler 3
+		[SerializeField]
+		private GameObject[] boiler4Objects; // Array of GameObjects for Boiler 4
+		[SerializeField]
+		private GameObject[] boiler5Objects; // Array of GameObjects for Boiler 5
+		[SerializeField]
+		private GameObject[] boiler6Objects; // Array of GameObjects for Boiler 6
+
 		#endregion
 
 		//Private Variables
@@ -50,7 +64,7 @@ namespace Diggy_MiniGame_1
 			_heartContainer.SetMaxHearts(maxHearts);
 			_healthBar.SetMaxHealth(maxHearts);
 			_initialPosition = transform.position;
-
+			UpdateBoilerStatus();
 		}
 
 		void Update()
@@ -72,6 +86,7 @@ namespace Diggy_MiniGame_1
 			currentHearts = hearts;
 			_heartContainer.SetHearts(currentHearts);
 			_healthBar.UpdateHealth(currentHearts);
+			UpdateBoilerStatus();
 		}
 
 		public void Damage(int heartAmount)
@@ -93,6 +108,7 @@ namespace Diggy_MiniGame_1
 
 			// Update the UI
 			_heartContainer.SetHearts(currentHearts);
+			UpdateBoilerStatus();
 
 			// If health reaches 0, trigger GameOver
 			if (currentHearts <= 0 && !IsDead)
@@ -102,6 +118,25 @@ namespace Diggy_MiniGame_1
 				_timer.ResetTimer();
 			}
 			StartCoroutine(ToggleSpriteAndCollider(0.2f));
+		}
+
+		private void UpdateBoilerStatus()
+		{
+			// Toggle boiler GameObjects based on currentHearts
+			ToggleBoilerObjects(boiler1Objects, currentHearts > 5);
+			ToggleBoilerObjects(boiler2Objects, currentHearts > 4);
+			ToggleBoilerObjects(boiler3Objects, currentHearts > 3);
+			ToggleBoilerObjects(boiler4Objects, currentHearts > 2);
+			ToggleBoilerObjects(boiler5Objects, currentHearts > 1);
+			ToggleBoilerObjects(boiler6Objects, currentHearts > 0);
+		}
+
+		private void ToggleBoilerObjects(GameObject[] boilerObjects, bool isActive)
+		{
+			foreach (var obj in boilerObjects)
+			{
+				obj.SetActive(isActive);
+			}
 		}
 
 
