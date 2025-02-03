@@ -211,7 +211,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "EXPLOSI\xD3N_001_I_0": -2068212060786253033
+      "EXPLOSI\xD3N_001_I_1": 2308526271861674066
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

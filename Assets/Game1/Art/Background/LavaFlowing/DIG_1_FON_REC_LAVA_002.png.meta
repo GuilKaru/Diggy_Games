@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_1_FON_REC_LAVA_002_0: -2652946853311173440
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
