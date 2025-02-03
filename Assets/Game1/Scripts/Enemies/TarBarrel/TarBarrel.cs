@@ -27,6 +27,11 @@ namespace Diggy_MiniGame_1
 		private GameObject _fireEffectPrefab; // Prefab for the fire/tar effect
 		[SerializeField]
 		private float _fireEffectDuration = 2f; // Duration before the fire effect disappears
+
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
 		#endregion
 
 		// Private Variables
@@ -36,6 +41,9 @@ namespace Diggy_MiniGame_1
 		private PlayerController _playerController;
 		private Rock _rock;
 		private float _originalSpeed;
+
+		private string _currentState;
+		private string _idleAnim = "TarBarrel_Idle";
 		#endregion
 
 		// Initialization
@@ -48,6 +56,8 @@ namespace Diggy_MiniGame_1
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_rock = FindObjectOfType<Rock>();
 			_originalSpeed = _speed;
+
+			ChangeAnimationState(_idleAnim);
 			if (_scoreManager == null)
 			{
 				Debug.LogError("ScoreManager not found in the scene. Ensure there is a GameObject with the ScoreManager script.");
@@ -155,6 +165,19 @@ namespace Diggy_MiniGame_1
 				GameObject fireEffect = Instantiate(_fireEffectPrefab, transform.position, Quaternion.identity);
 
 			}
+		}
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
 		}
 
 		private void DestroyBarrel()

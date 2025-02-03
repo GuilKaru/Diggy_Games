@@ -14,11 +14,20 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private float _fireEffectDuration = 2f;
 
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
+		
+
 		// Private Variables
 		#region Private Variables
 		private Rigidbody2D _rigidbody;
 		private PlayerHealth _playerHealth;
 		private PlayerController _playerController;
+		private string _currentState;
+		private string _idleAnim = "Fire_Idle";
+
 		#endregion
 
 		// Initialization
@@ -31,6 +40,7 @@ namespace Diggy_MiniGame_1
 			_playerController = FindObjectOfType<PlayerController>();
 
 			StartCoroutine(DestroyAfterDuration(_fireEffectDuration));
+			ChangeAnimationState(_idleAnim);
 		}
 		#endregion
 
@@ -52,6 +62,19 @@ namespace Diggy_MiniGame_1
 			yield return new WaitForSeconds(duration);
 
 			Destroy(gameObject);
+		}
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
 		}
 	}
 }

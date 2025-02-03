@@ -5769,6 +5769,7 @@ MonoBehaviour:
   - {fileID: 1351057240806695389, guid: 471fa7f8167a1a84d97fdc13ee6b01f8, type: 3}
   - {fileID: 5816634765662804416, guid: 3802aa110670cb34ab8a7ba65907a9eb, type: 3}
   - {fileID: 267205390302910531, guid: dab2c371aabdfd34da7b1b083d1cb26c, type: 3}
+  - {fileID: 9164685354549639687, guid: 9e8c90c66381e6649816c8d17c4e7081, type: 3}
   _specialEnemyPrefabs:
   - {fileID: 7969139918600390860, guid: 0d60b1b88622a064c870100799bd025e, type: 3}
   - {fileID: 8192879724473971925, guid: 7e155ef4f0db45f4ca48fb6b200c1982, type: 3}
