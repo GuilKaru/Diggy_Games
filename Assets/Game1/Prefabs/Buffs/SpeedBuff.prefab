@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6128558399636022003}
   - component: {fileID: 7603125343126531361}
   - component: {fileID: 6266922832616962058}
+  - component: {fileID: 5150123385557503962}
   m_Layer: 12
   m_Name: SpeedBuff
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalScale: {x: 0.08, y: 0.08, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,12 +80,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 9122254031689673527, guid: ee76c23b20025f146b03f6565f5d78c4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eb90bf1995e6650449ced0c1c7d731ac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.82, y: 2.12}
+  m_Size: {x: 15.9, y: 18.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -105,6 +106,7 @@ MonoBehaviour:
   _moveSpeed: 2
   _destroyPositionX: -5
   _scoreValue: 5
+  _animator: {fileID: 5150123385557503962}
 --- !u!70 &7603125343126531361
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -139,8 +141,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1.82, y: 2.12}
+  m_Offset: {x: 0.0000059604645, y: -3.065794}
+  m_Size: {x: 7.9515934, y: 7.9515934}
   m_Direction: 0
 --- !u!50 &6266922832616962058
 Rigidbody2D:
@@ -169,3 +171,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!95 &5150123385557503962
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7969139918600390860}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 82ab1e146eb438e44b2f65a77873e5df, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

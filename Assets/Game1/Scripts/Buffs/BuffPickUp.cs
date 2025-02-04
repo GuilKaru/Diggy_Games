@@ -11,12 +11,20 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private int _scoreValue = 10;
 
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
+		private string _currentState;
+		private string _idleAnim = "BuffPickUp_Idle";
 		private ScoreManager _scoreManager;
 
 		private void Start()
 		{
 			// Find the BuffManager in the scene dynamically
 			_scoreManager = FindObjectOfType<ScoreManager>();
+
+			ChangeAnimationState(_idleAnim);
 		}
 
 		private void Update()
@@ -39,6 +47,19 @@ namespace Diggy_MiniGame_1
 				_scoreManager.AddScore(_scoreValue);
 				Destroy(gameObject); // Destroy the pickup after collection
 			}
+		}
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
 		}
 	}
 }

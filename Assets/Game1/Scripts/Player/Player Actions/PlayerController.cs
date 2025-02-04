@@ -279,8 +279,8 @@ namespace Diggy_MiniGame_1
 			{
 				float spread = _shotgunSpreadAngles[i];
 				Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
-
-				GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, spreadRotation * Quaternion.identity, _shovelParent);
+				Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
+				GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, spreadRotation * _bulletRotation, _shovelParent);
 				Shovel bulletController = bullet.GetComponent<Shovel>();
 				if (bulletController != null)
 				{
@@ -291,7 +291,8 @@ namespace Diggy_MiniGame_1
 
 		private void InstantiateBullet(float angleOffset)
 		{
-			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, Quaternion.identity, _shovelParent);
+			Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
+			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, _bulletRotation, _shovelParent);
 			Vector2 direction = Quaternion.Euler(0, 0, angleOffset) * _shovelThrowTransform.up;
 			bullet.GetComponent<Rigidbody2D>().linearVelocity = direction * _shovelHitMissDistance;
 		}
