@@ -16,6 +16,13 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private float _stunVisualEffectDuration = 2f;
 
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
+		private string _currentState;
+		private string _idleAnim = "Explosion_Idle";
+
 		// Private Variables
 		#region Private Variables
 		private Rigidbody2D _rigidbody;
@@ -31,7 +38,8 @@ namespace Diggy_MiniGame_1
 			_rigidbody = GetComponent<Rigidbody2D>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_playerController = FindObjectOfType<PlayerController>();
-
+			_animator= GetComponent<Animator>();
+			ChangeAnimationState(_idleAnim);
 			StartCoroutine(DestroyAfterDuration(_stunVisualEffectDuration));
 		}
 		#endregion
@@ -49,7 +57,19 @@ namespace Diggy_MiniGame_1
 		}
 		#endregion
 
-		
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
+		}
 
 		private IEnumerator DestroyAfterDuration(float duration)
 		{

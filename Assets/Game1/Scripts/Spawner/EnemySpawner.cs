@@ -11,6 +11,9 @@ namespace Diggy_MiniGame_1
 		private Transform _enemyParent;
 
 		[SerializeField]
+		private Transform _specialEnemyParent;
+
+		[SerializeField]
 		private GameObject[] _enemyPrefabs;
 
 		[SerializeField]
@@ -55,43 +58,47 @@ namespace Diggy_MiniGame_1
 		{
 			if (!canSpawn || (_enemyPrefabs == null && _specialEnemyPrefabs == null)) return;
 
-			// Shuffle the available Y positions to ensure randomness
 			List<float> availablePositions = new List<float>(_fixedYPositions);
 			availablePositions = ShuffleList(availablePositions);
 
-			// Determine how many enemies to spawn (capped by available positions)
 			int enemiesToSpawn = Mathf.Min(_enemiesPerInterval, availablePositions.Count);
 
 			for (int i = 0; i < enemiesToSpawn; i++)
 			{
 				GameObject enemyToSpawn;
+				bool isSpecialEnemy = false;
 
-				// 30% chance to spawn a special enemy
 				if (_specialEnemyPrefabs != null && _specialEnemyPrefabs.Length > 0 && Random.value * 100f <= _specialEnemyChance)
 				{
 					int randomSpecialIndex = Random.Range(0, _specialEnemyPrefabs.Length);
 					enemyToSpawn = _specialEnemyPrefabs[randomSpecialIndex];
+					isSpecialEnemy = true;
 				}
 				else
 				{
-					// Spawn a regular enemy
 					int randomEnemyIndex = Random.Range(0, _unlockedEnemyIndex + 1);
 					enemyToSpawn = _enemyPrefabs[randomEnemyIndex];
 				}
 
-				// Get a unique Y position
 				float randomY = availablePositions[i];
-
-				// Randomize spawn X position
 				float randomX = Random.Range(_spawnXRange.x, _spawnXRange.y);
-
 				Vector3 spawnPosition = new Vector3(randomX, randomY, 0f);
 
-				// Check and spawn
 				if (SpawnManager.TryRegisterPosition(spawnPosition))
 				{
 					Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _spawnRotation);
-					Instantiate(enemyToSpawn, spawnPosition, spawnRotation, _enemyParent);
+
+					// Choose the correct parent
+					Transform parent = isSpecialEnemy ? _specialEnemyParent : _enemyParent;
+
+					GameObject newEnemy = Instantiate(enemyToSpawn, spawnPosition, spawnRotation, parent);
+
+					// Adjust sorting order based on Y position
+					SpriteRenderer sr = newEnemy.GetComponent<SpriteRenderer>();
+					if (sr != null)
+					{
+						sr.sortingOrder = 100 - (int)(spawnPosition.y * 10);
+					}
 				}
 			}
 		}

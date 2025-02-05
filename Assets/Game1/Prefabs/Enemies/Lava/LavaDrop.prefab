@@ -183,4 +183,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fallSpeed: 5
-  _destroyYPosition: -5
+  _destroyYPosition: -1
