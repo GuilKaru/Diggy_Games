@@ -18,6 +18,12 @@ namespace Diggy_MiniGame_1
 
 		[SerializeField]
 		private int _maxHits = 5; // Maximum hits to destroy the barrel
+
+		[SerializeField]
+		private GameObject _pushBarrelParent;
+
+		[SerializeField]
+		private float _pushForce = 500f;
 		#endregion
 
 		// Private Variables
@@ -28,6 +34,8 @@ namespace Diggy_MiniGame_1
 		private Rock _rock;
 		private float _originalSpeed;
 		private int _currentHits = 0; // Current hits taken
+		private bool _isPushingPlayer = false; // Tracks if the player is being pushed
+		private Rigidbody2D _playerRb;
 		#endregion
 
 		// Initialization
@@ -53,6 +61,12 @@ namespace Diggy_MiniGame_1
 			if (transform.position.x <= _destroyXPosition)
 			{
 				DestroyBarrel();
+			}
+
+			if (_isPushingPlayer && _playerRb != null)
+			{
+				Vector2 pushDirection = new Vector2(-1, 0); // Left direction
+				_playerRb.AddForce(pushDirection * _pushForce * Time.deltaTime);
 			}
 		}
 		#endregion
@@ -101,9 +115,19 @@ namespace Diggy_MiniGame_1
 				DestroyBarrel();
 			}
 
+			_playerRb = collision.gameObject.GetComponent<Rigidbody2D>();
+			if (_playerRb != null)
+			{
+				_isPushingPlayer = true; // Start pushing the player
+			}
+		}
+
+		private void OnTriggerExit2D(Collider2D collision)
+		{
 			if (collision.gameObject.CompareTag("Player"))
 			{
-				PushPlayerBackwards();
+				_isPushingPlayer = false; // Stop pushing the player
+				_playerRb = null; // Clear the reference to the player's Rigidbody2D
 			}
 		}
 		#endregion
@@ -113,14 +137,7 @@ namespace Diggy_MiniGame_1
 		private void DestroyBarrel()
 		{
 			Destroy(gameObject);
-		}
-
-		private void PushPlayerBackwards()
-		{
-			// Implement logic to push the player backwards
-			// For example:
-			_playerController.transform.Translate(Vector3.left * _speed * Time.deltaTime);
-			// Adjust the speed and direction as needed
+			Destroy(_pushBarrelParent);
 		}
 		#endregion
 	}

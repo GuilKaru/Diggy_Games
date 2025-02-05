@@ -141,7 +141,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   _stunVisualEffectDuration: 2
-  _animator: {fileID: 0}
+  _explosionParent: {fileID: 3801990561529599070}
+  _animator: {fileID: 9152912596036559676}
 --- !u!50 &8387540717215442763
 Rigidbody2D:
   serializedVersion: 5

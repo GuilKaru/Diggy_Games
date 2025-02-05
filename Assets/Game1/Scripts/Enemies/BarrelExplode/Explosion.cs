@@ -16,6 +16,9 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private float _stunVisualEffectDuration = 2f;
 
+		[SerializeField]
+		private GameObject _explosionParent;
+
 		[Header("Animation")]
 		[SerializeField]
 		private Animator _animator;
@@ -74,7 +77,7 @@ namespace Diggy_MiniGame_1
 		private IEnumerator DestroyAfterDuration(float duration)
 		{
 			yield return new WaitForSeconds(duration);
-
+			Destroy(_explosionParent);
 			Destroy(gameObject);
 		}
 	}

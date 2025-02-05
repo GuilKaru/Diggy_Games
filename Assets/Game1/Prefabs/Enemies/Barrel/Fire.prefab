@@ -153,6 +153,7 @@ MonoBehaviour:
   _slowAmount: 0.5
   _fireEffectDuration: 2.5
   _animator: {fileID: 6528426546268413040}
+  _fireParent: {fileID: 9113971011920459160}
 --- !u!50 &3663900765562399036
 Rigidbody2D:
   serializedVersion: 5

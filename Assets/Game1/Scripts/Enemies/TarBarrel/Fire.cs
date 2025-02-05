@@ -18,7 +18,8 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private Animator _animator;
 
-		
+		[SerializeField]
+		private GameObject _fireParent;
 
 		// Private Variables
 		#region Private Variables
@@ -61,6 +62,7 @@ namespace Diggy_MiniGame_1
 		{
 			yield return new WaitForSeconds(duration);
 
+			Destroy(_fireParent);
 			Destroy(gameObject);
 		}
 

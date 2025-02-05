@@ -41,7 +41,7 @@ namespace Diggy_MiniGame_1
 		private PlayerController _playerController;
 		private Rock _rock;
 		private float _originalSpeed;
-
+		private Transform _fireParent;
 		private string _currentState;
 		private string _idleAnim = "TarBarrel_Idle";
 		#endregion
@@ -62,6 +62,7 @@ namespace Diggy_MiniGame_1
 			{
 				Debug.LogError("ScoreManager not found in the scene. Ensure there is a GameObject with the ScoreManager script.");
 			}
+
 
 			if (_playerHealth == null)
 			{

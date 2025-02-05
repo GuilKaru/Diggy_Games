@@ -38,6 +38,7 @@ namespace Diggy_MiniGame_1
 		private PlayerHealth _playerHealth;
 		private PlayerController _playerController;
 		private Rock _rock;
+		private Transform _fireParent;
 		private bool hasExploded = false; // Tracks if the TNT has already exploded
 		private float _originalSpeed;
 		#endregion
