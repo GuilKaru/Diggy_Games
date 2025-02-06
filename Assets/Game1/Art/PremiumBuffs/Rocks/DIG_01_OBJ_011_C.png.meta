@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: eb5f6cdfda7a63944a54bbc126850c1b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8566802038591956770
+    second: DIG_01_OBJ_011_C_0
+  - first:
+      213: 7632703599287739371
+    second: DIG_01_OBJ_011_C_1
+  - first:
+      213: -492986693418836263
+    second: DIG_01_OBJ_011_C_2
+  - first:
+      213: -5722462478474712184
+    second: DIG_01_OBJ_011_C_3
+  - first:
+      213: 5790029980274280876
+    second: DIG_01_OBJ_011_C_4
+  - first:
+      213: 130823816645780364
+    second: DIG_01_OBJ_011_C_5
+  - first:
+      213: 2327650886536294459
+    second: DIG_01_OBJ_011_C_6
+  - first:
+      213: -7629829732790789847
+    second: DIG_01_OBJ_011_C_7
+  - first:
+      213: 4338112692938616875
+    second: DIG_01_OBJ_011_C_8
+  - first:
+      213: 5541393225813490501
+    second: DIG_01_OBJ_011_C_9
+  - first:
+      213: 6868416229673264618
+    second: DIG_01_OBJ_011_C_10
+  - first:
+      213: 7641919257050650546
+    second: DIG_01_OBJ_011_C_11
+  - first:
+      213: 2797639827375224515
+    second: DIG_01_OBJ_011_C_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 55
+        width: 1458
+        height: 1762
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ed852ac4fea9c1980800000000000000
+      internalID: -8566802038591956770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_1
+      rect:
+        serializedVersion: 2
+        x: 1417
+        y: 1214
+        width: 50
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be32467db7fcce960800000000000000
+      internalID: 7632703599287739371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_2
+      rect:
+        serializedVersion: 2
+        x: 1471
+        y: 1096
+        width: 36
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9de96cbd63f8829f0800000000000000
+      internalID: -492986693418836263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_3
+      rect:
+        serializedVersion: 2
+        x: 1613
+        y: 986
+        width: 29
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88b630ad1bab590b0800000000000000
+      internalID: -5722462478474712184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_4
+      rect:
+        serializedVersion: 2
+        x: 1480
+        y: 875
+        width: 17
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca94c1517915a5050800000000000000
+      internalID: 5790029980274280876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_5
+      rect:
+        serializedVersion: 2
+        x: 1420
+        y: 666
+        width: 80
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c83255f6197c0d100800000000000000
+      internalID: 130823816645780364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_6
+      rect:
+        serializedVersion: 2
+        x: 1436
+        y: 626
+        width: 42
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b307e1d162a7d4020800000000000000
+      internalID: 2327650886536294459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_7
+      rect:
+        serializedVersion: 2
+        x: 1473
+        y: 570
+        width: 11
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9299a4858466d1690800000000000000
+      internalID: -7629829732790789847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_8
+      rect:
+        serializedVersion: 2
+        x: 1458
+        y: 283
+        width: 96
+        height: 277
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b20383a8282143c30800000000000000
+      internalID: 4338112692938616875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_9
+      rect:
+        serializedVersion: 2
+        x: 1469
+        y: 549
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54b7e5187cbf6ec40800000000000000
+      internalID: 5541393225813490501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_10
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 394
+        width: 52
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae5e333ab24815f50800000000000000
+      internalID: 6868416229673264618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_11
+      rect:
+        serializedVersion: 2
+        x: 1565
+        y: 414
+        width: 51
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b798be531d8d0a60800000000000000
+      internalID: 7641919257050650546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_011_C_12
+      rect:
+        serializedVersion: 2
+        x: 1587
+        y: 389
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c67f28b99633d620800000000000000
+      internalID: 2797639827375224515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DIG_01_OBJ_011_C_0: -8566802038591956770
+      DIG_01_OBJ_011_C_1: 7632703599287739371
+      DIG_01_OBJ_011_C_10: 6868416229673264618
+      DIG_01_OBJ_011_C_11: 7641919257050650546
+      DIG_01_OBJ_011_C_12: 2797639827375224515
+      DIG_01_OBJ_011_C_2: -492986693418836263
+      DIG_01_OBJ_011_C_3: -5722462478474712184
+      DIG_01_OBJ_011_C_4: 5790029980274280876
+      DIG_01_OBJ_011_C_5: 130823816645780364
+      DIG_01_OBJ_011_C_6: 2327650886536294459
+      DIG_01_OBJ_011_C_7: -7629829732790789847
+      DIG_01_OBJ_011_C_8: 4338112692938616875
+      DIG_01_OBJ_011_C_9: 5541393225813490501
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

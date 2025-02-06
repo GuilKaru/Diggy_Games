@@ -34,7 +34,6 @@ namespace Diggy_MiniGame_1
 		
 		public void SpawnRock(int numberOfRocks)
 		{
-			// Get a list of available positions
 			List<int> availablePositions = GetAvailablePositions();
 
 			if (availablePositions.Count < numberOfRocks)
@@ -43,7 +42,6 @@ namespace Diggy_MiniGame_1
 				return;
 			}
 
-			// Shuffle available positions to pick randomly
 			System.Random random = new System.Random();
 			availablePositions = availablePositions.OrderBy(x => random.Next()).ToList();
 
@@ -52,26 +50,30 @@ namespace Diggy_MiniGame_1
 				int positionIndex = availablePositions[i];
 				Transform spawnPosition = _spawnPositions[positionIndex];
 
-				// Spawn the rock
 				GameObject rock = Instantiate(_rockPrefab, spawnPosition.position, Quaternion.identity, _rockParent);
 				Debug.Log($"Rock spawned at position {positionIndex}.");
 
-				// Mark the position as used
 				_usedPositions.Add(positionIndex);
 
-				// Initialize the rock with health and lifetime
+				// Adjust sorting order based on Y position
+				SpriteRenderer sr = rock.GetComponent<SpriteRenderer>();
+				if (sr != null)
+				{
+					sr.sortingOrder = 100 - (int)(spawnPosition.position.y * 10);
+				}
+
 				Rock rockScript = rock.GetComponent<Rock>();
 				if (rockScript != null)
 				{
 					rockScript.Initialize(_rockHealth, _rockLifetime, () =>
 					{
-						// Callback when the rock is destroyed
-						_usedPositions.Remove(positionIndex); // Free up the position
+						_usedPositions.Remove(positionIndex);
 						Debug.Log($"Rock at position {positionIndex} destroyed.");
 					});
 				}
 			}
 		}
+		
 
 		#endregion
 

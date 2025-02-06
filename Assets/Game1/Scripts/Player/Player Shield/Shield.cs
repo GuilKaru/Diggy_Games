@@ -10,6 +10,14 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private Transform _player; // Reference to the player object
 
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
+		private string _currentState;
+		private string _startAnim = "Shield_Start";
+
+
 		#endregion
 
 		#region Private Variables
@@ -72,7 +80,7 @@ namespace Diggy_MiniGame_1
 		{
 			_maxHits = maxHits;
 			_currentHits = maxHits;
-
+			ChangeAnimationState(_startAnim);
 			gameObject.SetActive(true);
 			Debug.Log($"Shield activated with {maxHits} hits.");
 		}
@@ -90,6 +98,19 @@ namespace Diggy_MiniGame_1
 			Debug.Log("Shield deactivated.");
 		}
 
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
+		}
 		#endregion
 	}
 }

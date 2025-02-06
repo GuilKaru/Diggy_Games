@@ -3,8 +3,15 @@ namespace Diggy_MiniGame_1
 {
 	public class Rock : MonoBehaviour
 	{
-		#region Private Variables
 
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
+		private string _currentState;
+		private string _rockHitAnim = "Rock_Hit";
+
+		#region Private Variables
 		private int _health;
 		private float _lifetime;
 		private System.Action _onDestroyedCallback;
@@ -32,7 +39,7 @@ namespace Diggy_MiniGame_1
 		{
 			_health--;
 			Debug.Log($"Rock took damage. Remaining health: {_health}");
-
+			ChangeAnimationState(_rockHitAnim);
 			if (_health <= 0)
 			{
 				DestroyRock();
@@ -59,6 +66,19 @@ namespace Diggy_MiniGame_1
 			Destroy(gameObject);
 		}
 
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
+		}
 		#endregion
 	}
 }

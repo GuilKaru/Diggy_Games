@@ -90,7 +90,7 @@ namespace Diggy_MiniGame_1
 					{
 						b.cooldownImage.fillAmount = 0f; // Set fill amount to zero
 						b.cooldownImage.gameObject.SetActive(false); // Hide cooldown images for inactive buffs
-						b.lightImage.gameObject.SetActive(false);
+						
 					}
 				}
 			}
@@ -202,27 +202,57 @@ namespace Diggy_MiniGame_1
 		//Blast Buff
 		#region Blast Buff
 
+		[SerializeField]
+		private GameObject _destroyEffectPrefab; // Assign in Inspector
+		[SerializeField]
+		private Sprite[] _destroyEffectSprites;
+
 		private void DestroyAllChildren(GameObject target)
 		{
 			if (target == null)
 			{
-				Debug.LogWarning("DestroyAllChildren: Target GameObject is null! Cannot destroy children.");
+				Debug.LogWarning("DestroyAllChildren: Target is null!");
 				return;
 			}
 
 			if (target.transform.childCount == 0)
 			{
-				Debug.LogWarning($"DestroyAllChildren: Target GameObject '{target.name}' has no children to destroy.");
+				Debug.LogWarning($"DestroyAllChildren: '{target.name}' has no children.");
 				return;
 			}
 
-			Debug.Log($"DestroyAllChildren: Destroying all children of '{target.name}'.");
+			Debug.Log($"Destroying all children of '{target.name}'.");
 
-			for (int i = target.transform.childCount - 1; i >= 0; i--) // Reverse loop
+			// Spawn effect BEFORE destroying children
+			GameObject effect = Instantiate(_destroyEffectPrefab, target.transform.position, Quaternion.identity);
+
+			// Start animation
+			StartCoroutine(PlayDestroyEffect(effect));
+
+			// Destroy all children immediately
+			for (int i = target.transform.childCount - 1; i >= 0; i--)
 			{
-				Transform child = target.transform.GetChild(i);
-				Destroy(child.gameObject);
+				Destroy(target.transform.GetChild(i).gameObject);
 			}
+		}
+
+		private IEnumerator PlayDestroyEffect(GameObject effect)
+		{
+			SpriteRenderer spriteRenderer = effect.GetComponent<SpriteRenderer>();
+			if (spriteRenderer == null)
+			{
+				Debug.LogWarning("No SpriteRenderer found on effect!");
+				yield break;
+			}
+
+			// Cycle through effect sprites
+			foreach (Sprite sprite in _destroyEffectSprites)
+			{
+				spriteRenderer.sprite = sprite;
+				yield return new WaitForSeconds(0.1f);
+			}
+
+			Destroy(effect); // Remove effect after animation
 		}
 		#endregion
 
@@ -303,7 +333,7 @@ namespace Diggy_MiniGame_1
 				{
 					activeBuff.cooldownImage.fillAmount = fillValue;
 					activeBuff.cooldownImage.gameObject.SetActive(true); // Show cooldown image for active buff
-					activeBuff.lightImage.gameObject.SetActive(false);
+					
 				}
 				yield return null;
 			}
@@ -320,8 +350,6 @@ namespace Diggy_MiniGame_1
 				if (b.cooldownImage != null)
 				{
 					b.cooldownImage.gameObject.SetActive(true); // Re-enable cooldown images after cooldown ends
-					b.lightImage.gameObject.SetActive(true);
-					activeBuff.lightImage.gameObject.SetActive(true);
 					b.cooldownImage.fillAmount = 1f;
 				}
 			}
@@ -339,7 +367,6 @@ namespace Diggy_MiniGame_1
 		public float cooldownTime; // Cooldown time for the buff
 		public Image cooldownImage;
 		public GameObject buffButton;
-		public GameObject lightImage;
 	}
 }
 
