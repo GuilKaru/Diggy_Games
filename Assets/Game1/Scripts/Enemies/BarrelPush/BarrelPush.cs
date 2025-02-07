@@ -1,6 +1,7 @@
 using UnityEngine;
 namespace Diggy_MiniGame_1
 {
+	using System.Collections;
 	using UnityEngine;
 
 	public class BarrelPush : MonoBehaviour
@@ -24,6 +25,20 @@ namespace Diggy_MiniGame_1
 
 		[SerializeField]
 		private float _pushForce = 500f;
+
+		[Header("Barrel Components Settings")]
+		[SerializeField]
+		SpriteRenderer _spriteRenderer;
+		[SerializeField]
+		Collider2D _collider;
+		[SerializeField]
+		Collider2D _trigger;
+
+		[Header("Barrel Audio")]
+		[SerializeField]
+		private AudioSource _barrelAudioSource;
+		[SerializeField]
+		private AudioClip[] _barrelClips;
 		#endregion
 
 		// Private Variables
@@ -47,6 +62,10 @@ namespace Diggy_MiniGame_1
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_playerController = FindObjectOfType<PlayerController>();
 			_rock= FindObjectOfType<Rock>();
+			_barrelAudioSource = GetComponent<AudioSource>();
+			_collider = GetComponent<Collider2D>();
+			_trigger = GetComponent<Collider2D>();
+			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_originalSpeed = _speed;
 			if (_scoreManager == null)
 			{
@@ -105,7 +124,7 @@ namespace Diggy_MiniGame_1
 				if (_currentHits >= _maxHits)
 				{
 					_scoreManager.AddScore(_scoreValue);
-					DestroyBarrel();
+					StartCoroutine(DestroyBarrelWithShovel());
 				}
 				Destroy(collision.gameObject);
 			}
@@ -139,6 +158,28 @@ namespace Diggy_MiniGame_1
 			Destroy(gameObject);
 			Destroy(_pushBarrelParent);
 		}
+
+		private IEnumerator DestroyBarrelWithShovel()
+		{
+			PlayAudioBarrelClip(0);
+			_spriteRenderer.enabled = false;
+			_collider.enabled = false;
+
+			yield return new WaitForSeconds(1);
+			Destroy(gameObject);
+			Destroy(_pushBarrelParent);
+		}
+
+
+		private void PlayAudioBarrelClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _barrelClips.Length)
+			{
+				_barrelAudioSource.clip = _barrelClips[clipIndex];
+				_barrelAudioSource.Play();
+			}
+		}
+
 		#endregion
 	}
 

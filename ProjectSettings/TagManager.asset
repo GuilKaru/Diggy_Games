@@ -11,6 +11,9 @@ TagManager:
   - Boomerang
   - PushBarrel
   - Rock
+  - LavaDrop
+  - Fire
+  - Explosion
   layers:
   - Default
   - TransparentFX

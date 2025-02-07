@@ -57,6 +57,24 @@ namespace Diggy_MiniGame_1
 		[Header("Animation")]
 		[SerializeField]
 		private Animator _animator;
+
+		[Header("Player Audio")]
+		[SerializeField]
+		private AudioSource _shovelAudioSource;
+		[SerializeField]
+		private AudioClip[] _shovelClips;
+		[SerializeField]
+		private AudioSource _hitAudioSource;
+		[SerializeField]
+		private AudioClip[] _playerHitClip;
+		[SerializeField]
+		private AudioSource _hitLavaAudioSource;
+		[SerializeField]
+		private AudioClip[] _playerHitLavaClip;
+		[SerializeField]
+		private AudioSource _walkAudioSource;
+		[SerializeField]
+		private AudioClip[] _walkClip;
 		#endregion
 
 		// Private Variables
@@ -187,6 +205,7 @@ namespace Diggy_MiniGame_1
 		private void OnMoveInput(InputAction.CallbackContext context)
 		{
 			_moveInput = context.ReadValue<Vector2>();
+			//PlayAudioWalkClip(0);
 		}
 
 		private void MovePlayer()
@@ -203,6 +222,7 @@ namespace Diggy_MiniGame_1
 
 			// Move the Rigidbody to the clamped position
 			_rb.MovePosition(newPosition);
+			
 
 		}
 		#endregion
@@ -266,6 +286,7 @@ namespace Diggy_MiniGame_1
 		{
 			Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
 			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, _bulletRotation, _shovelParent);
+			PlayAudioShovelClip(0);
 			Shovel bulletController = bullet.GetComponent<Shovel>();
 			if (bulletController != null)
 			{
@@ -281,6 +302,7 @@ namespace Diggy_MiniGame_1
 				Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
 				Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
 				GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, spreadRotation * _bulletRotation, _shovelParent);
+				PlayAudioShovelClip(0);
 				Shovel bulletController = bullet.GetComponent<Shovel>();
 				if (bulletController != null)
 				{
@@ -337,17 +359,19 @@ namespace Diggy_MiniGame_1
 
 		private void OnCollisionEnter2D(Collision2D collision)
 		{
-			// Check if the collided object is a barrel
+			// Check if the collided object is a barrel or an enemy
 			if (collision.gameObject.CompareTag("Barrel"))
 			{
-				// Calculate the knockback target position (move left on x-axis)
+				// Knockback logic
 				_knockbackTargetPosition = new Vector3(transform.position.x - knockbackDistance, transform.position.y, transform.position.z);
-				// Set knockback start time 
-				_knockbackStartTime = Time.time; _isKnockedBack = true; // Destroy the barrel
-				Destroy(collision.gameObject);
+				_knockbackStartTime = Time.time;
+				_isKnockedBack = true;
+
+				
 			}
 
 		}
+
 		#endregion
 
 		//Slow Effect
@@ -411,6 +435,11 @@ namespace Diggy_MiniGame_1
 				{
 					ChangeAnimationState(_walkingAnim);
 				}
+
+				if (!_walkAudioSource.isPlaying)
+				{
+					PlayAudioWalkClip(0);
+				}
 			}
 			else
 			{
@@ -418,6 +447,11 @@ namespace Diggy_MiniGame_1
 				if (_currentState != _idleAnim)
 				{
 					ChangeAnimationState(_idleAnim);
+				}
+
+				if (_walkAudioSource.isPlaying)
+				{
+					_walkAudioSource.Stop();
 				}
 			}
 		}
@@ -468,6 +502,47 @@ namespace Diggy_MiniGame_1
 				ChangeAnimationState(_idleAnim);
 			}
 		}
+		#endregion
+
+		//Player Audio
+		#region Player Audio
+
+		private void PlayAudioShovelClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _shovelClips.Length)
+			{
+				_shovelAudioSource.clip = _shovelClips[clipIndex];
+				_shovelAudioSource.Play();
+			}
+		}
+
+		public void PlayAudioPlayerHitClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _playerHitClip.Length)
+			{
+				_hitAudioSource.clip = _playerHitClip[clipIndex];
+				_hitAudioSource.Play();
+			}
+		}
+
+		public void PlayAudioPlayerHitLavaClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _playerHitLavaClip.Length)
+			{
+				_hitLavaAudioSource.clip = _playerHitLavaClip[clipIndex];
+				_hitLavaAudioSource.Play();
+			}
+		}
+
+		public void PlayAudioWalkClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _walkClip.Length)
+			{
+				_walkAudioSource.clip = _walkClip[clipIndex];
+				_walkAudioSource.Play();
+			}
+		}
+
 		#endregion
 
 		//Sprite Switching

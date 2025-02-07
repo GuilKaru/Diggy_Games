@@ -6,6 +6,7 @@ namespace Diggy_MiniGame_1
 		//Private Variables
 		#region Private Variables
 		private PlayerHealth _playerHealth;
+		private PlayerController _playerController;
 		#endregion
 
 		//Initialization
@@ -13,6 +14,7 @@ namespace Diggy_MiniGame_1
 		private void Awake()
 		{
 			_playerHealth = FindObjectOfType<PlayerHealth>();
+			_playerController = FindObjectOfType<PlayerController>();
 		}
 		#endregion
 
@@ -23,6 +25,7 @@ namespace Diggy_MiniGame_1
 		{
 			if (collision.CompareTag("Player"))
 			{
+				_playerController.PlayAudioPlayerHitLavaClip(0);
 				_playerHealth.Damage(2);
 			}
 

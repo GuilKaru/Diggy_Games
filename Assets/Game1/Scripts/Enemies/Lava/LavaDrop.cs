@@ -11,7 +11,17 @@ namespace Diggy_MiniGame_1
 		private float _fallSpeed = 5f; // Speed at which the lava drop falls
 
 		[SerializeField]
-		private float _destroyYPosition = -5f; // Position at which the lava drop is destroyed
+		private float[] _destroyYPositions; // Position at which the lava drop is destroyed
+
+		[Header("Lava Drop Components Settings")]
+		[SerializeField]
+		Collider2D _collider;
+
+		[Header("Lava Drop Audio")]
+		[SerializeField]
+		private AudioSource _lavaDropAudioSource;
+		[SerializeField]
+		private AudioClip[] _lavaDropClips;
 
 		[Header("Animation")]
 		[SerializeField]
@@ -25,9 +35,10 @@ namespace Diggy_MiniGame_1
 		// Cached Components
 		#region Cached Components
 		private Rigidbody2D _rigidbody;
-		private Collider2D _collider;
 		private PlayerHealth _playerHealth;
+		private PlayerController _playerController;
 		private bool _isDestroying = false;
+		private float _chosenDestroyYPosition;
 		#endregion
 
 		// Initialization
@@ -36,8 +47,11 @@ namespace Diggy_MiniGame_1
 		{
 			// Cache Rigidbody2D (optional, in case physics is needed)
 			_rigidbody = GetComponent<Rigidbody2D>();
-			_collider = GetComponent<Collider2D>(); 
+			_lavaDropAudioSource = GetComponent<AudioSource>();
+			_collider = GetComponent<Collider2D>();
+			_playerController = FindObjectOfType<PlayerController>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
+			_chosenDestroyYPosition = _destroyYPositions[Random.Range(0, _destroyYPositions.Length)];
 		}
 		#endregion
 
@@ -51,8 +65,7 @@ namespace Diggy_MiniGame_1
 				transform.Translate(Vector3.down * _fallSpeed * Time.deltaTime, Space.World);
 			}
 
-			// Check if the lava drop reaches the destroy position
-			if (transform.position.y <= _destroyYPosition && !_isDestroying)
+			if (transform.position.y <= _chosenDestroyYPosition && !_isDestroying)
 			{
 				StartDestroySequence();
 			}
@@ -67,10 +80,12 @@ namespace Diggy_MiniGame_1
 			if (other.CompareTag("Player"))
 			{
 				_playerHealth.Damage(1);
-			
+				_playerController.PlayAudioPlayerHitLavaClip(0);
+
 				// Destroy the lava drop
 				Destroy(gameObject);
 			}
+
 		}
 		#endregion
 
@@ -81,7 +96,7 @@ namespace Diggy_MiniGame_1
 		private void StartDestroySequence()
 		{
 			_isDestroying = true;
-
+			PlayAudioBarrelBuffClip(0);
 			_collider.enabled = false; // Disable collider to prevent further interactions
 			ChangeAnimationState(_destroyLavaDropAnim); // Trigger destruction animation
 
@@ -96,6 +111,19 @@ namespace Diggy_MiniGame_1
 			yield return new WaitForSeconds(animationLength);
 
 			Destroy(gameObject);
+		}
+		#endregion
+
+		//Audio
+		#region Audio
+
+		private void PlayAudioBarrelBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _lavaDropClips.Length)
+			{
+				_lavaDropAudioSource.clip = _lavaDropClips[clipIndex];
+				_lavaDropAudioSource.Play();
+			}
 		}
 		#endregion
 

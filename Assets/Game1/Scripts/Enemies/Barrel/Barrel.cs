@@ -7,14 +7,25 @@ namespace Diggy_MiniGame_1
 	{
 		// Serialize Fields
 		#region SerializeField
+		[Header("Barrel Properties Settings")]
 		[SerializeField]
 		private float _speed = 2f;
-
 		[SerializeField]
 		private float _destroyXPosition = -10f;
-
 		[SerializeField]
 		private int _scoreValue = 10;
+
+		[Header("Barrel Components Settings")]
+		[SerializeField]
+		SpriteRenderer _spriteRenderer;
+		[SerializeField]
+		Collider2D _collider;
+
+		[Header("Barrel Audio")]
+		[SerializeField]
+		private AudioSource _barrelAudioSource;
+		[SerializeField]
+		private AudioClip[] _barrelClips;
 		#endregion
 
 		//Private Variables
@@ -35,6 +46,9 @@ namespace Diggy_MiniGame_1
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_playerController = FindObjectOfType<PlayerController>();
+			_barrelAudioSource = GetComponent<AudioSource>();
+			_collider = GetComponent<Collider2D>();
+			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_rock = FindObjectOfType<Rock>();
 			_originalSpeed = _speed;
 			if (_scoreManager == null)
@@ -90,6 +104,7 @@ namespace Diggy_MiniGame_1
 
 			if (collision.gameObject.CompareTag("Player"))
 			{
+				_playerController.PlayAudioPlayerHitClip(0);
 				_playerHealth.Damage(1);
 				DestroyBarrel();
 			}
@@ -97,7 +112,8 @@ namespace Diggy_MiniGame_1
 			if (collision.gameObject.CompareTag("Boomerang"))
 			{
 				_scoreManager.AddScore(_scoreValue);
-				DestroyBarrel();
+				PlayAudioBarrelClip(0);
+				StartCoroutine(DestroyBarrelWithShovel());
 			}
 
 			if (collision.gameObject.CompareTag("Rock"))
@@ -114,6 +130,27 @@ namespace Diggy_MiniGame_1
 		{
 			Destroy(gameObject);
 		}
+
+		private IEnumerator DestroyBarrelWithShovel()
+		{
+			PlayAudioBarrelClip(0);
+			_spriteRenderer.enabled = false;
+			_collider.enabled = false;
+
+			yield return new WaitForSeconds(1);
+			Destroy(gameObject);
+		}
+
+
+		private void PlayAudioBarrelClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _barrelClips.Length)
+			{
+				_barrelAudioSource.clip = _barrelClips[clipIndex];
+				_barrelAudioSource.Play();
+			}
+		}
+
 		#endregion
 	}
 }

@@ -54,6 +54,7 @@ namespace Diggy_MiniGame_1
 			// Check if the lava drop collided with the player
 			if (other.CompareTag("Player"))
 			{
+				_playerController.PlayAudioPlayerHitLavaClip(0);
 				_playerHealth.Damage(1);
 				_playerController.StunPlayer(2f);
 			}

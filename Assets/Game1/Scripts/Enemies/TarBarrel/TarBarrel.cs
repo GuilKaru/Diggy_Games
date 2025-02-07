@@ -28,6 +28,18 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private float _fireEffectDuration = 2f; // Duration before the fire effect disappears
 
+		[Header("Barrel Components Settings")]
+		[SerializeField]
+		SpriteRenderer _spriteRenderer;
+		[SerializeField]
+		Collider2D _collider;
+
+		[Header("Barrel Audio")]
+		[SerializeField]
+		private AudioSource _barrelAudioSource;
+		[SerializeField]
+		private AudioClip[] _barrelClips;
+
 		[Header("Animation")]
 		[SerializeField]
 		private Animator _animator;
@@ -54,7 +66,11 @@ namespace Diggy_MiniGame_1
 			// Find necessary components in the scene
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
+			_playerController = FindObjectOfType<PlayerController>();
 			_rock = FindObjectOfType<Rock>();
+			_barrelAudioSource = GetComponent<AudioSource>();
+			_collider = GetComponent<Collider2D>();
+			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_originalSpeed = _speed;
 
 			ChangeAnimationState(_idleAnim);
@@ -117,6 +133,7 @@ namespace Diggy_MiniGame_1
 					player.ApplySlowEffect(_slowAmount, _slowDuration);
 				}
 				SpawnFireEffect();
+				_playerController.PlayAudioPlayerHitLavaClip(0);
 				_playerHealth.Damage(1);
 				Destroy(gameObject); // Destroy the TarBarrel after applying the effect
 			}
@@ -149,7 +166,8 @@ namespace Diggy_MiniGame_1
 			{
 				_scoreManager.AddScore(_scoreValue);
 				SpawnFireEffect();
-				DestroyBarrel();
+				PlayAudioBarrelClip(0);
+				StartCoroutine(DestroyBarrelWithShovel());
 			}
 
 		}
@@ -165,6 +183,25 @@ namespace Diggy_MiniGame_1
 				// Instantiate the fire effect at the current position
 				GameObject fireEffect = Instantiate(_fireEffectPrefab, transform.position, Quaternion.identity);
 
+			}
+		}
+
+		private IEnumerator DestroyBarrelWithShovel()
+		{
+			_spriteRenderer.enabled = false;
+			_collider.enabled = false;
+
+			yield return new WaitForSeconds(1);
+			Destroy(gameObject);
+		}
+
+
+		private void PlayAudioBarrelClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _barrelClips.Length)
+			{
+				_barrelAudioSource.clip = _barrelClips[clipIndex];
+				_barrelAudioSource.Play();
 			}
 		}
 

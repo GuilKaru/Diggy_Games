@@ -16,6 +16,33 @@ namespace Diggy_MiniGame_1
 		#region Private Variables
 		private Dictionary<string, bool> _buffCooldownStates = new Dictionary<string, bool>(); // Tracks cooldown states for each buff
 		private bool _isAnyBuffActive = false;
+
+
+		[Header("Premium Buff Audio")]
+		[SerializeField]
+		private AudioSource _blastBuffAudioSource;
+		[SerializeField]
+		private AudioClip[] _blastBuffClips;
+
+		[SerializeField]
+		private AudioSource _rockAudioSource;
+		[SerializeField]
+		private AudioClip[] _rockBuffClips;
+
+		[SerializeField]
+		private AudioSource _shotgunAudioSource;
+		[SerializeField]
+		private AudioClip[] _shotgunBuffClips;
+
+		[SerializeField]
+		private AudioSource _shieldAudioSource;
+		[SerializeField]
+		private AudioClip[] _shieldBuffClips;
+
+		[SerializeField]
+		private AudioSource _timeStopAudioSource;
+		[SerializeField]
+		private AudioClip[] _timeStopBuffClips;
 		#endregion
 
 		//Initialization
@@ -132,7 +159,7 @@ namespace Diggy_MiniGame_1
 		{
 			// Find all enemies with relevant scripts
 			var enemies = FindObjectsOfType<MonoBehaviour>().Where(obj => obj is Barrel || obj is TarBarrel || obj is BarrelTNT || obj is BarrelPush).ToList();
-
+			PlayAudioTimeStopBuffClip(0);
 			// Set the speed of each enemy to 0
 			foreach (var enemy in enemies)
 			{
@@ -225,7 +252,7 @@ namespace Diggy_MiniGame_1
 
 			// Spawn effect BEFORE destroying children
 			GameObject effect = Instantiate(_destroyEffectPrefab, target.transform.position, Quaternion.identity);
-
+			PlayAudioBlastBuffClip(0);
 			// Start animation
 			StartCoroutine(PlayDestroyEffect(effect));
 
@@ -269,6 +296,9 @@ namespace Diggy_MiniGame_1
 			}
 
 			spawner.SpawnRock(2);
+			PlayAudioRockBuffClip(0);
+			PlayAudioRockBuffClip(0);
+
 		}
 		#endregion
 
@@ -291,6 +321,7 @@ namespace Diggy_MiniGame_1
 			}
 
 			playerController.ActivateShotgunBuff(10f); // Enable shotgun for 10 seconds
+			PlayAudioShotgunBuffClip(0);
 			Debug.Log("Shotgun Buff activated: Player will shoot 3 bullets for 10 seconds.");
 		}
 		#endregion
@@ -314,6 +345,7 @@ namespace Diggy_MiniGame_1
 			}
 
 			shield.ActivateShield(3); // Shield can take 3 hits
+			PlayAudioShieldBuffClip(0);
 			Debug.Log("Shield Buff activated: Shield absorbs 3 hits.");
 		}
 		#endregion
@@ -357,6 +389,56 @@ namespace Diggy_MiniGame_1
 		}
 
 		#endregion
+
+		//Buff Audio
+		#region Buff Audio
+
+		private void PlayAudioBlastBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _blastBuffClips.Length)
+			{
+				_blastBuffAudioSource.clip = _blastBuffClips[clipIndex];
+				_blastBuffAudioSource.Play();
+			}
+		}
+
+		private void PlayAudioRockBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _rockBuffClips.Length)
+			{
+				_rockAudioSource.clip = _rockBuffClips[clipIndex];
+				_rockAudioSource.Play();
+			}
+		}
+
+		private void PlayAudioShotgunBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _shotgunBuffClips.Length)
+			{
+				_shotgunAudioSource.clip = _shotgunBuffClips[clipIndex];
+				_shotgunAudioSource.Play();
+			}
+		}
+
+		private void PlayAudioShieldBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _shieldBuffClips.Length)
+			{
+				_shieldAudioSource.clip = _shieldBuffClips[clipIndex];
+				_shieldAudioSource.Play();
+			}
+		}
+
+
+		private void PlayAudioTimeStopBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _timeStopBuffClips.Length)
+			{
+				_timeStopAudioSource.clip = _timeStopBuffClips[clipIndex];
+				_timeStopAudioSource.Play();
+			}
+		}
+		#endregion
 	}
 
 	[System.Serializable]
@@ -367,6 +449,7 @@ namespace Diggy_MiniGame_1
 		public float cooldownTime; // Cooldown time for the buff
 		public Image cooldownImage;
 		public GameObject buffButton;
+		
 	}
 }
 

@@ -51,7 +51,7 @@ namespace Diggy_MiniGame_1
 		private void OnTriggerEnter2D(Collider2D collision)
 		{
 			// Check if the shield was hit by a projectile
-			if (collision.CompareTag("Barrel"))
+			if (collision.CompareTag("Barrel")|| (collision.CompareTag("LavaDrop")))
 			{
 				_currentHits--;
 
@@ -66,6 +66,7 @@ namespace Diggy_MiniGame_1
 					DeactivateShield();
 				}
 			}
+
 		}
 
 		#endregion

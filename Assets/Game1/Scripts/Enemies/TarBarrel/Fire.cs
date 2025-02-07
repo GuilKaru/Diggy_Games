@@ -54,6 +54,7 @@ namespace Diggy_MiniGame_1
 			{
 				_playerHealth.Damage(1);
 				_playerController.ApplySlowEffect(_slowAmount, _slowDuration);
+				_playerController.PlayAudioPlayerHitLavaClip(0);
 			}
 		}
 		#endregion
