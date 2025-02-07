@@ -648,7 +648,7 @@ namespace Boom
                 icpFee.TryToUInt64(out ulong _icpFee);
 
                 tokens.Add(new MainDataTypes.AllTokenConfigs.TokenConfig(Env.CanisterIds.ICP_LEDGER, icpName, icpSymbol, icpDecimals, _icpFee, "This is the base Internet Computer Token", "https://cryptologos.cc/logos/internet-computer-icp-logo.png?v=026"));
-
+                
                 if (ConfigUtil.QueryConfigsByTag(WORLD_CANISTER_ID, "token", out var tokensMetadata))
                 {
                     foreach (var tokenMetadata in tokensMetadata)

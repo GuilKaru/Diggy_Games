@@ -1,3 +1,5 @@
+using System;
+using System.Buffers;
 using EdjCase.ICP.Agent.Agents;
 using EdjCase.ICP.Candid.Models;
 using EdjCase.ICP.Candid;
@@ -5,6 +7,7 @@ using System.Threading.Tasks;
 using Candid.IcrcLedger;
 using EdjCase.ICP.Agent.Responses;
 using System.Collections.Generic;
+using UnityEngine;
 using Tokens = EdjCase.ICP.Candid.Models.UnboundedUInt;
 
 namespace Candid.IcrcLedger

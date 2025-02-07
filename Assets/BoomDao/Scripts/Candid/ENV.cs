@@ -5,6 +5,7 @@ public static class Env
     {
         public const string ICP_LEDGER = "ryjl3-tyaaa-aaaaa-aaaba-cai";
         public const string BOOM_LEDGER = "vtrom-gqaaa-aaaaq-aabia-cai";
+        //public const string DIGGY_LEDGER = "dfg2l-2yaaa-aaaap-akpsa-cai";
 
         public static class WORLD_HUB
         {
