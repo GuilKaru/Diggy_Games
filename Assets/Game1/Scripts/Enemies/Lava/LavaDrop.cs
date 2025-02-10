@@ -39,6 +39,7 @@ namespace Diggy_MiniGame_1
 		private PlayerController _playerController;
 		private bool _isDestroying = false;
 		private float _chosenDestroyYPosition;
+		private float _originalSpeed;
 		#endregion
 
 		// Initialization
@@ -52,6 +53,7 @@ namespace Diggy_MiniGame_1
 			_playerController = FindObjectOfType<PlayerController>();
 			_playerHealth = FindObjectOfType<PlayerHealth>();
 			_chosenDestroyYPosition = _destroyYPositions[Random.Range(0, _destroyYPositions.Length)];
+			_originalSpeed = _fallSpeed;
 		}
 		#endregion
 
@@ -70,6 +72,20 @@ namespace Diggy_MiniGame_1
 				StartDestroySequence();
 			}
 		}
+
+		// Speed Modification Method (for external control)
+		#region Speed Control
+		public void SetSpeed(float newSpeed)
+		{
+			_fallSpeed = newSpeed;
+		}
+
+		// Method to restore speed to its original value
+		public void RestoreSpeed()
+		{
+			_fallSpeed = _originalSpeed; // Restore the speed
+		}
+		#endregion
 		#endregion
 
 		// Collision Logic

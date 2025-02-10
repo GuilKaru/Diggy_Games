@@ -64,6 +64,10 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private AudioClip[] _shovelClips;
 		[SerializeField]
+		private AudioSource _shovelShotgunAudioSource;
+		[SerializeField]
+		private AudioClip[] _shovelShotgunClips;
+		[SerializeField]
 		private AudioSource _hitAudioSource;
 		[SerializeField]
 		private AudioClip[] _playerHitClip;
@@ -231,10 +235,10 @@ namespace Diggy_MiniGame_1
 		#region Throw Shovel
 		private void OnShootStart(InputAction.CallbackContext context)
 		{
+			if (_isPointerOverUI) return;
+			_isShooting = true;
 
-			if (_isPointerOverUI && _shootingCoroutine == null)
 			{
-				_isShooting = true;
 				_shootingCoroutine = StartCoroutine(ShootingCoroutine());
 
 			}
@@ -302,7 +306,7 @@ namespace Diggy_MiniGame_1
 				Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
 				Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
 				GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, spreadRotation * _bulletRotation, _shovelParent);
-				PlayAudioShovelClip(0);
+				PlayAudioShovelShotgunClip(0);
 				Shovel bulletController = bullet.GetComponent<Shovel>();
 				if (bulletController != null)
 				{
@@ -513,6 +517,15 @@ namespace Diggy_MiniGame_1
 			{
 				_shovelAudioSource.clip = _shovelClips[clipIndex];
 				_shovelAudioSource.Play();
+			}
+		}
+
+		private void PlayAudioShovelShotgunClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _shovelShotgunClips.Length)
+			{
+				_shovelShotgunAudioSource.clip = _shovelShotgunClips[clipIndex];
+				_shovelShotgunAudioSource.Play();
 			}
 		}
 

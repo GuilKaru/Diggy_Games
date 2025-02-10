@@ -29,6 +29,7 @@ namespace Diggy_MiniGame_1
 		#region Private Variables
 		private bool _isSpawning = false; // Control whether spawning is active
 		private int _unlockedLavaIndex = 0; // Tracks the unlocked prefabs
+		private bool canSpawn = true;
 		#endregion
 
 		// Initialization
@@ -71,7 +72,7 @@ namespace Diggy_MiniGame_1
 		#region Spawning Logic
 		private void SpawnLavaDrop()
 		{
-			if (_lavaDropPrefabs == null || _lavaDropPrefabs.Length == 0) return;
+			if (!canSpawn || _lavaDropPrefabs == null || _lavaDropPrefabs.Length == 0) return;
 
 			// Pick a random prefab from the unlocked pool
 			int randomIndex = Random.Range(0, _unlockedLavaIndex + 1);
@@ -84,6 +85,13 @@ namespace Diggy_MiniGame_1
 			Quaternion spawnRotation = Quaternion.Euler(0f, 0f, _defaultZRotation);
 			// Spawn the lava drop
 			Instantiate(lavaDrop, spawnPosition, spawnRotation, _lavaParent);
+		}
+
+
+
+		public void SetSpawning(bool value)
+		{
+			canSpawn = value; // Enable or disable spawning
 		}
 		#endregion
 

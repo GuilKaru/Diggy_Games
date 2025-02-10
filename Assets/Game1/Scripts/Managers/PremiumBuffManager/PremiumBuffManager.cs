@@ -57,6 +57,30 @@ namespace Diggy_MiniGame_1
 			}
 		}
 
+
+		private void Update()
+		{
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				ActivateBuff("DestroyChildrenBuff");
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha2))
+			{
+				ActivateBuff("SpawnRockBuff");
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha3))
+			{
+				ActivateBuff("ShotgunBuff");
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha4))
+			{
+				ActivateBuff("ShieldBuff");
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha5))
+			{
+				ActivateBuff("StopEnemiesBuff");
+			}
+		}
 		#endregion
 
 		//Buff Active
@@ -154,11 +178,34 @@ namespace Diggy_MiniGame_1
 
 		//Stop Enemies Buff
 		#region Stop Enemies Buff
-
+		[Header("Stop Enemies Buff")]
+		[SerializeField]
+		private AudioSource _backgroundMusicSource;
+		[SerializeField]
+		private AudioSource _lavaBgSource;
+		[SerializeField]
+		private Animator _objectAnimator;
 		private void StopEnemies(BuffData buff)
 		{
+			// Pause Background Music
+			if (_backgroundMusicSource != null)
+			{
+				_backgroundMusicSource.Pause();
+			}
+
+			if (_lavaBgSource != null)
+			{
+				_lavaBgSource.Pause();
+			}
+
+			// Pause Animation
+			if (_objectAnimator != null)
+			{
+				_objectAnimator.speed = 0; // Pause animation
+			}
+
 			// Find all enemies with relevant scripts
-			var enemies = FindObjectsOfType<MonoBehaviour>().Where(obj => obj is Barrel || obj is TarBarrel || obj is BarrelTNT || obj is BarrelPush).ToList();
+			var enemies = FindObjectsOfType<MonoBehaviour>().Where(obj => obj is Barrel || obj is TarBarrel || obj is BarrelTNT || obj is BarrelPush || obj is LavaDrop).ToList();
 			PlayAudioTimeStopBuffClip(0);
 			// Set the speed of each enemy to 0
 			foreach (var enemy in enemies)
@@ -179,6 +226,10 @@ namespace Diggy_MiniGame_1
 				{
 					barrelPush.SetSpeed(0); // Set speed to 0 for BarrelPush type
 				}
+				else if (enemy is LavaDrop lavaDrop)
+				{
+					lavaDrop.SetSpeed(0); // Set speed to 0 for BarrelPush type
+				}
 			}
 
 			// Stop spawning
@@ -188,14 +239,37 @@ namespace Diggy_MiniGame_1
 				enemySpawner.SetSpawning(false);
 			}
 
+			var lavaDropSpawner = FindObjectOfType<LavaDropSpawner>();
+			if (lavaDropSpawner != null)
+			{
+				lavaDropSpawner.SetSpawning(false);
+			}
+
 			// Wait for the duration of the buff before restoring the speed and resuming spawning
-			StartCoroutine(RestoreEnemiesAfterDelay(enemies, enemySpawner, buff.cooldownTime));
+			StartCoroutine(RestoreEnemiesAfterDelay(enemies, enemySpawner, lavaDropSpawner, buff.cooldownTime));
 		}
 
 		//Restore Enemies
-		private IEnumerator RestoreEnemiesAfterDelay(List<MonoBehaviour> enemies, EnemySpawner enemySpawner, float delay)
+		private IEnumerator RestoreEnemiesAfterDelay(List<MonoBehaviour> enemies, EnemySpawner enemySpawner, LavaDropSpawner lavaDropSpawner, float delay)
 		{
 			yield return new WaitForSeconds(delay);
+
+			// Restore Background Music
+			if (_backgroundMusicSource != null)
+			{
+				_backgroundMusicSource.UnPause();
+			}
+
+			if (_lavaBgSource != null)
+			{
+				_lavaBgSource.UnPause();
+			}
+
+			// Restore Animation
+			if (_objectAnimator != null)
+			{
+				_objectAnimator.speed = 1; // Resume animation
+			}
 
 			// Restore speed of each enemy to its original speed
 			foreach (var enemy in enemies)
@@ -216,6 +290,15 @@ namespace Diggy_MiniGame_1
 				{
 					barrelPush.RestoreSpeed();
 				}
+				else if (enemy is LavaDrop lavaDrop)
+				{
+					lavaDrop.RestoreSpeed(); // Set speed to 0 for BarrelPush type
+				}
+			}
+
+			if (lavaDropSpawner != null)
+			{
+				lavaDropSpawner.SetSpawning(true);
 			}
 
 			// Resume spawning
@@ -228,7 +311,7 @@ namespace Diggy_MiniGame_1
 
 		//Blast Buff
 		#region Blast Buff
-
+		[Header("Blast Buff")]
 		[SerializeField]
 		private GameObject _destroyEffectPrefab; // Assign in Inspector
 		[SerializeField]

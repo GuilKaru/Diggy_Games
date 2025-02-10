@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7475410099468130753}
-  - component: {fileID: 6752486060432346137}
+  - component: {fileID: 1030812019958488831}
   - component: {fileID: 7105556877605256579}
   - component: {fileID: 1594692786277477096}
   - component: {fileID: 8941522862160655365}
@@ -69,7 +69,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4658912381015753364}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &6752486060432346137
+--- !u!212 &1030812019958488831
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,7 +139,7 @@ MonoBehaviour:
   _moveSpeed: 2
   _destroyPositionX: -5
   _scoreValue: 5
-  _spriteRenderer: {fileID: 6752486060432346137}
+  _spriteRenderer: {fileID: 1030812019958488831}
   _collider: {fileID: 1594692786277477096}
   _buffAudioSource: {fileID: 2575290286004637363}
   _buffClips:

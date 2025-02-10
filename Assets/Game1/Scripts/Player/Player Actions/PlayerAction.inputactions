@@ -157,6 +157,17 @@
                 },
                 {
                     "name": "",
+                    "id": "b18d18e4-9eac-4aac-864c-958ff3676369",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowShovel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "baf2e18a-7ec7-4f22-a3be-0051668d0e9d",
                     "path": "<Keyboard>/j",
                     "interactions": "",

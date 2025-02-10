@@ -99,6 +99,11 @@ namespace Diggy_MiniGame_1
 					{
 						sr.sortingOrder = 100 - (int)(spawnPosition.y * 10);
 					}
+					SpriteRenderer sr1 = newEnemy.GetComponentInChildren<SpriteRenderer>();
+					if (sr1 != null)
+					{
+						sr1.sortingOrder = 100 - (int)(spawnPosition.y * 10);
+					}
 				}
 			}
 		}
