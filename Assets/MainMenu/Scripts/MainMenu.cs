@@ -25,7 +25,8 @@ namespace MainMenu
         public void UsernameMenuChange()
         {
             _usernameMenu.SetActive(false);
-            _gameSelectorMenu.SetActive(true);
+            //_gameSelectorMenu.SetActive(true);
+            _furnaceFrenzyMenu.SetActive(true);
         }
 
         public void GameMenuOpen(string gameName)
@@ -40,7 +41,8 @@ namespace MainMenu
         {
             GameManager.instance.playerData.username = username;
             _usernameMenu.SetActive(false);
-            _gameSelectorMenu.SetActive(true);
+            //_gameSelectorMenu.SetActive(true);
+            _furnaceFrenzyMenu.SetActive(true);
         }
         #endregion
     }
