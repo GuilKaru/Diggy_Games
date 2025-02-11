@@ -18,17 +18,17 @@ namespace Diggy_MiniGame_1
 		private bool _isAnyBuffActive = false;
 
 
+		[Header("Game Manager Audio")]
+		[SerializeField]
+		private AudioSource _gameManagerAudioSource;
+		[SerializeField]
+		private AudioClip[] _gameManagerClips;
+
 		[Header("Premium Buff Audio")]
 		[SerializeField]
 		private AudioSource _blastBuffAudioSource;
 		[SerializeField]
 		private AudioClip[] _blastBuffClips;
-
-		[SerializeField]
-		private AudioSource _rockAudioSource;
-		[SerializeField]
-		private AudioClip[] _rockBuffClips;
-
 		[SerializeField]
 		private AudioSource _shotgunAudioSource;
 		[SerializeField]
@@ -152,22 +152,27 @@ namespace Diggy_MiniGame_1
 			{
 				case "StopEnemiesBuff":
 					StopEnemies(buff);
+					PlayAudioGameManagerClip(0);
 					break;
 
 				case "DestroyChildrenBuff":
 					DestroyAllChildren(buff.targetGameObject);
+					PlayAudioGameManagerClip(0);
 					break;
 
 				case "SpawnRockBuff":
 					SpawnRock(buff);
+					PlayAudioGameManagerClip(0);
 					break;
 
 				case "ShotgunBuff":
 					ActivateShotgun(buff.targetGameObject);
+					PlayAudioGameManagerClip(0);
 					break;
 
 				case "ShieldBuff":
 					ActivateShield(buff.targetGameObject);
+					//PlayAudioGameManagerClip(0);
 					break;
 
 				default:
@@ -203,10 +208,10 @@ namespace Diggy_MiniGame_1
 			{
 				_objectAnimator.speed = 0; // Pause animation
 			}
+			StartCoroutine(SoundQueue());
 
 			// Find all enemies with relevant scripts
 			var enemies = FindObjectsOfType<MonoBehaviour>().Where(obj => obj is Barrel || obj is TarBarrel || obj is BarrelTNT || obj is BarrelPush || obj is LavaDrop).ToList();
-			PlayAudioTimeStopBuffClip(0);
 			// Set the speed of each enemy to 0
 			foreach (var enemy in enemies)
 			{
@@ -247,6 +252,12 @@ namespace Diggy_MiniGame_1
 
 			// Wait for the duration of the buff before restoring the speed and resuming spawning
 			StartCoroutine(RestoreEnemiesAfterDelay(enemies, enemySpawner, lavaDropSpawner, buff.cooldownTime));
+		}
+
+		private IEnumerator SoundQueue()
+		{
+			yield return new WaitForSeconds(0.1f);
+			PlayAudioTimeStopBuffClip(0);
 		}
 
 		//Restore Enemies
@@ -379,8 +390,6 @@ namespace Diggy_MiniGame_1
 			}
 
 			spawner.SpawnRock(2);
-			PlayAudioRockBuffClip(0);
-			PlayAudioRockBuffClip(0);
 
 		}
 		#endregion
@@ -404,7 +413,6 @@ namespace Diggy_MiniGame_1
 			}
 
 			playerController.ActivateShotgunBuff(10f); // Enable shotgun for 10 seconds
-			PlayAudioShotgunBuffClip(0);
 			Debug.Log("Shotgun Buff activated: Player will shoot 3 bullets for 10 seconds.");
 		}
 		#endregion
@@ -485,24 +493,6 @@ namespace Diggy_MiniGame_1
 			}
 		}
 
-		private void PlayAudioRockBuffClip(int clipIndex)
-		{
-			if (clipIndex >= 0 && clipIndex < _rockBuffClips.Length)
-			{
-				_rockAudioSource.clip = _rockBuffClips[clipIndex];
-				_rockAudioSource.Play();
-			}
-		}
-
-		private void PlayAudioShotgunBuffClip(int clipIndex)
-		{
-			if (clipIndex >= 0 && clipIndex < _shotgunBuffClips.Length)
-			{
-				_shotgunAudioSource.clip = _shotgunBuffClips[clipIndex];
-				_shotgunAudioSource.Play();
-			}
-		}
-
 		private void PlayAudioShieldBuffClip(int clipIndex)
 		{
 			if (clipIndex >= 0 && clipIndex < _shieldBuffClips.Length)
@@ -521,6 +511,18 @@ namespace Diggy_MiniGame_1
 				_timeStopAudioSource.Play();
 			}
 		}
+
+		private void PlayAudioGameManagerClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _gameManagerClips.Length)
+			{
+				_gameManagerAudioSource.clip = _gameManagerClips[clipIndex];
+				_gameManagerAudioSource.Play();
+			}
+		}
+
+
+
 		#endregion
 	}
 

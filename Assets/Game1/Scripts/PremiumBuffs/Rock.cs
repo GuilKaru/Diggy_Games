@@ -8,6 +8,11 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private Animator _animator;
 
+		[SerializeField]
+		private AudioSource _rockAudioSource;
+		[SerializeField]
+		private AudioClip[] _rockBuffClips;
+
 		private string _currentState;
 		private string _rockHitAnim = "Rock_Hit";
 
@@ -38,6 +43,7 @@ namespace Diggy_MiniGame_1
 		public void RockTakeDamage()
 		{
 			_health--;
+			PlayAudioRockBuffClip(0);
 			Debug.Log($"Rock took damage. Remaining health: {_health}");
 			ChangeAnimationState(_rockHitAnim);
 			if (_health <= 0)
@@ -64,6 +70,15 @@ namespace Diggy_MiniGame_1
 		private void DestroyRock()
 		{
 			Destroy(gameObject);
+		}
+
+		private void PlayAudioRockBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _rockBuffClips.Length)
+			{
+				_rockAudioSource.clip = _rockBuffClips[clipIndex];
+				_rockAudioSource.Play();
+			}
 		}
 
 

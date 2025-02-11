@@ -14,6 +14,12 @@ namespace Diggy_MiniGame_1
 		[SerializeField] private PlayerHealth _playerHealth;
 		[SerializeField] private ScoreManager _scoreManager;
 
+		[Header("Game Manager Audio")]
+		[SerializeField]
+		private AudioSource _gameManagerAudioSource;
+		[SerializeField]
+		private AudioClip[] _gameManagerClips;
+
 		private bool _isGamePaused;
 		private bool _isGameOver;
 
@@ -47,7 +53,7 @@ namespace Diggy_MiniGame_1
 		{
 			_isGamePaused = !_isGamePaused;
 			_pauseMenuUI.SetActive(_isGamePaused);
-
+			PlayAudioGameManagerClip(0);
 			// Freeze/unfreeze game time
 			Time.timeScale = _isGamePaused ? 0 : 1;
 
@@ -83,7 +89,7 @@ namespace Diggy_MiniGame_1
 
 			// Unfreeze game time
 			Time.timeScale = 1;
-
+			PlayAudioGameManagerClip(0);
 			// Reload the active scene
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
@@ -91,7 +97,8 @@ namespace Diggy_MiniGame_1
 		// Back to Main Menu Logic (placeholder, to be implemented later)
 		public void BackToMainMenu()
 		{
-			Debug.Log("Back to Main Menu button clicked. Implement main menu logic here.");
+			PlayAudioGameManagerClip(0);
+			SceneManager.LoadScene("MainMenu");
 			// Add logic to load the main menu scene when needed
 		}
 
@@ -99,6 +106,16 @@ namespace Diggy_MiniGame_1
 		{
 			// Placeholder for additional reset logic, if needed
 			Debug.Log("Resetting game state.");
+		}
+
+
+		private void PlayAudioGameManagerClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _gameManagerClips.Length)
+			{
+				_gameManagerAudioSource.clip = _gameManagerClips[clipIndex];
+				_gameManagerAudioSource.Play();
+			}
 		}
 	}
 }
