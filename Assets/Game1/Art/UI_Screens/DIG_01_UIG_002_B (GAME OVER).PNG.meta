@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_UIG_002_B (GAME OVER)_0: -7192399914800138133
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

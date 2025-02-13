@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_UIG_001 (TIENDA COMPRAS)_0: 1556340817354979656
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -12,22 +12,32 @@ namespace MainMenu
 {
     public class DiggyCoinPayment : MonoBehaviour
     {
+        
+        [SerializeField] DiggyCoinEntity diggyCoinEntity;
         #region FIELDS
 
         //This is the text that display inventory.
-        [SerializeField] TMP_Text inventoryText;
+        //[SerializeField] TMP_Text inventoryText;
         //This is the text that display the action return value (Outcomes or an error).
-        [SerializeField] TMP_Text actionLogText;
+        //[SerializeField] TMP_Text actionLogText;
         //This is the button that triggers the action "add_gem"
-        [SerializeField] Button actionButton;
+        [SerializeField] Button actionButtonx1;
+        [SerializeField] Button actionButtonx5;
+        [SerializeField] Button actionButtonx10;
+        [SerializeField] Button actionButtonx20;
 
         //This is the a coroutine cache from displaying the logs. It is used to stop it when required.
         private Coroutine logCoroutine;
 
         //The action ID
-        readonly string actionId = "buy_coin_diggy";
+        string actionId = "buy_coin_diggy";
+        string diggyId = "diggy_for_entity_x1";
+        readonly string diggyIdx1 = "diggy_for_entity_x1";
+        readonly string diggyIdx5 = "diggy_for_entity_x5";
+        readonly string diggyIdx10 = "diggy_for_entity_x10";
+        readonly string diggyIdx20 = "diggy_for_entity_x20";
 
-        string[] entitiesToDisplayOnTheInventory = new string[1] { "coin" };
+        //string[] entitiesToDisplayOnTheInventory = new string[1] { "coin" };
 
         string inventoryContent = "";
         string userBalance = "";
@@ -39,48 +49,54 @@ namespace MainMenu
         private void Awake()
         {
             //This is to clear out any unwanted listener
-            actionButton.onClick.RemoveAllListeners();
+            actionButtonx1.onClick.RemoveAllListeners();
 
             //Register to action button click
-            actionButton.onClick.AddListener(ActionButtonClickHandler);
+            actionButtonx1.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx1));
+            actionButtonx5.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx5));
+            actionButtonx10.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx10));
+            actionButtonx20.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx20));
 
             //We register LoginDataChangeHandler to MainDataTypes.LoginData change event to initialize userNameInputField with the user's username
-            UserUtil.AddListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
+            //UserUtil.AddListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
 
             //We register EntiyDataChangeHandler to the user's DataTypes.Entity change event to update inventoryText with the user's entities
-            UserUtil.AddListenerDataChangeSelf<DataTypes.Entity>(EntiyDataChangeHandler);
+            //UserUtil.AddListenerDataChangeSelf<DataTypes.Entity>(EntiyDataChangeHandler);
 
             //We register TokenDataChangeHandler to the user's DataTypes.Token change event to update userBalances field with the user's balance
-            UserUtil.AddListenerDataChangeSelf<DataTypes.Token>(TokenDataChangeHandler);
+            //UserUtil.AddListenerDataChangeSelf<DataTypes.Token>(TokenDataChangeHandler);
         }
 
         private void OnDestroy()
         {
             //Unregister to action button click
-            actionButton.onClick.RemoveListener(ActionButtonClickHandler);
+            actionButtonx1.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx1));
 
             //We unregister from MainDataTypes.LoginData change event
-            UserUtil.RemoveListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
+            //UserUtil.RemoveListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
 
             //We unregister from DataTypes.Entity change event
-            UserUtil.RemoveListenerDataChangeSelf<DataTypes.Entity>(EntiyDataChangeHandler);
+            //UserUtil.RemoveListenerDataChangeSelf<DataTypes.Entity>(EntiyDataChangeHandler);
 
             //We unregister from DataTypes.Token change event
-            UserUtil.RemoveListenerDataChangeSelf<DataTypes.Token>(TokenDataChangeHandler);
+            //UserUtil.RemoveListenerDataChangeSelf<DataTypes.Token>(TokenDataChangeHandler);
         }
 
         private void OnEnable()
         {
-            actionLogText.text = "...";
+            //actionLogText.text = "...";
+            Debug.Log("...");
         }
         #endregion
 
 
-        #region ACTION 
-
+        #region ACTION
+        
         //This function is just a wrapper so that we can register "ExecuteAction" function on the Action Button's onClick event
-        public void ActionButtonClickHandler()
+        public void ActionButtonClickHandler(string newActionId, string newEntityId)
         {
+            actionId = newActionId;
+            diggyId = newEntityId;
             //Forget() is included as we dont care awaiting for the result
             ExecuteAction().Forget();
         }
@@ -92,7 +108,8 @@ namespace MainMenu
             //SECTION A: Action execution
 
             //Here we execute the action by passing the actionId we want to execute.
-            actionLogText.text = $"Processing Action of id: {actionId}";
+            //actionLogText.text = $"Processing Action of id: {actionId}";
+            Debug.Log($"Processing action: {actionId}");
 
             var actionResult = await ActionUtil.ProcessAction(actionId);
 
@@ -144,7 +161,7 @@ namespace MainMenu
                     out string entityName,
                     //default value of the result
                     "None");
-
+                
                 //If config doesn't exist for the entity we just skip it
                 if (configEntityNameFound == false)
                 {
@@ -164,15 +181,17 @@ namespace MainMenu
                     break;
                 }
 
-                if (amount.NumericType_ == EntityFieldEdit.Numeric.NumericType.Increment)
-                {
+                //if (amount.NumericType_ == EntityFieldEdit.Numeric.NumericType.Increment)
+                //{
                     outcomesToDisplay.Add(new(entityName, amount.Value));
-                }
+                //}
             }
 
-            if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
+            //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
 
             logCoroutine = StartCoroutine(DisplayTempLog(message));
+            
+            diggyCoinEntity.ActionButtonClickHandler(diggyId);
         }
 
         #endregion
@@ -181,16 +200,18 @@ namespace MainMenu
         #region LOG
         IEnumerator DisplayTempLog(string message, float duration = 5f)
         {
-            actionLogText.text = message;
+            //actionLogText.text = message;
+            Debug.Log(message);
             yield return new WaitForSeconds(duration);
-            actionLogText.text = "...";
+           // actionLogText.text = "...";
+           Debug.Log($"...");
         }
         #endregion
 
 
         #region USER DATA
 
-        private void LoginDataChangeHandler(MainDataTypes.LoginData data)
+        /*private void LoginDataChangeHandler(MainDataTypes.LoginData data)
         {
             //If user is not logged in, return
             if (data.state != MainDataTypes.LoginData.State.LoggedIn) return;
@@ -293,7 +314,7 @@ namespace MainMenu
         private void UpdateInventoryText()
         {
             inventoryText.text = $"Balance\n-------\n{userBalance}\n\n=======\nInventory\n-------\n{inventoryContent}";
-        }
+        }*/
         #endregion
     }
 }

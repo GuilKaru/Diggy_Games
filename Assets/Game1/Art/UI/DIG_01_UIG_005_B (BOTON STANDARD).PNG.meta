@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_UIG_005_B (BOTON STANDARD)_0: 1286078839574863834
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
