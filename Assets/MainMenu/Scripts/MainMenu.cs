@@ -1,5 +1,6 @@
 using Boom;
 using UnityEngine;
+using System.Collections;
 using TMPro;
 using UnityEngine.SceneManagement;
 
@@ -94,6 +95,13 @@ namespace MainMenu
 
 		public void PlayGame()
 		{
+			PlayAudioMainMenuClip(0);
+			StartCoroutine(SoundQueue());
+		}
+
+		private IEnumerator SoundQueue()
+		{
+			yield return new WaitForSeconds(0.2f);
 			SceneManager.LoadScene(0);
 		}
 
