@@ -18,6 +18,7 @@ namespace MainMenu
 
         //The action ID
         string actionId;
+        [SerializeField] private GameObject loadingPanel;
 
         #endregion
 
@@ -30,7 +31,7 @@ namespace MainMenu
             ExecuteAction(action).Forget();
         }
 
-        public async UniTaskVoid ExecuteAction(string action)
+        private async UniTaskVoid ExecuteAction(string action)
         {
             actionId = action;
             if (logCoroutine != null) StopCoroutine(logCoroutine);
@@ -53,7 +54,8 @@ namespace MainMenu
 
                 Debug.LogError(errorMessage);
                 logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
-
+                
+                loadingPanel.SetActive(false);
                 return;
             }
 
@@ -115,7 +117,7 @@ namespace MainMenu
             }
 
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
-
+            
             logCoroutine = StartCoroutine(DisplayTempLog(message));
         }
 
@@ -129,6 +131,7 @@ namespace MainMenu
             //actionLogText.text = message;
             Debug.Log(message);
             yield return new WaitForSeconds(duration);
+            loadingPanel.SetActive(false);
             Debug.Log("...");
             //actionLogText.text = "...";
         }

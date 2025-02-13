@@ -32,6 +32,8 @@ namespace MainMenu
         readonly string actionRock = "buy_rock_buff";
         readonly string actionShield = "buy_shield_buff";
         readonly string actionTriple  = "buy_triple_buff";
+
+        [SerializeField] private GameObject loadingPanel;
         #endregion
 
         #region ACTION
@@ -72,15 +74,61 @@ namespace MainMenu
         }
         
         //This function is just a wrapper so that we can register "ExecuteAction" function on the Action Button's onClick event
-        public void ActionButtonClickHandler(string action)
+        private void ActionButtonClickHandler(string action)
         {
             actionId = action;
+            CoinCheck();
             //Forget() is included as we dont care awaiting for the result
-            ExecuteAction().Forget();
+            //ExecuteAction().Forget();
         }
 
-        public async UniTaskVoid ExecuteAction()
+        private void CoinCheck()
         {
+            var principal = UserUtil.GetPrincipal();
+
+            EntityUtil.TryGetFieldAsText(principal, "diggycoin", "amount", out var diggyCoinAmount, "None");
+
+            if (diggyCoinAmount is "None" or null)
+            {
+                Debug.Log("Not enough Diggy Coins");
+                loadingPanel.SetActive(false);
+            }
+            else
+            {
+                double diggyCoin = double.Parse(diggyCoinAmount);
+
+                if (diggyCoin <= 0)
+                {
+                    Debug.Log("Not enough Diggy Coins");
+                    loadingPanel.SetActive(false);
+                }
+                else if (actionId == "buy_sweep_buff" && diggyCoin >= 0.5)
+                {
+                    ExecuteAction().Forget();
+                }
+                else if (actionId == "buy_time_buff" && diggyCoin >= 0.4)
+                {
+                    ExecuteAction().Forget();
+                }
+                else if (actionId == "buy_rock_buff" && diggyCoin >= 0.3)
+                {
+                    ExecuteAction().Forget();
+                }
+                else if (actionId == "buy_shield_buff" && diggyCoin >= 0.2)
+                {
+                    ExecuteAction().Forget();
+                }
+                else if (actionId == "buy_triple_buff" && diggyCoin >= 0.1)
+                {
+                    ExecuteAction().Forget();
+                }
+            }
+        }
+
+        private async UniTaskVoid ExecuteAction()
+        {
+            loadingPanel.SetActive(true);
+            
             if (logCoroutine != null) StopCoroutine(logCoroutine);
 
             //SECTION A: Action execution
@@ -101,7 +149,9 @@ namespace MainMenu
 
                 Debug.LogError(errorMessage);
                 logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
-
+                
+                loadingPanel.SetActive(false);
+                
                 return;
             }
 
@@ -176,7 +226,11 @@ namespace MainMenu
         {
             //actionLogText.text = message;
             Debug.Log(message);
+            
             yield return new WaitForSeconds(duration);
+            
+            loadingPanel.SetActive(false);
+            
             Debug.Log("...");
             //actionLogText.text = "...";
         }

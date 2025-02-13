@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_UIG_008_A (MARCO BOTON SONIDO)_0: 7677508043667331989
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -41,6 +41,8 @@ namespace MainMenu
 
         string inventoryContent = "";
         string userBalance = "";
+        
+        [SerializeField] private GameObject loadingPanel;
 
         #endregion
 
@@ -50,6 +52,9 @@ namespace MainMenu
         {
             //This is to clear out any unwanted listener
             actionButtonx1.onClick.RemoveAllListeners();
+            actionButtonx5.onClick.RemoveAllListeners();
+            actionButtonx10.onClick.RemoveAllListeners();
+            actionButtonx20.onClick.RemoveAllListeners();
 
             //Register to action button click
             actionButtonx1.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx1));
@@ -71,6 +76,9 @@ namespace MainMenu
         {
             //Unregister to action button click
             actionButtonx1.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx1));
+            actionButtonx5.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx5));
+            actionButtonx10.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx10));
+            actionButtonx20.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx20));
 
             //We unregister from MainDataTypes.LoginData change event
             //UserUtil.RemoveListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
@@ -93,7 +101,7 @@ namespace MainMenu
         #region ACTION
         
         //This function is just a wrapper so that we can register "ExecuteAction" function on the Action Button's onClick event
-        public void ActionButtonClickHandler(string newActionId, string newEntityId)
+        private void ActionButtonClickHandler(string newActionId, string newEntityId)
         {
             actionId = newActionId;
             diggyId = newEntityId;
@@ -101,8 +109,10 @@ namespace MainMenu
             ExecuteAction().Forget();
         }
 
-        public async UniTaskVoid ExecuteAction()
+        private async UniTaskVoid ExecuteAction()
         {
+            loadingPanel.SetActive(true);
+            
             if (logCoroutine != null) StopCoroutine(logCoroutine);
 
             //SECTION A: Action execution
@@ -124,7 +134,9 @@ namespace MainMenu
 
                 Debug.LogError(errorMessage);
                 logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
-
+                
+                loadingPanel.SetActive(false);
+                
                 return;
             }
 

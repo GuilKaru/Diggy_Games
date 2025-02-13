@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_UIG_007_A (PANTALLA COINS PRIMARIA)_0: -5093739288358441636
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

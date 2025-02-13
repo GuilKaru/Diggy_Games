@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_UIG_FON_001_V1 (FONDO MAIN MENU)_0: -8313174561124007761
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
