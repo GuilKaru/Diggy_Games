@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 namespace Diggy_MiniGame_1
 {
@@ -91,21 +92,26 @@ namespace Diggy_MiniGame_1
 			Time.timeScale = 1;
 			PlayAudioGameManagerClip(0);
 			// Reload the active scene
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			StartCoroutine(SoundQueue());
+			
 		}
 
 		// Back to Main Menu Logic (placeholder, to be implemented later)
 		public void BackToMainMenu()
 		{
-			PlayAudioGameManagerClip(0);
 			SceneManager.LoadScene("MainMenu");
-			// Add logic to load the main menu scene when needed
 		}
 
 		private void ResetGameState()
 		{
 			// Placeholder for additional reset logic, if needed
 			Debug.Log("Resetting game state.");
+		}
+
+		private IEnumerator SoundQueue()
+		{
+			yield return new WaitForSeconds(0.2f);
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 
 

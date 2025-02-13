@@ -114,6 +114,7 @@ namespace Diggy_MiniGame_1
 			if (currentHearts <= 0 && !IsDead)
 			{
 				IsDead = true; // Set IsDead to true
+				_spriteRenderer.enabled = false;
 				_gameManager.GameOver();
 				_timer.ResetTimer();
 			}

@@ -9101,7 +9101,7 @@ MonoBehaviour:
   - {fileID: 639693266}
   boiler6Objects:
   - {fileID: 1091779870}
-  invincibilityToggleKey: 105
+  invincibilityToggleKey: 0
 --- !u!95 &1583556028
 Animator:
   serializedVersion: 7

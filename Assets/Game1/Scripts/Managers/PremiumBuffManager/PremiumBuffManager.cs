@@ -15,6 +15,7 @@ namespace Diggy_MiniGame_1
 		//Private Variables
 		#region Private Variables
 		private Dictionary<string, bool> _buffCooldownStates = new Dictionary<string, bool>(); // Tracks cooldown states for each buff
+		private Dictionary<string, bool> _buffUnlockedStates = new Dictionary<string, bool>();
 		private bool _isAnyBuffActive = false;
 
 
@@ -50,31 +51,96 @@ namespace Diggy_MiniGame_1
 
 		private void Start()
 		{
-			// Initialize cooldown states for all buffs
 			foreach (var buff in _buffs)
 			{
-				_buffCooldownStates[buff.buffName] = false; // No buff is on cooldown initially
+				if (!_buffUnlockedStates.ContainsKey(buff.buffName))
+				{
+					_buffUnlockedStates[buff.buffName] = false; // All buffs are initially locked
+				}
+
+				if (!_buffCooldownStates.ContainsKey(buff.buffName))
+				{
+					_buffCooldownStates[buff.buffName] = false; // No buff is on cooldown initially
+				}
+
+				if (buff.buffButton != null)
+				{
+					buff.buffButton.SetActive(false); // Hide all buff buttons initially
+				}
+			}
+			UpdateBuffButtonStates();
+		}
+
+		private void UpdateBuffButtonStates()
+		{
+			foreach (var buff in _buffs)
+			{
+				if (_buffUnlockedStates[buff.buffName])
+				{
+					buff.buffButton.SetActive(true); // Show button if buff is unlocked
+				}
+				else
+				{
+					buff.buffButton.SetActive(false); // Hide button if buff is not unlocked
+				}
 			}
 		}
 
+		public void UnlockBuff(string buffName)
+		{
+			if (_buffUnlockedStates.ContainsKey(buffName))
+			{
+				_buffUnlockedStates[buffName] = true; // Unlock the specific buff
+				Debug.Log($"Buff '{buffName}' is now unlocked!");
+				UpdateBuffButtonStates(); // Refresh button states
+			}
+			else
+			{
+				Debug.LogWarning($"Buff '{buffName}' not found!");
+			}
+		}
 
 		private void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.Alpha1))
+			if (Input.GetKeyDown(KeyCode.Y))
+			{
+				UnlockBuff("DestroyChildrenBuff"); // Unlock DestroyChildrenBuff
+			}
+			else if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
 				ActivateBuff("DestroyChildrenBuff");
+			}
+
+			if (Input.GetKeyDown(KeyCode.U))
+			{
+				UnlockBuff("SpawnRockBuff"); // Unlock SpawnRockBuff
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha2))
 			{
 				ActivateBuff("SpawnRockBuff");
 			}
+
+			if (Input.GetKeyDown(KeyCode.I))
+			{
+				UnlockBuff("ShotgunBuff"); // Unlock ShotgunBuff
+			}
 			else if (Input.GetKeyDown(KeyCode.Alpha3))
 			{
 				ActivateBuff("ShotgunBuff");
 			}
+
+			if (Input.GetKeyDown(KeyCode.O))
+			{
+				UnlockBuff("ShieldBuff"); // Unlock ShieldBuff
+			}
 			else if (Input.GetKeyDown(KeyCode.Alpha4))
 			{
 				ActivateBuff("ShieldBuff");
+			}
+
+			if (Input.GetKeyDown(KeyCode.P))
+			{
+				UnlockBuff("StopEnemiesBuff"); // Unlock StopEnemiesBuff
 			}
 			else if (Input.GetKeyDown(KeyCode.Alpha5))
 			{
@@ -100,6 +166,12 @@ namespace Diggy_MiniGame_1
 			if (buff == null)
 			{
 				Debug.LogWarning($"Buff '{buffName}' not found!");
+				return;
+			}
+
+			if (!_buffUnlockedStates[buff.buffName])
+			{
+				Debug.Log($"Buff '{buffName}' is locked. Please unlock it first.");
 				return;
 			}
 
@@ -456,29 +528,28 @@ namespace Diggy_MiniGame_1
 				{
 					activeBuff.cooldownImage.fillAmount = fillValue;
 					activeBuff.cooldownImage.gameObject.SetActive(true); // Show cooldown image for active buff
-					
 				}
 				yield return null;
 			}
 
 			_buffCooldownStates[activeBuff.buffName] = false;
 			_isAnyBuffActive = false;
+			Debug.Log($"Cooldown finished for Buff: {activeBuff.buffName}");
 
+			// Re-enable buttons for unlocked buffs only\
 			foreach (var b in _buffs)
 			{
-				if (b.buffButton != null)
-				{
-					b.buffButton.SetActive(true);
-				}
+				if (b.buffButton != null) { b.buffButton.SetActive(true); }
 				if (b.cooldownImage != null)
 				{
 					b.cooldownImage.gameObject.SetActive(true); // Re-enable cooldown images after cooldown ends
-					b.cooldownImage.fillAmount = 1f;
+					b.cooldownImage.fillAmount = 1f; 
 				}
 			}
-			Debug.Log("All buffs are now available again!");
-		}
 
+				UpdateBuffButtonStates();
+
+		}
 		#endregion
 
 		//Buff Audio
