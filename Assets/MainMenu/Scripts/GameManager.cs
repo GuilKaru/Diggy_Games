@@ -11,6 +11,7 @@ namespace MainMenu
         
         [SerializeField] private TextMeshProUGUI scoreTextFF;
         
+        [SerializeField] public BoomBuffDecrease boomBuffDecrease;
         public static GameManager instance;
 
         private void Awake()

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using MainMenu;
+
 namespace Diggy_MiniGame_1
 {
 	public class PremiumBuffManager : MonoBehaviour
@@ -54,8 +56,64 @@ namespace Diggy_MiniGame_1
 			foreach (var buff in _buffs)
 			{
 				if (!_buffUnlockedStates.ContainsKey(buff.buffName))
-				{
-					_buffUnlockedStates[buff.buffName] = false; // All buffs are initially locked
+				{ 
+					//_buffUnlockedStates[buff.buffName] = false; // All buffs are initially locked
+					if (buff.buffName == "DestroyChildrenBuff")
+					{
+						if (MainMenu.GameManager.instance.playerData.sweepBuff > 0)
+						{
+							_buffUnlockedStates[buff.buffName] = true;
+						}
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
+					}
+					else if (buff.buffName == "StopEnemiesBuff")
+					{
+						if (MainMenu.GameManager.instance.playerData.timeBuff > 0)
+						{
+							_buffUnlockedStates[buff.buffName] = true;
+						}
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
+					}
+					else if (buff.buffName == "SpawnRockBuff")
+					{
+						if (MainMenu.GameManager.instance.playerData.rockBuff > 0)
+						{
+							_buffUnlockedStates[buff.buffName] = true;
+						}
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
+					}
+					else if (buff.buffName == "ShieldBuff")
+					{
+						if (MainMenu.GameManager.instance.playerData.shieldBuff > 0)
+						{
+							_buffUnlockedStates[buff.buffName] = true;
+						}
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
+					}
+					else if (buff.buffName == "ShotgunBuff")
+					{
+						if (MainMenu.GameManager.instance.playerData.tripleBuff > 0)
+						{
+							_buffUnlockedStates[buff.buffName] = true;
+						}
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
+					}
+					
 				}
 
 				if (!_buffCooldownStates.ContainsKey(buff.buffName))
@@ -68,6 +126,7 @@ namespace Diggy_MiniGame_1
 					buff.buffButton.SetActive(false); // Hide all buff buttons initially
 				}
 			}
+			
 			UpdateBuffButtonStates();
 		}
 
@@ -90,7 +149,7 @@ namespace Diggy_MiniGame_1
 		{
 			if (_buffUnlockedStates.ContainsKey(buffName))
 			{
-				_buffUnlockedStates[buffName] = true; // Unlock the specific buff
+				_buffUnlockedStates[buffName] = !_buffUnlockedStates[buffName]; // Unlock or lock the specific buff
 				Debug.Log($"Buff '{buffName}' is now unlocked!");
 				UpdateBuffButtonStates(); // Refresh button states
 			}
@@ -102,7 +161,7 @@ namespace Diggy_MiniGame_1
 
 		private void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.Y))
+			/*if (Input.GetKeyDown(KeyCode.Y))
 			{
 				UnlockBuff("DestroyChildrenBuff"); // Unlock DestroyChildrenBuff
 			}
@@ -145,6 +204,31 @@ namespace Diggy_MiniGame_1
 			else if (Input.GetKeyDown(KeyCode.Alpha5))
 			{
 				ActivateBuff("StopEnemiesBuff");
+			}*/
+
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				ActivateBuff("DestroyChildrenBuff");
+			}
+			
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				ActivateBuff("StopEnemiesBuff");
+			}
+			
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				ActivateBuff("SpawnRockBuff");
+			}
+			
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				ActivateBuff("ShieldBuff");
+			}
+			
+			if (Input.GetKeyDown(KeyCode.Alpha1))
+			{
+				ActivateBuff("ShotgunBuff");
 			}
 		}
 		#endregion
@@ -182,6 +266,8 @@ namespace Diggy_MiniGame_1
 				return;
 			}
 
+			LowerBuffUsage(buffName);
+			
 			// Apply the buff logic
 			Debug.Log($"Activating Buff: {buff.buffName}");
 			ApplyBuffEffect(buff);
@@ -199,8 +285,7 @@ namespace Diggy_MiniGame_1
 		private void ApplyBuffEffect(BuffData buff)
 		{
 			_isAnyBuffActive = true;
-
-			_isAnyBuffActive = true;
+			
 			foreach (var b in _buffs)
 			{
 				if (b != buff)
@@ -547,7 +632,7 @@ namespace Diggy_MiniGame_1
 				}
 			}
 
-				UpdateBuffButtonStates();
+			UpdateBuffButtonStates();
 
 		}
 		#endregion
@@ -594,6 +679,79 @@ namespace Diggy_MiniGame_1
 
 
 
+		#endregion
+		
+		//Buff Usages with Backend
+		#region Buff Usages with Backend
+
+		private void LowerBuffUsage(string buffName)
+		{
+			if (buffName == "DestroyChildrenBuff")
+			{
+				
+				MainMenu.GameManager.instance.playerData.sweepBuff--;
+				
+				if (MainMenu.GameManager.instance.playerData.sweepBuff == 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buffName);
+				}
+				
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_sweep");
+			}
+			else if (buffName == "StopEnemiesBuff")
+			{
+				
+				MainMenu.GameManager.instance.playerData.timeBuff--;
+				
+				if (MainMenu.GameManager.instance.playerData.timeBuff == 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buffName);
+				}
+				
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_time");
+			}
+			else if (buffName == "SpawnRockBuff")
+			{
+				
+				MainMenu.GameManager.instance.playerData.rockBuff--;
+				
+				if (MainMenu.GameManager.instance.playerData.rockBuff == 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buffName);
+				}
+				
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_rock");
+			}
+			else if (buffName == "ShieldBuff")
+			{
+				
+				MainMenu.GameManager.instance.playerData.shieldBuff--;
+				
+				if (MainMenu.GameManager.instance.playerData.shieldBuff == 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buffName);
+				}
+				
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_shield");
+			}
+			else if (buffName == "ShotgunBuff")
+			{
+				
+				MainMenu.GameManager.instance.playerData.tripleBuff--;
+				
+				if (MainMenu.GameManager.instance.playerData.tripleBuff == 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buffName);
+				}
+				
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_triple");
+			}
+		}
 		#endregion
 	}
 

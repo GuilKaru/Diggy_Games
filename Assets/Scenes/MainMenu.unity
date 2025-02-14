@@ -1921,7 +1921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &332789316
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8883,6 +8883,7 @@ GameObject:
   - component: {fileID: 1777631047}
   - component: {fileID: 1777631050}
   - component: {fileID: 1777631048}
+  - component: {fileID: 1777631051}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8941,6 +8942,19 @@ MonoBehaviour:
   mainMenu: {fileID: 9509918}
   playerData: {fileID: 1777631048}
   scoreTextFF: {fileID: 617667776}
+  boomBuffDecrease: {fileID: 1777631051}
+--- !u!114 &1777631051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777631046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73ca4bc12d6fd7f49b3deb0248fe96eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1789386116
 GameObject:
   m_ObjectHideFlags: 0
