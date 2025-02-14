@@ -17,6 +17,7 @@ namespace MainMenu
 		[SerializeField] private GameObject _furnaceFrenzyTutorial;
 		[SerializeField] private GameObject _furnaceFrenzyLeaderBoard;
 		[SerializeField] private GameObject _furnaceFrenzyStore;
+		[SerializeField] private GameObject _loadingPanel;
 
 		[Header("Game Manager Audio")]
 		[SerializeField]
@@ -24,12 +25,25 @@ namespace MainMenu
 		[SerializeField]
 		private AudioClip[] _gameManagerClips;
 
+		[Header("Stats")] 
+		[SerializeField] private TextMeshProUGUI _username;
+		[SerializeField] private TextMeshProUGUI _diggys;
+		[SerializeField] private TextMeshProUGUI _diggyCoins;
+		[SerializeField] private TextMeshProUGUI _sweepBuff;
+		[SerializeField] private TextMeshProUGUI _timeBuff;
+		[SerializeField] private TextMeshProUGUI _rockBuff;
+		[SerializeField] private TextMeshProUGUI _shieldBuff;
+		[SerializeField] private TextMeshProUGUI _tripleBuff;
+
+		[SerializeField] private BoomUsername _boomUsername;
+
 		#endregion
 		#region Unity Methods
 
 		public void LoggedIn()
         {
             _loginMenu.SetActive(false);
+            _loadingPanel.SetActive(false);
             _usernameMenu.SetActive(true);
         }
 
@@ -51,9 +65,34 @@ namespace MainMenu
         public void NameSafe(string username)
         {
             GameManager.instance.playerData.username = username;
+            _username.text = username;
             _usernameMenu.SetActive(false);
             //_gameSelectorMenu.SetActive(true);
             _furnaceFrenzyMenu.SetActive(true);
+        }
+
+        public void CoinsSafe(double diggyCoin, float sweepBuff, float timeBuff, float rockBuff, float shieldBuff, float tripleBuff)
+        {
+	        PlayerData playerData = GameManager.instance.playerData;
+	        
+	        playerData.diggyCoins = diggyCoin;
+	        playerData.sweepBuff = sweepBuff;
+	        playerData.timeBuff = timeBuff;
+	        playerData.rockBuff = rockBuff;
+	        playerData.shieldBuff = shieldBuff;
+	        playerData.tripleBuff = tripleBuff;
+	        
+	        _diggyCoins.text = playerData.diggyCoins.ToString();
+	        _sweepBuff.text = playerData.sweepBuff.ToString();
+	        _timeBuff.text = playerData.timeBuff.ToString();
+	        _rockBuff.text = playerData.rockBuff.ToString();
+	        _shieldBuff.text = playerData.shieldBuff.ToString();
+	        _tripleBuff.text = playerData.tripleBuff.ToString();
+        }
+
+        public void UpdateStats()
+        {
+	        _boomUsername.UpdateCoins();
         }
 
         public void OpenTutorial()

@@ -12,6 +12,7 @@ namespace Boom.UI
         [SerializeField, ShowOnly] bool isEmbeddedAgent;
         [SerializeField, ShowOnly] bool noneInteractable;
         [SerializeField, ShowOnly] MainDataTypes.LoginData.State loginState;
+        [SerializeField] GameObject loadingPanel;
 
         //Register to events
         private void Awake()
@@ -52,6 +53,7 @@ namespace Boom.UI
         //Execute Login Request
         public void Handler()
         {
+            loadingPanel.SetActive(true);
             Broadcast.Invoke<UserLoginRequest>();
         }
     }

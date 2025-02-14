@@ -83,7 +83,8 @@ namespace MainMenu
             var principal = UserUtil.GetPrincipal();
             
             EntityUtil.TryGetFieldAsText(principal, "user_profile", "username", out var outVal, "None");
-
+            
+            UpdateCoins();
             UpdateUsername(outVal);
         }
 
@@ -97,6 +98,85 @@ namespace MainMenu
             {
                 GameManager.instance.mainMenu.NameSafe(value);
             }
+        }
+
+        public void UpdateCoins()
+        {
+
+            var principal = UserUtil.GetPrincipal();
+            
+            double diggyCoin;
+
+            float sweepBuff;
+            float timeBuff;
+            float rockBuff;
+            float shieldBuff;
+            float tripleBuff;
+            
+            EntityUtil.TryGetFieldAsText(principal, "diggycoin", "amount", out var diggyCoinS, "None");
+            
+            EntityUtil.TryGetFieldAsText(principal, "sweepbuff", "amount", out var sweepBuffS, "None");
+            EntityUtil.TryGetFieldAsText(principal, "timebuff", "amount", out var timeBuffS, "None");
+            EntityUtil.TryGetFieldAsText(principal, "rockbuff", "amount", out var rockBuffS, "None");
+            EntityUtil.TryGetFieldAsText(principal, "shieldbuff", "amount", out var shieldBuffS, "None");
+            EntityUtil.TryGetFieldAsText(principal, "triplebuff", "amount", out var tripleBuffS, "None");
+
+            if (diggyCoinS is "None" or null)
+            {
+                diggyCoin = 0;
+            }
+            else
+            {
+                diggyCoin = double.Parse(diggyCoinS);
+            }
+
+            if (sweepBuffS is "None" or null)
+            {
+                sweepBuff = 0;
+            }
+            else
+            {
+                sweepBuff = float.Parse(sweepBuffS);
+            }
+
+            if (timeBuffS is "None" or null)
+            {
+                timeBuff = 0;
+            }
+            else
+            {
+                timeBuff = float.Parse(timeBuffS);
+            }
+
+            if (rockBuffS is "None" or null)
+            {
+                rockBuff = 0;
+            }
+            else
+            {
+                rockBuff = float.Parse(rockBuffS);
+            }
+
+            if (shieldBuffS is "None" or null)
+            {
+                shieldBuff = 0;
+            }
+            else
+            {
+                shieldBuff = float.Parse(shieldBuffS);
+            }
+
+            if (tripleBuffS is "None" or null)
+            {
+                tripleBuff = 0;
+            }
+            else
+            {
+                tripleBuff = float.Parse(tripleBuffS);
+            }
+            
+            GameManager.instance.mainMenu.CoinsSafe(diggyCoin, sweepBuff, timeBuff, rockBuff, shieldBuff, tripleBuff);
+
         }
     }
 }
