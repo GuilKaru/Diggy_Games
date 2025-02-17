@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 2
   _destroyPositionX: -5
-  _scoreValue: 5
+  _scoreValue: 15
   _spriteRenderer: {fileID: 1324692053093229647}
   _collider: {fileID: 8631580312713727518}
   _buffAudioSource: {fileID: 7188900680094845459}

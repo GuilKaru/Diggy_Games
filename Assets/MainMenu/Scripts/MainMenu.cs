@@ -15,6 +15,7 @@ namespace MainMenu
         [SerializeField] private GameObject _gameSelectorMenu;
         [SerializeField] private GameObject _furnaceFrenzyMenu;
 		[SerializeField] private GameObject _furnaceFrenzyTutorial;
+		[SerializeField] private GameObject[] _tutorialImages;
 		[SerializeField] private GameObject _furnaceFrenzyLeaderBoard;
 		[SerializeField] private GameObject _furnaceFrenzyStore;
 		[SerializeField] private GameObject _loadingPanel;
@@ -36,6 +37,8 @@ namespace MainMenu
 		[SerializeField] private TextMeshProUGUI _tripleBuff;
 
 		[SerializeField] private BoomUsername _boomUsername;
+
+		private int _currentTutorialIndex = 0;
 
 		#endregion
 		#region Unity Methods
@@ -95,23 +98,48 @@ namespace MainMenu
 	        _boomUsername.UpdateCoins();
         }
 
-        public void OpenTutorial()
-        {
+		public void OpenTutorial()
+		{
 			_furnaceFrenzyTutorial.SetActive(true);
-            PlayAudioMainMenuClip(0);
+			_currentTutorialIndex = 0; // Reset to the first tutorial page
+			UpdateTutorialView();
+			PlayAudioMainMenuClip(0);
 		}
 
 		public void CloseTutorial()
 		{
 			_furnaceFrenzyTutorial.SetActive(false);
+			_currentTutorialIndex = 0; // Ensure first image is shown next time
+			UpdateTutorialView();
 			PlayAudioMainMenuClip(0);
 		}
 
-		public void OpenLeaderBoard()
+		public void NextTutorial()
 		{
-			_furnaceFrenzyLeaderBoard.SetActive(true);
-			PlayAudioMainMenuClip(0);
+			if (_currentTutorialIndex < _tutorialImages.Length - 1)
+			{
+				_currentTutorialIndex++;
+				UpdateTutorialView();
+				PlayAudioMainMenuClip(0);
+			}
+		}
 
+		public void PreviousTutorial()
+		{
+			if (_currentTutorialIndex > 0)
+			{
+				_currentTutorialIndex--;
+				PlayAudioMainMenuClip(0);
+				UpdateTutorialView();
+			}
+		}
+
+		private void UpdateTutorialView()
+		{
+			for (int i = 0; i < _tutorialImages.Length; i++)
+			{
+				_tutorialImages[i].SetActive(i == _currentTutorialIndex);
+			}
 		}
 
 		public void CloseLeaderBoard()
