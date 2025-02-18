@@ -95,7 +95,7 @@ namespace MainMenu
 	        playerData.shieldBuffI = Convert.ToInt32(shieldBuff);
 	        playerData.tripleBuffI = Convert.ToInt32(tripleBuff);
 	        
-	        _diggyCoins.text = playerData.diggyCoins;
+	        _diggyCoins.text = diggyCoin.ToString();
 	        _sweepBuff.text = playerData.sweepBuffI.ToString();
 	        _timeBuff.text = playerData.timeBuffI.ToString();
 	        _rockBuff.text = playerData.rockBuffI.ToString();
