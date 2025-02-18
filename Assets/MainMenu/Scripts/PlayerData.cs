@@ -5,15 +5,15 @@ namespace MainMenu
     public class PlayerData : MonoBehaviour
     {
         [SerializeField] public string username;
-        [SerializeField] public double diggys;
-        [SerializeField] public double diggyCoins;
+        [SerializeField] public string diggys;
+        [SerializeField] public string diggyCoins;
         [SerializeField] public int furnaceFrenzyMaxScore;
 
-        [SerializeField] public float sweepBuff;
-        [SerializeField] public float timeBuff;
-        [SerializeField] public float rockBuff;
-        [SerializeField] public float shieldBuff;
-        [SerializeField] public float tripleBuff;
+        [SerializeField] public string sweepBuff;
+        [SerializeField] public string timeBuff;
+        [SerializeField] public string rockBuff;
+        [SerializeField] public string shieldBuff;
+        [SerializeField] public string tripleBuff;
         
         
     }

@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using MainMenu;
 using UnityEngine.SceneManagement;
+
 namespace Diggy_MiniGame_1
 {
 	public class GameManager : MonoBehaviour
@@ -99,7 +101,7 @@ namespace Diggy_MiniGame_1
 		// Back to Main Menu Logic (placeholder, to be implemented later)
 		public void BackToMainMenu()
 		{
-			SceneManager.LoadScene("MainMenu");
+			MainMenu.GameManager.instance.sceneController.BackToMenu("Game1");
 		}
 
 		private void ResetGameState()
@@ -111,7 +113,7 @@ namespace Diggy_MiniGame_1
 		private IEnumerator SoundQueue()
 		{
 			yield return new WaitForSeconds(0.2f);
-			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+			//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
 
 

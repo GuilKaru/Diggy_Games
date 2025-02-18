@@ -213,8 +213,8 @@ namespace MainMenu
             }
 
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
-
-            logCoroutine = StartCoroutine(DisplayTempLog(message));
+            loadingPanel.SetActive(false);
+            //logCoroutine = StartCoroutine(DisplayTempLog(message));
         }
 
         #endregion
@@ -229,7 +229,7 @@ namespace MainMenu
             
             yield return new WaitForSeconds(duration);
             
-            loadingPanel.SetActive(false);
+            
             
             Debug.Log("...");
             //actionLogText.text = "...";

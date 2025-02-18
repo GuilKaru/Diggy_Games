@@ -884,7 +884,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca5262b3f9bb9443bbdac54e52ae44d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  diggyCoinPayment: {fileID: 227305761}
   loadingPanel: {fileID: 2073639195}
+  actionButtonx1: {fileID: 956143284}
+  actionButtonx5: {fileID: 659407212}
+  actionButtonx10: {fileID: 1423360655}
+  actionButtonx20: {fileID: 1923276810}
 --- !u!114 &227305760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -916,10 +921,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   diggyCoinEntity: {fileID: 227305759}
-  actionButtonx1: {fileID: 956143284}
-  actionButtonx5: {fileID: 659407212}
-  actionButtonx10: {fileID: 1423360655}
-  actionButtonx20: {fileID: 1923276810}
   loadingPanel: {fileID: 2073639195}
 --- !u!1 &232144066
 GameObject:
@@ -1931,7 +1932,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &332789316
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10485,6 +10486,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1777631047}
+  - {fileID: 2136162681}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1660816052
@@ -11092,6 +11094,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _usernameInputField: {fileID: 2106388802}
   actionButton: {fileID: 474460663}
+  diggyCoinPayment: {fileID: 227305761}
   actionId: set_username
 --- !u!1 &1768603901
 GameObject:
@@ -11290,14 +11293,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   username: 
-  diggys: 0
-  diggyCoins: 0
+  diggys: 
+  diggyCoins: 
   furnaceFrenzyMaxScore: 0
-  sweepBuff: 0
-  timeBuff: 0
-  rockBuff: 0
-  shieldBuff: 0
-  tripleBuff: 0
+  sweepBuff: 
+  timeBuff: 
+  rockBuff: 
+  shieldBuff: 
+  tripleBuff: 
 --- !u!114 &1777631050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11314,6 +11317,10 @@ MonoBehaviour:
   playerData: {fileID: 1777631048}
   scoreTextFF: {fileID: 617667776}
   boomBuffDecrease: {fileID: 1777631051}
+  sceneController: {fileID: 2136162682}
+  boomUsername: {fileID: 1747019943}
+  gamesObject: {fileID: 41061991}
+  cameraAndLightObject: {fileID: 1444910851}
 --- !u!114 &1777631051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14324,6 +14331,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2136162680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2136162681}
+  - component: {fileID: 2136162682}
+  m_Layer: 0
+  m_Name: SceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2136162681
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136162680}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1615918178}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2136162682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136162680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7414a09b71b19514ea98857086cfd236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingScreen: {fileID: 2073639195}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

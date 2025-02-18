@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -60,7 +61,7 @@ namespace Diggy_MiniGame_1
 					//_buffUnlockedStates[buff.buffName] = false; // All buffs are initially locked
 					if (buff.buffName == "DestroyChildrenBuff")
 					{
-						if (MainMenu.GameManager.instance.playerData.sweepBuff > 0)
+						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.sweepBuff) > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -71,7 +72,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "StopEnemiesBuff")
 					{
-						if (MainMenu.GameManager.instance.playerData.timeBuff > 0)
+						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.timeBuff) > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -82,7 +83,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "SpawnRockBuff")
 					{
-						if (MainMenu.GameManager.instance.playerData.rockBuff > 0)
+						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.rockBuff) > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -93,7 +94,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "ShieldBuff")
 					{
-						if (MainMenu.GameManager.instance.playerData.shieldBuff > 0)
+						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.shieldBuff) > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -104,7 +105,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "ShotgunBuff")
 					{
-						if (MainMenu.GameManager.instance.playerData.tripleBuff > 0)
+						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.tripleBuff) > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -688,67 +689,47 @@ namespace Diggy_MiniGame_1
 		{
 			if (buffName == "DestroyChildrenBuff")
 			{
-				
-				MainMenu.GameManager.instance.playerData.sweepBuff--;
-				
-				if (MainMenu.GameManager.instance.playerData.sweepBuff == 0)
+				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.sweepBuff) - 1 == 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
 				}
-				
 				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_sweep");
 			}
 			else if (buffName == "StopEnemiesBuff")
 			{
-				
-				MainMenu.GameManager.instance.playerData.timeBuff--;
-				
-				if (MainMenu.GameManager.instance.playerData.timeBuff == 0)
+				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.timeBuff) - 1 == 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
 				}
-				
 				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_time");
 			}
 			else if (buffName == "SpawnRockBuff")
 			{
-				
-				MainMenu.GameManager.instance.playerData.rockBuff--;
-				
-				if (MainMenu.GameManager.instance.playerData.rockBuff == 0)
+				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.rockBuff) - 1 == 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
 				}
-				
 				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_rock");
 			}
 			else if (buffName == "ShieldBuff")
 			{
-				
-				MainMenu.GameManager.instance.playerData.shieldBuff--;
-				
-				if (MainMenu.GameManager.instance.playerData.shieldBuff == 0)
+				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.shieldBuff) - 1 == 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
 				}
-				
 				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_shield");
 			}
 			else if (buffName == "ShotgunBuff")
 			{
-				
-				MainMenu.GameManager.instance.playerData.tripleBuff--;
-				
-				if (MainMenu.GameManager.instance.playerData.tripleBuff == 0)
+				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.tripleBuff) - 1 == 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
 				}
-				
 				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_triple");
 			}
 		}

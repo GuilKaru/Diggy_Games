@@ -1,3 +1,4 @@
+using System;
 using Boom;
 using UnityEngine;
 using System.Collections;
@@ -28,7 +29,7 @@ namespace MainMenu
 
 		[Header("Stats")] 
 		[SerializeField] private TextMeshProUGUI _username;
-		[SerializeField] private TextMeshProUGUI _diggys;
+		[SerializeField] public TextMeshProUGUI _diggys;
 		[SerializeField] private TextMeshProUGUI _diggyCoins;
 		[SerializeField] private TextMeshProUGUI _sweepBuff;
 		[SerializeField] private TextMeshProUGUI _timeBuff;
@@ -74,23 +75,39 @@ namespace MainMenu
             _furnaceFrenzyMenu.SetActive(true);
         }
 
-        public void CoinsSafe(double diggyCoin, float sweepBuff, float timeBuff, float rockBuff, float shieldBuff, float tripleBuff)
+        public void CoinsSafe(string diggyCoin, string sweepBuff, string timeBuff, string rockBuff, string shieldBuff, string tripleBuff)
         {
 	        PlayerData playerData = GameManager.instance.playerData;
 	        
 	        playerData.diggyCoins = diggyCoin;
+	        
 	        playerData.sweepBuff = sweepBuff;
 	        playerData.timeBuff = timeBuff;
 	        playerData.rockBuff = rockBuff;
 	        playerData.shieldBuff = shieldBuff;
 	        playerData.tripleBuff = tripleBuff;
+
+	        double diggyCoinD = Convert.ToDouble(diggyCoin);
+	        double sweepBuffD = Convert.ToDouble(sweepBuff);
+	        double timeBuffD = Convert.ToDouble(timeBuff);
+	        double rockBuffD = Convert.ToDouble(rockBuff);
+	        double shieldBuffD = Convert.ToDouble(shieldBuff);
+	        double tripleBuffD = Convert.ToDouble(tripleBuff);
+
+	        playerData.diggyCoins = diggyCoinD.ToString("0.0");
 	        
-	        _diggyCoins.text = playerData.diggyCoins.ToString();
-	        _sweepBuff.text = playerData.sweepBuff.ToString();
-	        _timeBuff.text = playerData.timeBuff.ToString();
-	        _rockBuff.text = playerData.rockBuff.ToString();
-	        _shieldBuff.text = playerData.shieldBuff.ToString();
-	        _tripleBuff.text = playerData.tripleBuff.ToString();
+	        int sweepBuffI = Convert.ToInt32(sweepBuffD);
+	        int timeBuffI = Convert.ToInt32(timeBuffD);
+	        int rockBuffI = Convert.ToInt32(rockBuffD);
+	        int shieldBuffI = Convert.ToInt32(shieldBuffD);
+	        int tripleBuffI = Convert.ToInt32(tripleBuffD);
+	        
+	        _diggyCoins.text = playerData.diggyCoins;
+	        _sweepBuff.text = sweepBuffI.ToString();
+	        _timeBuff.text = timeBuffI.ToString();
+	        _rockBuff.text = rockBuffI.ToString();
+	        _shieldBuff.text = shieldBuffI.ToString();
+	        _tripleBuff.text = tripleBuffI.ToString();
         }
 
         public void UpdateStats()
@@ -162,16 +179,11 @@ namespace MainMenu
 
 		public void PlayGame()
 		{
+			_loadingPanel.SetActive(true);
+			GameManager.instance.sceneController.PlayGameFF();
 			PlayAudioMainMenuClip(0);
-			StartCoroutine(SoundQueue());
 		}
-
-		private IEnumerator SoundQueue()
-		{
-			yield return new WaitForSeconds(0.2f);
-			SceneManager.LoadScene(0);
-		}
-
+		
 		private void PlayAudioMainMenuClip(int clipIndex)
 		{
 			if (clipIndex >= 0 && clipIndex < _gameManagerClips.Length)

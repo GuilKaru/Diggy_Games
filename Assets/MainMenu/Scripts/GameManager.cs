@@ -12,6 +12,14 @@ namespace MainMenu
         [SerializeField] private TextMeshProUGUI scoreTextFF;
         
         [SerializeField] public BoomBuffDecrease boomBuffDecrease;
+        
+        [SerializeField] public SceneController sceneController;
+        [SerializeField] public BoomUsername boomUsername;
+        
+        [Header("Main Menu Objects")]
+        [SerializeField] GameObject gamesObject;
+        [SerializeField] GameObject cameraAndLightObject;
+        
         public static GameManager instance;
 
         private void Awake()
@@ -42,6 +50,12 @@ namespace MainMenu
             playerData.furnaceFrenzyMaxScore = int.Parse(score);
 
             scoreTextFF.text = "Max Score: " + score;
+        }
+
+        public void ActivateMainMenu(bool activate)
+        {
+            gamesObject.SetActive(activate);
+            cameraAndLightObject.SetActive(activate);
         }
     }
 }

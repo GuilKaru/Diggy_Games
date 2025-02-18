@@ -16,26 +16,17 @@ namespace MainMenu
         [SerializeField] DiggyCoinEntity diggyCoinEntity;
         #region FIELDS
 
-        //This is the text that display inventory.
-        //[SerializeField] TMP_Text inventoryText;
-        //This is the text that display the action return value (Outcomes or an error).
-        //[SerializeField] TMP_Text actionLogText;
-        //This is the button that triggers the action "add_gem"
-        [SerializeField] Button actionButtonx1;
-        [SerializeField] Button actionButtonx5;
-        [SerializeField] Button actionButtonx10;
-        [SerializeField] Button actionButtonx20;
-
         //This is the a coroutine cache from displaying the logs. It is used to stop it when required.
         private Coroutine logCoroutine;
 
         //The action ID
         string actionId = "buy_coin_diggy";
         string diggyId = "diggy_for_entity_x1";
-        readonly string diggyIdx1 = "diggy_for_entity_x1";
-        readonly string diggyIdx5 = "diggy_for_entity_x5";
-        readonly string diggyIdx10 = "diggy_for_entity_x10";
-        readonly string diggyIdx20 = "diggy_for_entity_x20";
+        
+        readonly string decreasedcx1 = "decrease_dc_x1";
+        readonly string decreasedcx5 = "decrease_dc_x5";
+        readonly string decreasedcx10 = "decrease_dc_x10";
+        readonly string decreasedcx20 = "decrease_dc_x20";
 
         //string[] entitiesToDisplayOnTheInventory = new string[1] { "coin" };
 
@@ -48,47 +39,6 @@ namespace MainMenu
 
 
         #region MONO
-        private void Awake()
-        {
-            //This is to clear out any unwanted listener
-            actionButtonx1.onClick.RemoveAllListeners();
-            actionButtonx5.onClick.RemoveAllListeners();
-            actionButtonx10.onClick.RemoveAllListeners();
-            actionButtonx20.onClick.RemoveAllListeners();
-
-            //Register to action button click
-            actionButtonx1.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx1));
-            actionButtonx5.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx5));
-            actionButtonx10.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx10));
-            actionButtonx20.onClick.AddListener(() => ActionButtonClickHandler(actionId, diggyIdx20));
-
-            //We register LoginDataChangeHandler to MainDataTypes.LoginData change event to initialize userNameInputField with the user's username
-            //UserUtil.AddListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
-
-            //We register EntiyDataChangeHandler to the user's DataTypes.Entity change event to update inventoryText with the user's entities
-            //UserUtil.AddListenerDataChangeSelf<DataTypes.Entity>(EntiyDataChangeHandler);
-
-            //We register TokenDataChangeHandler to the user's DataTypes.Token change event to update userBalances field with the user's balance
-            //UserUtil.AddListenerDataChangeSelf<DataTypes.Token>(TokenDataChangeHandler);
-        }
-
-        private void OnDestroy()
-        {
-            //Unregister to action button click
-            actionButtonx1.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx1));
-            actionButtonx5.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx5));
-            actionButtonx10.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx10));
-            actionButtonx20.onClick.RemoveListener(() => ActionButtonClickHandler(actionId, diggyIdx20));
-
-            //We unregister from MainDataTypes.LoginData change event
-            //UserUtil.RemoveListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
-
-            //We unregister from DataTypes.Entity change event
-            //UserUtil.RemoveListenerDataChangeSelf<DataTypes.Entity>(EntiyDataChangeHandler);
-
-            //We unregister from DataTypes.Token change event
-            //UserUtil.RemoveListenerDataChangeSelf<DataTypes.Token>(TokenDataChangeHandler);
-        }
 
         private void OnEnable()
         {
@@ -101,10 +51,9 @@ namespace MainMenu
         #region ACTION
         
         //This function is just a wrapper so that we can register "ExecuteAction" function on the Action Button's onClick event
-        private void ActionButtonClickHandler(string newActionId, string newEntityId)
+        public void ActionButtonClickHandler(string newActionId)
         {
             actionId = newActionId;
-            diggyId = newEntityId;
             //Forget() is included as we dont care awaiting for the result
             ExecuteAction().Forget();
         }
@@ -134,8 +83,23 @@ namespace MainMenu
 
                 Debug.LogError(errorMessage);
                 logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
-                
-                loadingPanel.SetActive(false);
+
+                if (actionId == "buy_coin_diggy")
+                {
+                    diggyCoinEntity.ActionButtonClickHandler(decreasedcx1, "x1");
+                }
+                else if (actionId == "buy_coin_diggy_x5")
+                {
+                    diggyCoinEntity.ActionButtonClickHandler(decreasedcx5, "x5");
+                }
+                else if (actionId == "buy_coin_diggy_x10")
+                {
+                    diggyCoinEntity.ActionButtonClickHandler(decreasedcx10, "x10");
+                }
+                else if (actionId == "buy_coin_diggy_x20")
+                {
+                    diggyCoinEntity.ActionButtonClickHandler(decreasedcx20, "x20");
+                }
                 
                 return;
             }
@@ -202,19 +166,18 @@ namespace MainMenu
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
 
             logCoroutine = StartCoroutine(DisplayTempLog(message));
-            
-            diggyCoinEntity.ActionButtonClickHandler(diggyId);
         }
 
         #endregion
 
 
         #region LOG
-        IEnumerator DisplayTempLog(string message, float duration = 5f)
+        IEnumerator DisplayTempLog(string message, float duration = 2.5f)
         {
             //actionLogText.text = message;
             Debug.Log(message);
             yield return new WaitForSeconds(duration);
+            loadingPanel.SetActive(false);
            // actionLogText.text = "...";
            Debug.Log($"...");
         }
@@ -223,10 +186,10 @@ namespace MainMenu
 
         #region USER DATA
 
-        /*private void LoginDataChangeHandler(MainDataTypes.LoginData data)
+        public void LoginDataChangeHandler()
         {
             //If user is not logged in, return
-            if (data.state != MainDataTypes.LoginData.State.LoggedIn) return;
+            //if (data.state != MainDataTypes.LoginData.State.LoggedIn) return;
 
             //Update Inventory UI with Entities
             var allUserDataResult = UserUtil.GetAllDataSelf();
@@ -239,33 +202,40 @@ namespace MainMenu
 
             var allUserDataAsOk = allUserDataResult.AsOk();
 
-            EntiyDataChangeHandler(allUserDataAsOk.entityData);
+            //EntiyDataChangeHandler(allUserDataAsOk.entityData);
             TokenDataChangeHandler(allUserDataAsOk.tokenData);
         }
 
         private void TokenDataChangeHandler(Data<DataTypes.Token> data)
         {
             //Update action button
+            string diggyBalance = "0";
 
-            actionButton.interactable = ActionUtil.ValidateConstraint(actionId);
-
+            //actionButton.interactable = ActionUtil.ValidateConstraint(actionId);
             userBalance = data.elements.Reduce(e =>
             {
                 var balance = e.Value;
-
+                
                 if (balance.TryGetTokenConfig(out var tokenConfig) == false)
                 {
                     $"Could not find config for token canister ID: {balance.canisterId}".Warning(typeof(DiggyCoinPayment).Name);
                     return "";
                 }
 
-                return $"> {tokenConfig.symbol}: {TokenUtil.ConvertToDecimal(balance.baseUnitAmount, tokenConfig.decimals)}";
+                if (balance.canisterId == "dfg2l-2yaaa-aaaap-akpsa-cai")
+                {
+                    diggyBalance = $"{TokenUtil.ConvertToDecimal(balance.baseUnitAmount, tokenConfig.decimals)}";
+                    return  $"{TokenUtil.ConvertToDecimal(balance.baseUnitAmount, tokenConfig.decimals)}";
+                }
 
-            },"\n");
+                return null;
+            });
 
-            UpdateInventoryText();
+            GameManager.instance.playerData.diggys = diggyBalance;
+            GameManager.instance.mainMenu._diggys.text = diggyBalance;
+            //UpdateInventoryText();
         }
-
+        /*
         private void EntiyDataChangeHandler(Data<DataTypes.Entity> data)
         {
             //Update Inventory
