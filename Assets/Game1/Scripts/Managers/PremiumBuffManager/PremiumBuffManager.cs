@@ -61,7 +61,7 @@ namespace Diggy_MiniGame_1
 					//_buffUnlockedStates[buff.buffName] = false; // All buffs are initially locked
 					if (buff.buffName == "DestroyChildrenBuff")
 					{
-						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.sweepBuff) > 0)
+						if (MainMenu.GameManager.instance.playerData.sweepBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -72,7 +72,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "StopEnemiesBuff")
 					{
-						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.timeBuff) > 0)
+						if (MainMenu.GameManager.instance.playerData.timeBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -83,7 +83,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "SpawnRockBuff")
 					{
-						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.rockBuff) > 0)
+						if (MainMenu.GameManager.instance.playerData.rockBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -94,7 +94,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "ShieldBuff")
 					{
-						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.shieldBuff) > 0)
+						if (MainMenu.GameManager.instance.playerData.shieldBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -105,7 +105,7 @@ namespace Diggy_MiniGame_1
 					}
 					else if (buff.buffName == "ShotgunBuff")
 					{
-						if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.tripleBuff) > 0)
+						if (MainMenu.GameManager.instance.playerData.tripleBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
@@ -689,7 +689,7 @@ namespace Diggy_MiniGame_1
 		{
 			if (buffName == "DestroyChildrenBuff")
 			{
-				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.sweepBuff) - 1 == 0)
+				if ((MainMenu.GameManager.instance.playerData.sweepBuffI - 1) <= 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
@@ -698,7 +698,7 @@ namespace Diggy_MiniGame_1
 			}
 			else if (buffName == "StopEnemiesBuff")
 			{
-				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.timeBuff) - 1 == 0)
+				if ((MainMenu.GameManager.instance.playerData.timeBuffI - 1) <= 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
@@ -707,7 +707,7 @@ namespace Diggy_MiniGame_1
 			}
 			else if (buffName == "SpawnRockBuff")
 			{
-				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.rockBuff) - 1 == 0)
+				if ((MainMenu.GameManager.instance.playerData.rockBuffI - 1) <= 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
@@ -716,7 +716,7 @@ namespace Diggy_MiniGame_1
 			}
 			else if (buffName == "ShieldBuff")
 			{
-				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.shieldBuff) - 1 == 0)
+				if ((MainMenu.GameManager.instance.playerData.shieldBuffI - 1) <= 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);
@@ -725,7 +725,7 @@ namespace Diggy_MiniGame_1
 			}
 			else if (buffName == "ShotgunBuff")
 			{
-				if (Convert.ToDouble(MainMenu.GameManager.instance.playerData.tripleBuff) - 1 == 0)
+				if ((MainMenu.GameManager.instance.playerData.tripleBuffI - 1) <= 0)
 				{
 					//Logic to block sweepBuff
 					UnlockBuff(buffName);

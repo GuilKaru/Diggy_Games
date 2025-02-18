@@ -165,6 +165,7 @@ namespace MainMenu
 
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
 
+            loadingPanel.SetActive(false);
             logCoroutine = StartCoroutine(DisplayTempLog(message));
         }
 
@@ -177,7 +178,6 @@ namespace MainMenu
             //actionLogText.text = message;
             Debug.Log(message);
             yield return new WaitForSeconds(duration);
-            loadingPanel.SetActive(false);
            // actionLogText.text = "...";
            Debug.Log($"...");
         }

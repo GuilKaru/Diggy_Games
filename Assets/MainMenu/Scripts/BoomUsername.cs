@@ -106,77 +106,77 @@ namespace MainMenu
             diggyCoinPayment.LoginDataChangeHandler();
             var principal = UserUtil.GetPrincipal();
             
-            /*float diggyCoin;
-
-            float sweepBuff;
-            float timeBuff;
-            float rockBuff;
-            float shieldBuff;
-            float tripleBuff;*/
+            EntityUtil.TryGetFieldAsDouble(principal, "diggycoin", "amount", out var diggyCoinD, 0);
             
-            EntityUtil.TryGetFieldAsText(principal, "diggycoin", "amount", out var diggyCoinS, "None");
+            EntityUtil.TryGetFieldAsDouble(principal, "sweepbuff", "amount", out var sweepBuffD, 0);
+            EntityUtil.TryGetFieldAsDouble(principal, "timebuff", "amount", out var timeBuffD, 0);
+            EntityUtil.TryGetFieldAsDouble(principal, "rockbuff", "amount", out var rockBuffD, 0);
+            EntityUtil.TryGetFieldAsDouble(principal, "shieldbuff", "amount", out var shieldBuffD, 0);
+            EntityUtil.TryGetFieldAsDouble(principal, "triplebuff", "amount", out var tripleBuffD, 0);
+            
+            /*EntityUtil.TryGetFieldAsText(principal, "diggycoin", "amount", out var diggyCoinS, "None");
             
             EntityUtil.TryGetFieldAsText(principal, "sweepbuff", "amount", out var sweepBuffS, "None");
             EntityUtil.TryGetFieldAsText(principal, "timebuff", "amount", out var timeBuffS, "None");
             EntityUtil.TryGetFieldAsText(principal, "rockbuff", "amount", out var rockBuffS, "None");
             EntityUtil.TryGetFieldAsText(principal, "shieldbuff", "amount", out var shieldBuffS, "None");
-            EntityUtil.TryGetFieldAsText(principal, "triplebuff", "amount", out var tripleBuffS, "None");
-
-            if (diggyCoinS is "None" or null)
+            EntityUtil.TryGetFieldAsText(principal, "triplebuff", "amount", out var tripleBuffS, "None");*/
+            
+            /*if (diggyCoinS is "None" or null)
             {
                 diggyCoinS = "0";
             }
-            /*else
+            else
             {
                 diggyCoin = float.TryParse(diggyCoinS, out diggyCoin) ? diggyCoin : 0;
-            }*/
+            }
 
             if (sweepBuffS is "None" or null)
             {
                 sweepBuffS = "0";
             }
-            /*else
+            else
             {
                 sweepBuff = float.TryParse(sweepBuffS, out sweepBuff) ? sweepBuff : 0;
-            }*/
+            }
 
             if (timeBuffS is "None" or null)
             {
                 timeBuffS = "0";
             }
-            /*else
+            else
             {
                 timeBuff = float.TryParse(timeBuffS, out timeBuff) ? timeBuff : 0;
-            }*/
+            }
 
             if (rockBuffS is "None" or null)
             {
                 rockBuffS = "0";
             }
-            /*else
+            else
             {
                 rockBuff = float.TryParse(rockBuffS, out rockBuff) ? rockBuff : 0;
-            }*/
+            }
 
             if (shieldBuffS is "None" or null)
             {
                 shieldBuffS = "0";
             }
-            /*else
+            else
             {
                 shieldBuff = float.TryParse(shieldBuffS, out shieldBuff) ? shieldBuff : 0;
-            }*/
+            }
 
             if (tripleBuffS is "None" or null)
             {
                 tripleBuffS = "0";
             }
-            /*else
+            else
             {
                 tripleBuff = float.TryParse(tripleBuffS, out tripleBuff) ? tripleBuff : 0;
             }*/
             
-            GameManager.instance.mainMenu.CoinsSafe(diggyCoinS, sweepBuffS, timeBuffS, rockBuffS, shieldBuffS, tripleBuffS);
+            GameManager.instance.mainMenu.CoinsSafe(diggyCoinD, sweepBuffD, timeBuffD, rockBuffD, shieldBuffD, tripleBuffD);
 
         }
     }

@@ -75,39 +75,32 @@ namespace MainMenu
             _furnaceFrenzyMenu.SetActive(true);
         }
 
-        public void CoinsSafe(string diggyCoin, string sweepBuff, string timeBuff, string rockBuff, string shieldBuff, string tripleBuff)
+        public void CoinsSafe(double diggyCoin, double sweepBuff, double timeBuff, double rockBuff, double shieldBuff, double tripleBuff)
         {
 	        PlayerData playerData = GameManager.instance.playerData;
 	        
-	        playerData.diggyCoins = diggyCoin;
+	        //playerData.diggyCoins = diggyCoin.ToString();
 	        
-	        playerData.sweepBuff = sweepBuff;
-	        playerData.timeBuff = timeBuff;
-	        playerData.rockBuff = rockBuff;
-	        playerData.shieldBuff = shieldBuff;
-	        playerData.tripleBuff = tripleBuff;
+	        playerData.sweepBuff = sweepBuff.ToString("0.0");
+	        playerData.timeBuff = timeBuff.ToString("0.0");
+	        playerData.rockBuff = rockBuff.ToString("0.0");
+	        playerData.shieldBuff = shieldBuff.ToString("0.0");
+	        playerData.tripleBuff = tripleBuff.ToString("0.0");
 
-	        double diggyCoinD = Convert.ToDouble(diggyCoin);
-	        double sweepBuffD = Convert.ToDouble(sweepBuff);
-	        double timeBuffD = Convert.ToDouble(timeBuff);
-	        double rockBuffD = Convert.ToDouble(rockBuff);
-	        double shieldBuffD = Convert.ToDouble(shieldBuff);
-	        double tripleBuffD = Convert.ToDouble(tripleBuff);
-
-	        playerData.diggyCoins = diggyCoinD.ToString("0.0");
+	        playerData.diggyCoins = diggyCoin.ToString("0.0");
 	        
-	        int sweepBuffI = Convert.ToInt32(sweepBuffD);
-	        int timeBuffI = Convert.ToInt32(timeBuffD);
-	        int rockBuffI = Convert.ToInt32(rockBuffD);
-	        int shieldBuffI = Convert.ToInt32(shieldBuffD);
-	        int tripleBuffI = Convert.ToInt32(tripleBuffD);
+	        playerData.sweepBuffI = Convert.ToInt32(sweepBuff);
+	        playerData.timeBuffI = Convert.ToInt32(timeBuff);
+	        playerData.rockBuffI = Convert.ToInt32(rockBuff);
+	        playerData.shieldBuffI = Convert.ToInt32(shieldBuff);
+	        playerData.tripleBuffI = Convert.ToInt32(tripleBuff);
 	        
 	        _diggyCoins.text = playerData.diggyCoins;
-	        _sweepBuff.text = sweepBuffI.ToString();
-	        _timeBuff.text = timeBuffI.ToString();
-	        _rockBuff.text = rockBuffI.ToString();
-	        _shieldBuff.text = shieldBuffI.ToString();
-	        _tripleBuff.text = tripleBuffI.ToString();
+	        _sweepBuff.text = playerData.sweepBuffI.ToString();
+	        _timeBuff.text = playerData.timeBuffI.ToString();
+	        _rockBuff.text = playerData.rockBuffI.ToString();
+	        _shieldBuff.text = playerData.shieldBuffI.ToString();
+	        _tripleBuff.text = playerData.tripleBuffI.ToString();
         }
 
         public void UpdateStats()

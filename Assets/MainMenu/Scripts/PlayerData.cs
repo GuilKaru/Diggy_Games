@@ -14,7 +14,11 @@ namespace MainMenu
         [SerializeField] public string rockBuff;
         [SerializeField] public string shieldBuff;
         [SerializeField] public string tripleBuff;
-        
-        
+
+        [SerializeField] public int sweepBuffI;
+        [SerializeField] public int timeBuffI;
+        [SerializeField] public int rockBuffI;
+        [SerializeField] public int shieldBuffI;
+        [SerializeField] public int tripleBuffI;
     }
 }
