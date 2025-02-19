@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -743,6 +744,7 @@ namespace Diggy_MiniGame_1
 		public GameObject targetGameObject; // The GameObject affected by the buff
 		public float cooldownTime; // Cooldown time for the buff
 		public Image cooldownImage;
+		public TextMeshProUGUI textMeshProUGUI;
 		public GameObject buffButton;
 		
 	}
