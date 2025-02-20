@@ -290,6 +290,7 @@ namespace Diggy_MiniGame_1
 		{
 			Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
 			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, _bulletRotation, _shovelParent);
+			bullet.GetComponent<Collider2D>().enabled = true;
 			PlayAudioShovelClip(0);
 			Shovel bulletController = bullet.GetComponent<Shovel>();
 			if (bulletController != null)
@@ -306,6 +307,7 @@ namespace Diggy_MiniGame_1
 				Quaternion spreadRotation = Quaternion.Euler(0, 0, spread);
 				Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
 				GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, spreadRotation * _bulletRotation, _shovelParent);
+				bullet.GetComponent<Collider2D>().enabled = true;
 				PlayAudioShovelShotgunClip(0);
 				Shovel bulletController = bullet.GetComponent<Shovel>();
 				if (bulletController != null)
