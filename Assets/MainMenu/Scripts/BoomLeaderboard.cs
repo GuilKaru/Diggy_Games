@@ -1,0 +1,185 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Boom;
+using Boom.Utility;
+using Boom.Values;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+using Newtonsoft.Json;
+using Boom.Tutorials;
+
+namespace MainMenu
+{
+    public class BoomLeaderboard : MonoBehaviour
+    {
+        public class LBEntry
+        {
+            public string Username {get; set;}
+            public double Score {get; set;}
+            public string Principal {get; set;}
+
+            public LBEntry(string username, int score, string principal)
+            {
+                Username = username;
+                Score = score;
+                Principal = principal;
+            }
+        }
+
+        private List<LBEntry> LBEntries = new List<LBEntry>();
+        
+        string actionMode;
+        
+        //[SerializeField] TMP_Text content;
+
+        /*private void Awake()
+        {
+            UserUtil.AddListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler, new() { invokeOnRegistration = true });
+            //UpdateLeaderboard();
+            //addButton.onClick.AddListener(SetLeaderboardEntry);
+            
+        }*/
+
+        private void OnDestroy()
+        {
+            UserUtil.RemoveListenerMainDataChange<MainDataTypes.LoginData>(LoginDataChangeHandler);
+
+        }
+
+        private void LoginDataChangeHandler(MainDataTypes.LoginData data)
+        {
+            if (data.state == MainDataTypes.LoginData.State.LoggedIn)
+            {
+                UpdateLeaderboard();
+            }
+        }
+
+        public void UpdateLeaderboard()
+        {
+            //content.text = "";
+
+            var loginData = UserUtil.GetLogInData().AsOk();
+            var ownPrincipal = loginData.principal;
+
+            DisplayLeaderboardWithEntityAsEntries(ownPrincipal);
+        }
+
+        private void DisplayLeaderboardWithEntityAsEntries(string ownPrincipal)
+        {
+            //I use try query all entities with a predefined filter that specifies that
+            //I only want the entities from the world canister with a field tag of value "lb"
+            EntityUtil.TryQueryEntities(EntityUtil.Queries.worldEntityFieldTagLb, out var lbEntries);
+            //EntityUtil.TryQueryEntities(BoomManager.Instance.WORLD_CANISTER_ID, e => e.eid.Contains("lb_"), out var lbEntries);
+            //We initialize the entry list in case it is null
+            if (lbEntries == null)
+            {
+                lbEntries = new();
+            }
+
+            LBEntries.Clear();
+            LBEntries = new List<LBEntry>();
+            
+            //bool userEntryExist = false;
+            
+            foreach (var entity in lbEntries)
+            {
+                /*if (entity.eid == ownPrincipal)
+                {
+                    userEntryExist = true;
+                }*/
+                
+                entity.TryGetFieldAsText("username", out var username);
+                entity.TryGetFieldAsText("maxscore", out var score);
+
+                if (username is null or "None")
+                {
+                    username = entity.eid;
+                }
+
+                if (score is null or "None")
+                {
+                    score = "0";
+                }
+                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid);
+                
+                LBEntries.Add(entries);
+
+                //content.text += $" -> Username: {username}, Score: {score}\n";
+            }
+            //if (userEntryExist == false) content.text += $" -> Username: {ownPrincipal.SimplifyAddress()}, Score: {0}\n";
+
+            if (LBEntries.Count > 0)
+            {
+                LBEntries.Sort((x, y) => y.Score.CompareTo(x.Score));
+            }
+            
+            foreach (LBEntry entry in LBEntries)
+            {
+                Debug.Log($"Username: {entry.Username} // Score: {entry.Score} // Principal: {entry.Principal}");
+            }
+            /*if(userEntryExist == false)
+            {
+                names.Add(ownPrincipal.SimplifyAddress());
+                numbers.Add(0);
+            }*/
+
+            /*var pairedList = names.Zip(numbers, (name, number) => new { Name = name, Number = number }).ToList();
+            var sortedList = pairedList.OrderByDescending(pair => pair.Number).ToList();
+
+            List<string> sortedNames = sortedList.Select(pair => pair.Name).ToList();
+            List<int> sortedNumbers = sortedList.Select(pair => pair.Number).ToList();
+
+            for(int i = 0; i < sortedNumbers.Count; i++)
+            {
+                content.text += $" -> {i}) Username: {sortedNames[i]}, Score: {sortedNumbers[i]}\n";
+            }*/
+        }
+
+        public void SetLeaderboardEntry(string actionM, string score, string userName)
+        {
+            actionMode = actionM;
+
+            var loginData = UserUtil.GetLogInData().AsOk();
+
+            SetEntityAsEntry(loginData, score, userName, actionM);
+        }
+
+
+        private void SetEntityAsEntry(MainDataTypes.LoginData loginData, string score, string userName, string actionM)
+        {
+            //I use try query all entities with a predefined filter that specifies that
+            //I only want the entities from the world canister with a field tag of value "lb"
+            EntityUtil.TryQueryEntities(EntityUtil.Queries.worldEntityFieldTagLb, out var lbEntries);
+
+            //We initialize the entry list in case it is null
+            if (lbEntries == null) lbEntries = new();
+
+            DataTypes.Entity lbEntry = null;
+
+            foreach (var entity in lbEntries)
+            {
+                if (entity.eid == loginData.principal)
+                {
+                    lbEntry = entity;
+                    break;
+                }
+            }
+
+            /*double currentScore = 0;
+            if (lbEntry != null)
+            {
+                lbEntry.TryGetFieldAsDouble("score", out currentScore);
+            }*/
+
+            ActionUtil.ProcessAction(actionM, new()
+            {
+                new Candid.World.Models.Field() { FieldName = "username", FieldValue = string.IsNullOrEmpty(userName)? loginData.principal.SimplifyAddress() : userName },
+                new Candid.World.Models.Field() { FieldName = "maxscore", FieldValue = score },
+            });
+
+            CoroutineManagerUtil.DelayAction(UpdateLeaderboard, 3f, transform);
+        }
+    }
+}

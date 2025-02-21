@@ -15,6 +15,8 @@ namespace MainMenu
         
         [SerializeField] public SceneController sceneController;
         [SerializeField] public BoomUsername boomUsername;
+        [SerializeField] public BoomScoreFF boomScoreFF;
+        [SerializeField] public BoomLeaderboard boomLeaderboard;
         
         [Header("Main Menu Objects")]
         [SerializeField] GameObject gamesObject;
@@ -33,7 +35,7 @@ namespace MainMenu
         public void ScoreUpdateFF()
         {
             var principal = UserUtil.GetPrincipal();
-            EntityUtil.TryGetFieldAsText(principal, "scoreFF", "maxscoreFF", out var outScore, "None");
+            EntityUtil.TryGetFieldAsText(principal, "score_1", "maxscore", out var outScore, "None");
 
             if (outScore is "None" or null)
             {

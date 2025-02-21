@@ -3291,7 +3291,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 9509918}
         m_TargetAssemblyTypeName: MainMenu.MainMenu, Assembly-CSharp
-        m_MethodName: OpenLeaderBoard
+        m_MethodName: OpenLeaderboard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11493,6 +11493,8 @@ GameObject:
   - component: {fileID: 1777631050}
   - component: {fileID: 1777631048}
   - component: {fileID: 1777631051}
+  - component: {fileID: 1777631053}
+  - component: {fileID: 1777631052}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11559,6 +11561,8 @@ MonoBehaviour:
   boomBuffDecrease: {fileID: 1777631051}
   sceneController: {fileID: 2136162682}
   boomUsername: {fileID: 1747019943}
+  boomScoreFF: {fileID: 1777631053}
+  boomLeaderboard: {fileID: 1777631052}
   gamesObject: {fileID: 41061991}
   cameraAndLightObject: {fileID: 1444910851}
 --- !u!114 &1777631051
@@ -11573,6 +11577,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73ca4bc12d6fd7f49b3deb0248fe96eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1777631052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777631046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37933fbf0549a8848814138d175a5fb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1777631053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1777631046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4c3655e8aad8094295d9b466188ca1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionId: set_max_score_1
 --- !u!1 &1789386116
 GameObject:
   m_ObjectHideFlags: 0

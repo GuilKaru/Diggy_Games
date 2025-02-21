@@ -152,6 +152,10 @@ namespace MainMenu
 			}
 		}
 
+		public void OpenLeaderboard()
+		{
+			GameManager.instance.boomLeaderboard.UpdateLeaderboard();
+		}
 		public void CloseLeaderBoard()
 		{
 			_furnaceFrenzyLeaderBoard.SetActive(false);
