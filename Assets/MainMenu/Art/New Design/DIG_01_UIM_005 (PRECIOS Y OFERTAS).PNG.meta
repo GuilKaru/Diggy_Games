@@ -1,0 +1,507 @@
+fileFormatVersion: 2
+guid: 208509c20173c6240932791d6c823ff1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 130610677045370694
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_0
+  - first:
+      213: -4821917901620354760
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_1
+  - first:
+      213: -975491246884010161
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_2
+  - first:
+      213: 7138165094032280257
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_3
+  - first:
+      213: 3003004901479587084
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_4
+  - first:
+      213: -2239668950296219451
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_5
+  - first:
+      213: 8515515832280130504
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_6
+  - first:
+      213: 4939096712591659554
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_7
+  - first:
+      213: -2716504770430687460
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_8
+  - first:
+      213: -3566107362975328474
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_9
+  - first:
+      213: -1153525837390030341
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_10
+  - first:
+      213: 5607930971097981134
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_11
+  - first:
+      213: -1627440876840273744
+    second: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_0
+      rect:
+        serializedVersion: 2
+        x: 1540
+        y: 1623
+        width: 310
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64f992108b500d100800000000000000
+      internalID: 130610677045370694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_1
+      rect:
+        serializedVersion: 2
+        x: 2539
+        y: 1623
+        width: 310
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83162d1573b151db0800000000000000
+      internalID: -4821917901620354760
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_2
+      rect:
+        serializedVersion: 2
+        x: 3480
+        y: 1624
+        width: 310
+        height: 104
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f47c9fb11eb5672f0800000000000000
+      internalID: -975491246884010161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_3
+      rect:
+        serializedVersion: 2
+        x: 547
+        y: 1310
+        width: 83
+        height: 123
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ca03e9555bdf0360800000000000000
+      internalID: 7138165094032280257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_4
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 1312
+        width: 78
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c0d927b1c01dca920800000000000000
+      internalID: 3003004901479587084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_5
+      rect:
+        serializedVersion: 2
+        x: 731
+        y: 1314
+        width: 130
+        height: 155
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c03f1bb4f81be0e0800000000000000
+      internalID: -2239668950296219451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_6
+      rect:
+        serializedVersion: 2
+        x: 1512
+        y: 1290
+        width: 90
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c3a54648803d2670800000000000000
+      internalID: 8515515832280130504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_7
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 1295
+        width: 91
+        height: 154
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2225359aa423b8440800000000000000
+      internalID: 4939096712591659554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_8
+      rect:
+        serializedVersion: 2
+        x: 1720
+        y: 1299
+        width: 115
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1723dfcd490d4ad0800000000000000
+      internalID: -2716504770430687460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_9
+      rect:
+        serializedVersion: 2
+        x: 2456
+        y: 1282
+        width: 87
+        height: 134
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62753f65f34a28ec0800000000000000
+      internalID: -3566107362975328474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_10
+      rect:
+        serializedVersion: 2
+        x: 2567
+        y: 1285
+        width: 276
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf9d12fcc5addffe0800000000000000
+      internalID: -1153525837390030341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_11
+      rect:
+        serializedVersion: 2
+        x: 3410
+        y: 1283
+        width: 81
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec0e431918f53dd40800000000000000
+      internalID: 5607930971097981134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_UIM_005 (PRECIOS Y OFERTAS)_12
+      rect:
+        serializedVersion: 2
+        x: 3515
+        y: 1285
+        width: 263
+        height: 147
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b83cf2252b2a69e0800000000000000
+      internalID: -1627440876840273744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_0: 130610677045370694
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_1: -4821917901620354760
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_10: -1153525837390030341
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_11: 5607930971097981134
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_12: -1627440876840273744
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_2: -975491246884010161
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_3: 7138165094032280257
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_4: 3003004901479587084
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_5: -2239668950296219451
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_6: 8515515832280130504
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_7: 4939096712591659554
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_8: -2716504770430687460
+      DIG_01_UIM_005 (PRECIOS Y OFERTAS)_9: -3566107362975328474
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

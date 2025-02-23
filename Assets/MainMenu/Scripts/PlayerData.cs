@@ -20,5 +20,10 @@ namespace MainMenu
         [SerializeField] public int rockBuffI;
         [SerializeField] public int shieldBuffI;
         [SerializeField] public int tripleBuffI;
+
+        [SerializeField] public string priceDiggyx10;
+        [SerializeField] public string priceDiggyx50;
+        [SerializeField] public string priceDiggyx100;
+        [SerializeField] public string priceDiggyx200;
     }
 }

@@ -36,6 +36,10 @@ namespace MainMenu
 		[SerializeField] private TextMeshProUGUI _rockBuff;
 		[SerializeField] private TextMeshProUGUI _shieldBuff;
 		[SerializeField] private TextMeshProUGUI _tripleBuff;
+		[SerializeField] private TextMeshProUGUI _priceDiggyx10;
+		[SerializeField] private TextMeshProUGUI _priceDiggyx50;
+		[SerializeField] private TextMeshProUGUI _priceDiggyx100;
+		[SerializeField] private TextMeshProUGUI _priceDiggyx200;
 
 		[SerializeField] private BoomUsername _boomUsername;
 
@@ -155,6 +159,7 @@ namespace MainMenu
 		public void OpenLeaderboard()
 		{
 			GameManager.instance.boomLeaderboard.UpdateLeaderboard();
+			_furnaceFrenzyLeaderBoard.SetActive(true);
 		}
 		public void CloseLeaderBoard()
 		{
@@ -188,6 +193,19 @@ namespace MainMenu
 				_gameManagerAudioSource.clip = _gameManagerClips[clipIndex];
 				_gameManagerAudioSource.Play();
 			}
+		}
+		
+		public void UpdatePriceStore(string pricex10, string pricex50, string pricex100, string pricex200)
+		{
+			GameManager.instance.playerData.priceDiggyx10 = pricex10;
+			GameManager.instance.playerData.priceDiggyx50 = pricex50;
+			GameManager.instance.playerData.priceDiggyx100 = pricex100;
+			GameManager.instance.playerData.priceDiggyx200 = pricex200;
+			
+			_priceDiggyx10.text = pricex10;
+			_priceDiggyx50.text = pricex50;
+			_priceDiggyx100.text = pricex100;
+			_priceDiggyx200.text = pricex200;
 		}
 		#endregion
 	}

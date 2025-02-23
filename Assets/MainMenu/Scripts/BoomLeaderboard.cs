@@ -12,25 +12,34 @@ using Boom.Tutorials;
 
 namespace MainMenu
 {
+    [Serializable]
+    public class LBEntry
+    {
+        public string Username {get; set;}
+        public double Score {get; set;}
+        public string Principal {get; set;}
+
+        public GameObject playerStatsPrefab;
+
+        public LBEntry(string username, int score, string principal, GameObject playerStats)
+        {
+            Username = username;
+            Score = score;
+            Principal = principal;
+            this.playerStatsPrefab = playerStats;
+        }
+    }
     public class BoomLeaderboard : MonoBehaviour
     {
-        public class LBEntry
-        {
-            public string Username {get; set;}
-            public double Score {get; set;}
-            public string Principal {get; set;}
-
-            public LBEntry(string username, int score, string principal)
-            {
-                Username = username;
-                Score = score;
-                Principal = principal;
-            }
-        }
 
         private List<LBEntry> LBEntries = new List<LBEntry>();
+        private List <GameObject> _playerObjects = new List<GameObject>();
         
         string actionMode;
+
+        //[SerializeField] private GameObject playerStatsPrefab;
+        [SerializeField] private Transform playerStatsContainer;
+        [SerializeField] private GameObject playerPrefab;
         
         //[SerializeField] TMP_Text content;
 
@@ -77,9 +86,24 @@ namespace MainMenu
             {
                 lbEntries = new();
             }
-
+            
             LBEntries.Clear();
             LBEntries = new List<LBEntry>();
+
+            if (_playerObjects == null || _playerObjects.Count == 0)
+            {
+                _playerObjects = new();
+            }
+            else
+            {
+                foreach (var playerObject in _playerObjects)
+                {
+                    Destroy(playerObject);
+                }
+
+                _playerObjects.Clear();
+                _playerObjects = new();
+            }
             
             //bool userEntryExist = false;
             
@@ -102,9 +126,16 @@ namespace MainMenu
                 {
                     score = "0";
                 }
-                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid);
+                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid, playerPrefab);
                 
                 LBEntries.Add(entries);
+                
+                // GameObject playerObject = Instantiate(playerStatsPrefab, playerStatsContainer);
+                // playerObject.transform.SetParent(playerStatsContainer);
+                // LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
+                //
+                // playerStats.PutPlayerStats(score, username, entity.eid);
+                //_playerObjects.Add(playerObject);
 
                 //content.text += $" -> Username: {username}, Score: {score}\n";
             }
@@ -114,7 +145,17 @@ namespace MainMenu
             {
                 LBEntries.Sort((x, y) => y.Score.CompareTo(x.Score));
             }
-            
+
+
+            for (int i = 0; i < LBEntries.Count; i++)
+            {
+                GameObject playerObject = Instantiate(LBEntries[i].playerStatsPrefab, playerStatsContainer);
+                playerObject.transform.SetParent(playerStatsContainer);
+                LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
+                
+                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, (i+1).ToString());
+                _playerObjects.Add(playerObject);
+            }
             foreach (LBEntry entry in LBEntries)
             {
                 Debug.Log($"Username: {entry.Username} // Score: {entry.Score} // Principal: {entry.Principal}");

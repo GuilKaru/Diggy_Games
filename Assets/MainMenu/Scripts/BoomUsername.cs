@@ -10,6 +10,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using Candid.World.Models;
+using Candid.WorldDeployer.Models;
 using Newtonsoft.Json;
 using EdjCase.ICP.Candid.Models;
 
@@ -84,6 +85,16 @@ namespace MainMenu
             var principal = UserUtil.GetPrincipal();
             
             EntityUtil.TryGetFieldAsText(principal, "user_profile", "username", out var outVal, "None");
+
+
+            ConfigUtil.TryGetConfig("bg4su-6iaaa-aaaap-anxsa-cai", "diggy_price", out var outConfig);
+            
+            outConfig.fields.TryGetValue("pricex10", out  var pricex10);
+            outConfig.fields.TryGetValue("pricex50", out var pricex50);
+            outConfig.fields.TryGetValue("pricex100", out var pricex100);
+            outConfig.fields.TryGetValue("pricex200", out var pricex200);
+
+            GameManager.instance.mainMenu.UpdatePriceStore(pricex10, pricex50, pricex100, pricex200);
             
             UpdateCoins();
             UpdateUsername(outVal);
@@ -113,68 +124,6 @@ namespace MainMenu
             EntityUtil.TryGetFieldAsDouble(principal, "rockbuff", "amount", out var rockBuffD, 0);
             EntityUtil.TryGetFieldAsDouble(principal, "shieldbuff", "amount", out var shieldBuffD, 0);
             EntityUtil.TryGetFieldAsDouble(principal, "triplebuff", "amount", out var tripleBuffD, 0);
-            
-            /*EntityUtil.TryGetFieldAsText(principal, "diggycoin", "amount", out var diggyCoinS, "None");
-            
-            EntityUtil.TryGetFieldAsText(principal, "sweepbuff", "amount", out var sweepBuffS, "None");
-            EntityUtil.TryGetFieldAsText(principal, "timebuff", "amount", out var timeBuffS, "None");
-            EntityUtil.TryGetFieldAsText(principal, "rockbuff", "amount", out var rockBuffS, "None");
-            EntityUtil.TryGetFieldAsText(principal, "shieldbuff", "amount", out var shieldBuffS, "None");
-            EntityUtil.TryGetFieldAsText(principal, "triplebuff", "amount", out var tripleBuffS, "None");*/
-            
-            /*if (diggyCoinS is "None" or null)
-            {
-                diggyCoinS = "0";
-            }
-            else
-            {
-                diggyCoin = float.TryParse(diggyCoinS, out diggyCoin) ? diggyCoin : 0;
-            }
-
-            if (sweepBuffS is "None" or null)
-            {
-                sweepBuffS = "0";
-            }
-            else
-            {
-                sweepBuff = float.TryParse(sweepBuffS, out sweepBuff) ? sweepBuff : 0;
-            }
-
-            if (timeBuffS is "None" or null)
-            {
-                timeBuffS = "0";
-            }
-            else
-            {
-                timeBuff = float.TryParse(timeBuffS, out timeBuff) ? timeBuff : 0;
-            }
-
-            if (rockBuffS is "None" or null)
-            {
-                rockBuffS = "0";
-            }
-            else
-            {
-                rockBuff = float.TryParse(rockBuffS, out rockBuff) ? rockBuff : 0;
-            }
-
-            if (shieldBuffS is "None" or null)
-            {
-                shieldBuffS = "0";
-            }
-            else
-            {
-                shieldBuff = float.TryParse(shieldBuffS, out shieldBuff) ? shieldBuff : 0;
-            }
-
-            if (tripleBuffS is "None" or null)
-            {
-                tripleBuffS = "0";
-            }
-            else
-            {
-                tripleBuff = float.TryParse(tripleBuffS, out tripleBuff) ? tripleBuff : 0;
-            }*/
             
             GameManager.instance.mainMenu.CoinsSafe(diggyCoinD, sweepBuffD, timeBuffD, rockBuffD, shieldBuffD, tripleBuffD);
 
