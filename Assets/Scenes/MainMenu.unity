@@ -3427,7 +3427,6 @@ GameObject:
   - component: {fileID: 474460665}
   - component: {fileID: 474460664}
   - component: {fileID: 474460663}
-  - component: {fileID: 474460666}
   m_Layer: 0
   m_Name: Continue
   m_TagString: Untagged
@@ -3452,7 +3451,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 216, y: -207}
+  m_AnchoredPosition: {x: 216, y: -350}
   m_SizeDelta: {x: 300, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474460663
@@ -3474,7 +3473,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 2
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -3485,7 +3484,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: -3625590454590681672, guid: e17f621d834cc26458ce84a7623ebe86, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -3519,7 +3518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1286078839574863834, guid: 833bb3bc11faf8d4ab9c94e94751abef, type: 3}
+  m_Sprite: {fileID: 3289652621281960338, guid: 8a8eb7e9912610945a5257ac6422cc1f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3537,22 +3536,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474460661}
   m_CullTransparentMesh: 1
---- !u!114 &474460666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474460661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ca8219a28ac6d4eb72cf89decee9ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _defaultSprite: {fileID: 1286078839574863834, guid: 833bb3bc11faf8d4ab9c94e94751abef, type: 3}
-  _defaultSize: {x: 300, y: 100}
-  _highlightedSprite: {fileID: 7326501450548258, guid: 36504abaa9ee25b42b28bc17627bc769, type: 3}
-  _highlightedSize: {x: 300, y: 100}
 --- !u!1 &487854074
 GameObject:
   m_ObjectHideFlags: 0
@@ -3894,8 +3877,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4912,8 +4895,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -13084,7 +13067,6 @@ GameObject:
   - component: {fileID: 1953869806}
   - component: {fileID: 1953869805}
   - component: {fileID: 1953869808}
-  - component: {fileID: 1953869809}
   m_Layer: 0
   m_Name: Login
   m_TagString: Untagged
@@ -13109,7 +13091,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -239}
+  m_AnchoredPosition: {x: 0, y: -350}
   m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953869805
@@ -13142,7 +13124,7 @@ MonoBehaviour:
     m_FadeDuration: 0.1
   m_SpriteState:
     m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: -5333045863714902927, guid: 6ce59294d33e5864aa6bd15497dcf669, type: 3}
     m_SelectedSprite: {fileID: 0}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
@@ -13176,7 +13158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1286078839574863834, guid: 833bb3bc11faf8d4ab9c94e94751abef, type: 3}
+  m_Sprite: {fileID: -4377143439490934911, guid: a20dd88ac51856d4d8848a9057283286, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13211,22 +13193,6 @@ MonoBehaviour:
   noneInteractable: 0
   loginState: 0
   loadingPanel: {fileID: 2073639195}
---- !u!114 &1953869809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953869803}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3ca8219a28ac6d4eb72cf89decee9ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _defaultSprite: {fileID: 1286078839574863834, guid: 833bb3bc11faf8d4ab9c94e94751abef, type: 3}
-  _defaultSize: {x: 400, y: 150}
-  _highlightedSprite: {fileID: 7326501450548258, guid: 36504abaa9ee25b42b28bc17627bc769, type: 3}
-  _highlightedSize: {x: 400, y: 150}
 --- !u!1 &1962140028
 GameObject:
   m_ObjectHideFlags: 0
@@ -13238,6 +13204,7 @@ GameObject:
   - component: {fileID: 1962140029}
   - component: {fileID: 1962140031}
   - component: {fileID: 1962140030}
+  - component: {fileID: 1962140032}
   m_Layer: 0
   m_Name: Diggy
   m_TagString: Untagged
@@ -13259,10 +13226,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 317455589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1962140030
 MonoBehaviour:
@@ -13302,6 +13269,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1962140028}
   m_CullTransparentMesh: 1
+--- !u!114 &1962140032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1962140028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9efe722d5be93479f3d8d9f112174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _amplitude: 8
+  _frequency: 4
 --- !u!1 &1981314508
 GameObject:
   m_ObjectHideFlags: 0
@@ -14335,7 +14316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -299, y: -207}
+  m_AnchoredPosition: {x: -299, y: -350}
   m_SizeDelta: {x: 406.3751, y: 76.1953}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2106388802
@@ -14943,6 +14924,7 @@ GameObject:
   - component: {fileID: 2135246641}
   - component: {fileID: 2135246643}
   - component: {fileID: 2135246642}
+  - component: {fileID: 2135246644}
   m_Layer: 0
   m_Name: Diggy Extras
   m_TagString: Untagged
@@ -14964,10 +14946,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 317455589}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2135246642
 MonoBehaviour:
@@ -15007,6 +14989,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135246640}
   m_CullTransparentMesh: 1
+--- !u!114 &2135246644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2135246640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d9efe722d5be93479f3d8d9f112174e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _amplitude: 10
+  _frequency: 4
 --- !u!1 &2136162680
 GameObject:
   m_ObjectHideFlags: 0
