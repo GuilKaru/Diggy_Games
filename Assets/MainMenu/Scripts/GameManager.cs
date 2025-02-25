@@ -51,7 +51,7 @@ namespace MainMenu
         {
             playerData.furnaceFrenzyMaxScore = int.Parse(score);
 
-            scoreTextFF.text = "Max Score: " + score;
+            boomLeaderboard.playerScore.text = score;
         }
 
         public void ActivateMainMenu(bool activate)

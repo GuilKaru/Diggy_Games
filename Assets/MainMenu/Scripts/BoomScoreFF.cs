@@ -50,12 +50,10 @@ namespace MainMenu
             else
             {
                 int oldScore = int.Parse(outVal);
-
-                if (score > oldScore)
-                {
-                    ExecuteAction(score).Forget();
-                }
-                else return;
+                
+                score += oldScore;
+                
+                ExecuteAction(score).Forget();
             }
         }
 
@@ -98,7 +96,8 @@ namespace MainMenu
             }
             else
             {
-                GameManager.instance.playerData.furnaceFrenzyMaxScore = score;
+                //GameManager.instance.playerData.furnaceFrenzyMaxScore = score;
+                GameManager.instance.ScoreUpdateFF();
                 GameManager.instance.boomLeaderboard.SetLeaderboardEntry("set_leaderboard_1", score.ToString(), GameManager.instance.playerData.username);
             }
         }

@@ -102,23 +102,23 @@ namespace MainMenu
                     Debug.Log("Not enough Diggy Coins");
                     loadingPanel.SetActive(false);
                 }
-                else if (actionId == "buy_sweep_buff" && diggyCoin >= 0.5)
+                else if (actionId == "buy_sweep_buff" && diggyCoin >= 5)
                 {
                     ExecuteAction().Forget();
                 }
-                else if (actionId == "buy_time_buff" && diggyCoin >= 0.4)
+                else if (actionId == "buy_time_buff" && diggyCoin >= 4)
                 {
                     ExecuteAction().Forget();
                 }
-                else if (actionId == "buy_rock_buff" && diggyCoin >= 0.3)
+                else if (actionId == "buy_rock_buff" && diggyCoin >= 3)
                 {
                     ExecuteAction().Forget();
                 }
-                else if (actionId == "buy_shield_buff" && diggyCoin >= 0.2)
+                else if (actionId == "buy_shield_buff" && diggyCoin >= 2)
                 {
                     ExecuteAction().Forget();
                 }
-                else if (actionId == "buy_triple_buff" && diggyCoin >= 0.1)
+                else if (actionId == "buy_triple_buff" && diggyCoin >= 1)
                 {
                     ExecuteAction().Forget();
                 }
@@ -214,6 +214,7 @@ namespace MainMenu
 
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
             loadingPanel.SetActive(false);
+            GameManager.instance.boomUsername.UpdateCoins();
             //logCoroutine = StartCoroutine(DisplayTempLog(message));
         }
 

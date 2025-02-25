@@ -2,8 +2,10 @@ using System;
 using Boom;
 using UnityEngine;
 using System.Collections;
+using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 namespace MainMenu
 {
@@ -20,6 +22,7 @@ namespace MainMenu
 		[SerializeField] private GameObject _furnaceFrenzyLeaderBoard;
 		[SerializeField] private GameObject _furnaceFrenzyStore;
 		[SerializeField] private GameObject _loadingPanel;
+		[SerializeField] private Button _playButton;
 
 		[Header("Game Manager Audio")]
 		[SerializeField]
@@ -44,6 +47,10 @@ namespace MainMenu
 		[SerializeField] private BoomUsername _boomUsername;
 
 		private int _currentTutorialIndex = 0;
+		
+		//Open New Tab variable
+		[DllImport("__Internal")]
+		private static extern void OpenNewTab(string url);
 
 		#endregion
 		#region Unity Methods
@@ -72,13 +79,31 @@ namespace MainMenu
 
         public void NameSafe(string username)
         {
-            GameManager.instance.playerData.username = username;
+	        GameManager gameManager = GameManager.instance;
+            gameManager.playerData.username = username;
             _username.text = username;
             _usernameMenu.SetActive(false);
             //_gameSelectorMenu.SetActive(true);
             _furnaceFrenzyMenu.SetActive(true);
+
+            gameManager.boomLeaderboard.playerRank.text = "No Rank";
+            gameManager.boomLeaderboard.playerName.text = username;
+            gameManager.ScoreUpdateFF();
+            
+            ActivatePlayButton();
         }
 
+        public void ActivatePlayButton()
+        {
+	        if (GameManager.instance.playerData.diggyCoinsD > 0)
+	        {
+		        _playButton.interactable = true;
+	        }
+	        else
+	        {
+		        _playButton.interactable = false;
+	        }
+        }
         public void CoinsSafe(double diggyCoin, double sweepBuff, double timeBuff, double rockBuff, double shieldBuff, double tripleBuff)
         {
 	        PlayerData playerData = GameManager.instance.playerData;
@@ -92,7 +117,7 @@ namespace MainMenu
 	        playerData.tripleBuff = tripleBuff.ToString("0.0");
 
 	        playerData.diggyCoins = diggyCoin.ToString("0.0");
-	        
+	        playerData.diggyCoinsD = diggyCoin;
 	        playerData.sweepBuffI = Convert.ToInt32(sweepBuff);
 	        playerData.timeBuffI = Convert.ToInt32(timeBuff);
 	        playerData.rockBuffI = Convert.ToInt32(rockBuff);
@@ -105,6 +130,8 @@ namespace MainMenu
 	        _rockBuff.text = playerData.rockBuffI.ToString();
 	        _shieldBuff.text = playerData.shieldBuffI.ToString();
 	        _tripleBuff.text = playerData.tripleBuffI.ToString();
+	        
+	        ActivatePlayButton();
         }
 
         public void UpdateStats()
@@ -118,6 +145,8 @@ namespace MainMenu
 			_currentTutorialIndex = 0; // Reset to the first tutorial page
 			UpdateTutorialView();
 			PlayAudioMainMenuClip(0);
+			
+			_boomUsername.UpdateCoins();
 		}
 
 		public void CloseTutorial()
@@ -126,6 +155,8 @@ namespace MainMenu
 			_currentTutorialIndex = 0; // Ensure first image is shown next time
 			UpdateTutorialView();
 			PlayAudioMainMenuClip(0);
+			
+			_boomUsername.UpdateCoins();
 		}
 
 		public void NextTutorial()
@@ -160,29 +191,37 @@ namespace MainMenu
 		{
 			GameManager.instance.boomLeaderboard.UpdateLeaderboard();
 			_furnaceFrenzyLeaderBoard.SetActive(true);
+			
+			_boomUsername.UpdateCoins();
 		}
 		public void CloseLeaderBoard()
 		{
 			_furnaceFrenzyLeaderBoard.SetActive(false);
 			PlayAudioMainMenuClip(0);
+			
+			_boomUsername.UpdateCoins();
 		}
 
 		public void OpenStore()
 		{
 			_furnaceFrenzyStore.SetActive(true);
 			PlayAudioMainMenuClip(0);
+			
+			_boomUsername.UpdateCoins();
 		}
 
 		public void CloseStore()
 		{
 			_furnaceFrenzyStore.SetActive(false);
 			PlayAudioMainMenuClip(0);
+			
+			_boomUsername.UpdateCoins();
 		}
 
 		public void PlayGame()
 		{
 			_loadingPanel.SetActive(true);
-			GameManager.instance.sceneController.PlayGameFF();
+			GameManager.instance.boomBuffDecrease.PlayCoinsDecrease("decrease_dc_x1");
 			PlayAudioMainMenuClip(0);
 		}
 		
@@ -206,6 +245,16 @@ namespace MainMenu
 			_priceDiggyx50.text = pricex50;
 			_priceDiggyx100.text = pricex100;
 			_priceDiggyx200.text = pricex200;
+		}
+		
+		//Open new tab logic
+		public void OpenURL(string url)
+		{
+			#if !UNITY_EDITOR && UNITY_WEBGL
+			OpenNewTab(url);
+			#else
+			Application.OpenURL(url);
+			#endif		
 		}
 		#endregion
 	}

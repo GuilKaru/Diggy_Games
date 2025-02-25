@@ -91,10 +91,14 @@ namespace MainMenu
         {
             if (diggyId == "x1" || diggyId == "x5" || diggyId == "x10" || diggyId == "x20")
             {
+                //Error when payment fails
                 ExecuteDecreaseAction(action);
             }
-            //Forget() is included as we dont care awaiting for the result
-            ExecuteAction(action, diggyId).Forget();
+            else
+            {
+                //Forget() is included as we dont care awaiting for the result
+                ExecuteAction(action, diggyId).Forget();
+            }
         }
 
         private async UniTaskVoid ExecuteAction(string action, string diggyId)
@@ -189,6 +193,7 @@ namespace MainMenu
             logCoroutine = StartCoroutine(DisplayTempLog(message));
             
             diggyCoinPayment.ActionButtonClickHandler(diggyId);
+            
         }
         
         private async UniTaskVoid ExecuteDecreaseAction(string action)

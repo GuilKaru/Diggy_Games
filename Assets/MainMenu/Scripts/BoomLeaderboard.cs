@@ -40,6 +40,10 @@ namespace MainMenu
         //[SerializeField] private GameObject playerStatsPrefab;
         [SerializeField] private Transform playerStatsContainer;
         [SerializeField] private GameObject playerPrefab;
+
+        [SerializeField] public TextMeshProUGUI playerRank;
+        [SerializeField] public TextMeshProUGUI playerName;
+        [SerializeField] public TextMeshProUGUI playerScore;
         
         //[SerializeField] TMP_Text content;
 
@@ -153,8 +157,15 @@ namespace MainMenu
                 playerObject.transform.SetParent(playerStatsContainer);
                 LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
                 
-                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, (i+1).ToString());
+                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, $"#{i + 1}");
                 _playerObjects.Add(playerObject);
+
+                if (LBEntries[i].Principal == ownPrincipal)
+                {
+                    playerRank.text = $"#{i + 1}";
+                    playerName.text = LBEntries[i].Username;
+                    playerScore.text = LBEntries[i].Score.ToString();
+                }
             }
             foreach (LBEntry entry in LBEntries)
             {

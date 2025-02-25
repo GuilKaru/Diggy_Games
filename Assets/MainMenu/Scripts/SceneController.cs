@@ -31,6 +31,8 @@ namespace MainMenu
             SceneManager.UnloadSceneAsync(gameName);
             Time.timeScale = 1.0f;
             GameManager.instance.ActivateMainMenu(true);
+            
+            GameManager.instance.ScoreUpdateFF();
         }
 
         IEnumerator LoadLevelFFAsync()

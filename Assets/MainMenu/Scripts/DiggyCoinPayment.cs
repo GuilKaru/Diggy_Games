@@ -164,7 +164,7 @@ namespace MainMenu
             }
 
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
-
+            GameManager.instance.boomUsername.UpdateCoins();
             loadingPanel.SetActive(false);
             logCoroutine = StartCoroutine(DisplayTempLog(message));
         }
