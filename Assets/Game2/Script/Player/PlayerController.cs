@@ -142,6 +142,11 @@ namespace Diggy_MiniGame_2
 			}
 		}
 
+		public List<GameObject> GetCarriedObjects()
+		{
+			return _carriedObjects; // Returns the list of carried objects
+		}
+
 
 		#endregion
 

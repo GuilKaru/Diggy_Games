@@ -5,27 +5,51 @@ namespace Diggy_MiniGame_2
 	public class PickUp : MonoBehaviour
 	{
 		[Header("Pickup Settings")]
-		[SerializeField] private int _scoreValue = 10;
+		[SerializeField] private int _scoreValue = 10;     // Score Value
+		[SerializeField] private bool _isTimePickup = false; // Toggle if it's a Time Pickup
+		[SerializeField] private float _bonusTime = 10f;    // Bonus Time (if it's a time pickup)
 
 		private ScoreManager _scoreManager;
+		private TimerManager _timerManager;
 
 		private void Awake()
 		{
-			_scoreManager = FindObjectOfType<ScoreManager>(); // Ensure ScoreManager is in the scene
+			_scoreManager = FindObjectOfType<ScoreManager>();
+			_timerManager = FindObjectOfType<TimerManager>();
 		}
 
 		public void HandleDrop()
 		{
-			if (_scoreManager != null)
+			if (_isTimePickup)
 			{
-				Debug.Log($"Adding Score: {_scoreValue}");
-				_scoreManager.AddScore(_scoreValue);
+				if (_timerManager != null)
+				{
+					_timerManager.AddTime(_bonusTime);
+					Debug.Log($"Time Added: {_bonusTime} seconds!");
+				}
 			}
 			else
 			{
-				Debug.LogWarning("ScoreManager not found!");
+				if (_scoreManager != null)
+				{
+					_scoreManager.AddScore(_scoreValue);
+					Debug.Log($"Score Added: {_scoreValue}");
+				}
 			}
 		}
+
+		// Helper to check if it's a Time Pickup
+		public bool IsTimePickup()
+		{
+			return _isTimePickup;
+		}
+
+		// Helper to get Bonus Time
+		public float GetBonusTime()
+		{
+			return _bonusTime;
+		}
+
 	}
 }
 
