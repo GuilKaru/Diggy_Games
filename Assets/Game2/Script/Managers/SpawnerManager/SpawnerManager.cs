@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 namespace Diggy_MiniGame_2
 {
@@ -34,19 +35,27 @@ namespace Diggy_MiniGame_2
 
 		public void ReleasePosition(float yPos)
 		{
+			if (_occupiedPositionsY.Contains(yPos))
+			{
+				Debug.Log($"Released Y Position: {yPos}");
+			}
 			_occupiedPositionsY.Remove(yPos);
 		}
 
 		public float GetAvailablePosition()
 		{
-			foreach (var yPos in _spawnPositionsY)
+			// Create a shuffled list to randomize the spawn order
+			List<float> shuffledPositions = new List<float>(_spawnPositionsY);
+			shuffledPositions = shuffledPositions.OrderBy(x => Random.value).ToList();
+
+			foreach (var yPos in shuffledPositions)
 			{
 				if (CanSpawnAtPosition(yPos))
 				{
-					return yPos;
+					return yPos; // Return the first available random Y position
 				}
 			}
-			return -1;
+			return -2; // If no available positions
 		}
 	}
 }

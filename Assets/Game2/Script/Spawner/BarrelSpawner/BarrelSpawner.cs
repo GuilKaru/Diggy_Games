@@ -58,9 +58,8 @@ namespace Diggy_MiniGame_2
 			}
 
 			float yPos = _spawnerManager.GetAvailablePosition();
-			Debug.Log($"Trying to spawn barrel at Y position: {yPos}");
 
-			if (yPos != -1)
+			if (yPos != -2)
 			{
 				Vector2 spawnPos = new Vector2(transform.position.x, yPos);
 				GameObject randomBarrel = _barrelPrefabs[Random.Range(0, _barrelPrefabs.Length)];
@@ -77,7 +76,7 @@ namespace Diggy_MiniGame_2
 
 				Debug.Log($"Barrel spawned at position: {spawnPos} with sorting order: {spriteRenderer?.sortingOrder}");
 
-				StartCoroutine(ReleasePositionAfterDelay(yPos, 5f)); // Release the position after 5 seconds
+				StartCoroutine(ReleasePositionAfterDelay(yPos, 8.5f)); // Release the position after 5 seconds
 			}
 			else
 			{

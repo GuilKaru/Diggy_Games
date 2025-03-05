@@ -26,6 +26,15 @@ namespace Diggy_MiniGame_2
 		private int _maxCarriedObjects = 5;
 		[SerializeField]
 		private Vector3 _pickupOffset = new Vector3(0, 1f, 0);
+
+		[Header("Difficulty Drift Settings")]
+		[SerializeField]
+		private float _leftDriftSpeed = 0.1f;
+		[SerializeField]
+		private float _rightDriftSpeed = 0.1f;
+
+		
+
 		#endregion
 
 		//Private variables
@@ -37,6 +46,8 @@ namespace Diggy_MiniGame_2
 		private Rigidbody2D _rb;
 		private int _carriedObjectsCount;
 		private List<GameObject> _carriedObjects = new List<GameObject>();
+		private bool _isDriftingLeft = false;
+		private bool _isDriftingRight = false;
 		#endregion
 
 		//Initialization
@@ -78,10 +89,20 @@ namespace Diggy_MiniGame_2
 		private void MovePlayer()
 		{
 			float adjustedSpeed = _moveSpeed - (_carriedObjects.Count * 0.5f);
-			adjustedSpeed = Mathf.Max(adjustedSpeed, 1f); // Prevent speed from going negative
+			adjustedSpeed = Mathf.Max(adjustedSpeed, 1f); // Prevent speed from going below 1
 
-			// Calculate movement
+			// Calculate player input movement
 			Vector2 movement = _moveInput * adjustedSpeed * Time.fixedDeltaTime;
+
+			// Automatic Drift
+			if (_isDriftingLeft)
+			{
+				movement.x -= _leftDriftSpeed * Time.fixedDeltaTime;
+			}
+			else if (_isDriftingRight)
+			{
+				movement.x += _rightDriftSpeed * Time.fixedDeltaTime;
+			}
 
 			// New position after movement
 			Vector2 newPosition = _rb.position + movement;
@@ -111,6 +132,24 @@ namespace Diggy_MiniGame_2
 					_carriedObjects[i].transform.position = transform.position + _pickupOffset + new Vector3(0, -i * 0.2f, 0);
 				}
 			}
+		}
+
+		public void StartLeftDrift()
+		{
+			_isDriftingLeft = true;
+			_isDriftingRight = false; // Stops right drift if active
+		}
+
+		public void StartRightDrift()
+		{
+			_isDriftingRight = true;
+			_isDriftingLeft = false; // Stops left drift if active
+		}
+
+		public void StopDrift()
+		{
+			_isDriftingLeft = false;
+			_isDriftingRight = false;
 		}
 
 		#endregion

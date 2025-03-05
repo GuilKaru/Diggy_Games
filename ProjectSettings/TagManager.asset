@@ -15,6 +15,7 @@ TagManager:
   - Fire
   - Explosion
   - PickUp
+  - TransportLine
   layers:
   - Default
   - TransparentFX
