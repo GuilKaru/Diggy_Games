@@ -15,13 +15,14 @@ namespace Diggy_MiniGame_1
 		// Variables
 		#region Variables
 		public int scoreCount;
+		private float scoreMultiplier = 1f;
 		#endregion
 
 		// Points Methods
 		#region Point Methods
 		public void AddScore(int points)
 		{
-			scoreCount = Mathf.Max(0, scoreCount + points);
+			scoreCount = Mathf.Max(0, scoreCount + (int)(points * scoreMultiplier));
 
 			ScoreUpdate();
 
@@ -48,6 +49,20 @@ namespace Diggy_MiniGame_1
 		public int GetScore()
 		{
 			return scoreCount;
+		}
+
+
+
+		// Set the score multiplier
+		public void SetScoreMultiplier(float multiplier)
+		{
+			scoreMultiplier = multiplier;
+		}
+
+		// Reset the score multiplier to 1
+		public void ResetScoreMultiplier()
+		{
+			scoreMultiplier = 1f;
 		}
 
 		#endregion

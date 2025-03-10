@@ -89,6 +89,7 @@ namespace Diggy_MiniGame_1
 		private InputAction _moveAction;
 		private InputAction _throwAction;
 		private InputAction _switchSpriteAction;
+		private float _originalMoveSpeed;
 
 		private bool _isStunned = false; // Tracks if the player is stunned
 		private float _stunEndTime = 0f; // Time when the stun effect ends
@@ -148,7 +149,7 @@ namespace Diggy_MiniGame_1
 			_moveAction = _playerInput.actions["Move"];
 			_throwAction = _playerInput.actions["ThrowShovel"];
 			_switchSpriteAction = _playerInput.actions["SwitchSprite"];
-
+			_originalMoveSpeed = _moveSpeed;
 			ChangeAnimationState(_idleAnim);
 
 		}
@@ -228,6 +229,16 @@ namespace Diggy_MiniGame_1
 			_rb.MovePosition(newPosition);
 			
 
+		}
+
+		public void SetSpeedMultiplier(float multiplier)
+		{
+			_moveSpeed *= multiplier;
+		}
+
+		public void ResetSpeedMultiplier()
+		{
+			_moveSpeed = _originalMoveSpeed;
 		}
 		#endregion
 
