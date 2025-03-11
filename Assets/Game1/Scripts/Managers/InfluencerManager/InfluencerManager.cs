@@ -4,22 +4,38 @@ namespace Diggy_MiniGame_1
 {
 	public class InfluencerManager : MonoBehaviour
 	{
+		//Serialize Fields
+		#region Serialize Fields
 		[Header("Influencer Buff Settings")]
-		[SerializeField] private float _initialCooldown = 6f; // 6-second startup cooldown
-		[SerializeField] private float _buffDuration = 5f; // Duration of the effect
-		[SerializeField] private float _speedMultiplier = 1.5f; // 50% increase in speed
-		[SerializeField] private float _scoreMultiplier = 2f; // x2 score
-		[SerializeField] private float _buffChance = 0.5f;
+		[SerializeField]
+		private float _initialCooldown = 6f; // 6-second startup cooldown
+		[SerializeField]
+		private float _buffDuration = 5f; // Duration of the effect
+		[SerializeField]
+		private float _speedMultiplier = 1.5f; // 50% increase in speed
+		[SerializeField]
+		private float _scoreMultiplier = 2f; // x2 score
+		[SerializeField]
+		private float _fireRateMultiplier = 0.5f;
 
+		[Header("Influencer Manager Audio")]
+		[SerializeField]
+		private AudioSource _influencerManagerAudioSource;
+		[SerializeField]
+		private AudioClip[] _influencerManagerClips;
+		#endregion
+
+		//Private Variables
+		#region Private Variables
 
 		private bool _isCooldown = true;
 		private bool _isBuffActive = false;
 		private PlayerController _player;
 		private ScoreManager _scoreManager;
+		#endregion
 
-		[Header("Influencer Manager Audio")]
-		[SerializeField] private AudioSource _influencerManagerAudioSource;
-		[SerializeField] private AudioClip[] _influencerManagerClips;
+		//Initialization
+		#region Initialization
 
 		private void Start()
 		{
@@ -36,25 +52,25 @@ namespace Diggy_MiniGame_1
 			}
 		}
 
+
 		private IEnumerator StartupCooldown()
 		{
 			yield return new WaitForSeconds(_initialCooldown);
 			_isCooldown = false;
 		}
+		#endregion
+
+		//Buff Activation
+		#region Buff Activation
 
 		private void ActivateInfluencerBuff()
 		{
 			PlayAudioInfluencerManagerClip(0);
-			if (Random.value < 0.5f)
-			{
-				Debug.Log("Influencer Buff: Speed Boost Activated!");
-				StartCoroutine(ApplySpeedBuff());
-			}
-			else
-			{
-				Debug.Log("Influencer Buff: Score Multiplier Activated!");
-				StartCoroutine(ApplyScoreBuff());
-			}
+
+			StartCoroutine(ApplySpeedBuff());
+			StartCoroutine(ApplyScoreBuff());
+			StartCoroutine(ApplyFireRateBuff());
+			StartCoroutine(ApplyAppearanceBuff());
 		}
 
 		private IEnumerator ApplySpeedBuff()
@@ -75,6 +91,29 @@ namespace Diggy_MiniGame_1
 			StartCoroutine(BuffCooldown());
 		}
 
+		private IEnumerator ApplyFireRateBuff()
+		{
+			_isBuffActive = true;
+			_player.SetFireRateMultiplier(_fireRateMultiplier);
+			yield return new WaitForSeconds(_buffDuration);
+			_player.ResetFireRateMultiplier();
+			StartCoroutine(BuffCooldown());
+		}
+
+
+		private IEnumerator ApplyAppearanceBuff()
+		{
+			_isBuffActive = true;
+			_player.SetBuffedAppearance(); // Switch animator & sprite
+			yield return new WaitForSeconds(_buffDuration);
+			_player.ResetAppearance(); // Reset animator & sprite
+			StartCoroutine(BuffCooldown());
+		}
+		#endregion
+
+		//Buff Cooldown
+		#region Buff Cooldown
+
 		private IEnumerator BuffCooldown()
 		{
 			_isCooldown = true;
@@ -82,6 +121,10 @@ namespace Diggy_MiniGame_1
 			_isCooldown = false;
 			_isBuffActive = false;
 		}
+		#endregion
+
+		//Audio
+		#region Audio
 
 		private void PlayAudioInfluencerManagerClip(int clipIndex)
 		{
@@ -91,6 +134,7 @@ namespace Diggy_MiniGame_1
 				_influencerManagerAudioSource.Play();
 			}
 		}
+		#endregion
 	}
 
 }

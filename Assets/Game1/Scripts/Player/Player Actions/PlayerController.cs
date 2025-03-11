@@ -49,6 +49,9 @@ namespace Diggy_MiniGame_1
 		private List<Sprite> _playerSprites; // List of sprites to switch between
 		[SerializeField]
 		private SpriteRenderer _spriteRenderer; // Reference to the player's SpriteRenderer
+		[SerializeField]
+		private Vector3 _buffedScale = new Vector3(1.2f, 1.2f, 1.2f);
+
 
 		[Header("UI Settings")]
 		[SerializeField]
@@ -57,6 +60,10 @@ namespace Diggy_MiniGame_1
 		[Header("Animation")]
 		[SerializeField]
 		private Animator _animator;
+		[SerializeField]
+		private RuntimeAnimatorController _buffedAnimatorController;  // Buffed animation controller
+		[SerializeField]
+		private Sprite _buffedSprite;
 
 		[Header("Player Audio")]
 		[SerializeField]
@@ -90,6 +97,7 @@ namespace Diggy_MiniGame_1
 		private InputAction _throwAction;
 		private InputAction _switchSpriteAction;
 		private float _originalMoveSpeed;
+		private float _originalFireRate;
 
 		private bool _isStunned = false; // Tracks if the player is stunned
 		private float _stunEndTime = 0f; // Time when the stun effect ends
@@ -105,6 +113,11 @@ namespace Diggy_MiniGame_1
 		private float _knockbackStartTime;
 
 		private bool _isPointerOverUI = false;
+
+		private RuntimeAnimatorController _originalAnimatorController;
+		private Animator _originalAnimator;
+		private Sprite _originalSprite;
+		private Vector3 _originalScale;
 		#endregion
 
 		//Animations
@@ -150,6 +163,13 @@ namespace Diggy_MiniGame_1
 			_throwAction = _playerInput.actions["ThrowShovel"];
 			_switchSpriteAction = _playerInput.actions["SwitchSprite"];
 			_originalMoveSpeed = _moveSpeed;
+			_originalFireRate = _automaticFireRate;
+
+			_originalAnimator = _animator; // Store original animator
+			_originalSprite = _spriteRenderer.sprite; // Store original sprite
+			_originalAnimatorController = _animator.runtimeAnimatorController;
+			_originalScale = transform.localScale;
+
 			ChangeAnimationState(_idleAnim);
 
 		}
@@ -347,6 +367,16 @@ namespace Diggy_MiniGame_1
 			_currentShootMode = 1;
 		}
 
+		public void SetFireRateMultiplier(float multiplier)
+		{
+			_automaticFireRate *= multiplier;
+		}
+
+		public void ResetFireRateMultiplier()
+		{
+			_automaticFireRate = _originalFireRate;
+		}
+
 		#endregion
 
 		//Stun
@@ -519,6 +549,23 @@ namespace Diggy_MiniGame_1
 				ChangeAnimationState(_idleAnim);
 			}
 		}
+
+
+		public void SetBuffedAppearance()
+		{
+			_animator.runtimeAnimatorController = _buffedAnimatorController; // Switch to buffed animations
+			_spriteRenderer.sprite = _buffedSprite;
+			transform.localScale = _buffedScale;
+		}
+
+		public void ResetAppearance()
+		{
+			_animator.runtimeAnimatorController = _originalAnimatorController; // Reset to original animations
+			_spriteRenderer.sprite = _originalSprite;
+			transform.localScale = _originalScale;
+		}
+
+
 		#endregion
 
 		//Player Audio

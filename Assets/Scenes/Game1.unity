@@ -3939,7 +3939,7 @@ MonoBehaviour:
   _buffDuration: 10
   _speedMultiplier: 1.5
   _scoreMultiplier: 2
-  _buffChance: 0
+  _fireRateMultiplier: 0.5
   _influencerManagerAudioSource: {fileID: 549160363}
   _influencerManagerClips:
   - {fileID: 8300000, guid: ac9c98f1bc2b1e74e8f63665fac6f8a5, type: 3}
@@ -9655,10 +9655,13 @@ MonoBehaviour:
   - {fileID: 8519440210539594582, guid: b67da450c4019cf458414492aa0eab19, type: 3}
   - {fileID: 8104382938848839087, guid: 4d13f9970e928ef439d7ad8361a0bc88, type: 3}
   _spriteRenderer: {fileID: 1583556022}
+  _buffedScale: {x: 0.12, y: 0.12, z: 0.12}
   _uiLayerMask:
     serializedVersion: 2
     m_Bits: 32
   _animator: {fileID: 1583556028}
+  _buffedAnimatorController: {fileID: 9100000, guid: 4eca7d9b7216af0448fe71e00046faf3, type: 2}
+  _buffedSprite: {fileID: 21300000, guid: b3166cba22ade0243ba93ab3feafa768, type: 3}
   _shovelAudioSource: {fileID: 577520148}
   _shovelClips:
   - {fileID: 8300000, guid: 48e371902ee3de846b4ab9a1dd5c76ca, type: 3}
