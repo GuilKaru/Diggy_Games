@@ -60,10 +60,6 @@ namespace Diggy_MiniGame_1
 		[Header("Animation")]
 		[SerializeField]
 		private Animator _animator;
-		[SerializeField]
-		private RuntimeAnimatorController _buffedAnimatorController;  // Buffed animation controller
-		[SerializeField]
-		private Sprite _buffedSprite;
 
 		[Header("Player Audio")]
 		[SerializeField]
@@ -551,15 +547,16 @@ namespace Diggy_MiniGame_1
 		}
 
 
-		public void SetBuffedAppearance()
+		public void SetBuffedAppearance(Sprite newSprite, RuntimeAnimatorController newAnimator)
 		{
-			_animator.runtimeAnimatorController = _buffedAnimatorController; // Switch to buffed animations
-			_spriteRenderer.sprite = _buffedSprite;
+			_animator.runtimeAnimatorController = newAnimator;
+			_spriteRenderer.sprite = newSprite;
 			transform.localScale = _buffedScale;
 		}
 
 		public void ResetAppearance()
 		{
+			StopCoroutine(_shootingCoroutine);
 			_animator.runtimeAnimatorController = _originalAnimatorController; // Reset to original animations
 			_spriteRenderer.sprite = _originalSprite;
 			transform.localScale = _originalScale;

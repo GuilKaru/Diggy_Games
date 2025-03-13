@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 namespace Diggy_MiniGame_1
 {
 	public class InfluencerManager : MonoBehaviour
@@ -23,6 +25,19 @@ namespace Diggy_MiniGame_1
 		private AudioSource _influencerManagerAudioSource;
 		[SerializeField]
 		private AudioClip[] _influencerManagerClips;
+
+		[Header("UI Elements")]
+		[SerializeField]
+		private GameObject _influencerMenu;
+		[SerializeField]
+		private Button[] _buffButtons;
+
+		[Header("Appearance Options")]
+		[SerializeField]
+		private Sprite[] _buffSprites;
+		[SerializeField]
+		private RuntimeAnimatorController[] _buffAnimators;
+
 		#endregion
 
 		//Private Variables
@@ -42,16 +57,35 @@ namespace Diggy_MiniGame_1
 			_player = FindObjectOfType<PlayerController>();
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			StartCoroutine(StartupCooldown());
+
+			_influencerMenu.SetActive(false);
+
+			for (int i = 0; i < _buffButtons.Length; i++)
+			{
+				int index = i; // Capture index for lambda expression
+				_buffButtons[i].onClick.AddListener(() => ActivateInfluencerBuff(index));
+			}
 		}
 
 		private void Update()
 		{
 			if (Input.GetKeyDown(KeyCode.Alpha6) && !_isCooldown && !_isBuffActive)
 			{
-				ActivateInfluencerBuff();
+				OpenMenu();
 			}
 		}
 
+		private void OpenMenu()
+		{
+			_influencerMenu.SetActive(true);
+			Time.timeScale = 0f; // Pause game
+		}
+
+		private void CloseMenu()
+		{
+			_influencerMenu.SetActive(false);
+			Time.timeScale = 1f; // Resume game
+		}
 
 		private IEnumerator StartupCooldown()
 		{
@@ -63,14 +97,16 @@ namespace Diggy_MiniGame_1
 		//Buff Activation
 		#region Buff Activation
 
-		private void ActivateInfluencerBuff()
+		private void ActivateInfluencerBuff(int appearanceIndex)
 		{
+			CloseMenu();
+
 			PlayAudioInfluencerManagerClip(0);
 
 			StartCoroutine(ApplySpeedBuff());
 			StartCoroutine(ApplyScoreBuff());
 			StartCoroutine(ApplyFireRateBuff());
-			StartCoroutine(ApplyAppearanceBuff());
+			StartCoroutine(ApplyAppearanceBuff(appearanceIndex));
 		}
 
 		private IEnumerator ApplySpeedBuff()
@@ -101,12 +137,12 @@ namespace Diggy_MiniGame_1
 		}
 
 
-		private IEnumerator ApplyAppearanceBuff()
+		private IEnumerator ApplyAppearanceBuff(int index)
 		{
 			_isBuffActive = true;
-			_player.SetBuffedAppearance(); // Switch animator & sprite
-			yield return new WaitForSeconds(_buffDuration);
-			_player.ResetAppearance(); // Reset animator & sprite
+			_player.SetBuffedAppearance(_buffSprites[index], _buffAnimators[index]);
+			yield return new WaitForSecondsRealtime(_buffDuration);
+			_player.ResetAppearance();
 			StartCoroutine(BuffCooldown());
 		}
 		#endregion
