@@ -556,6 +556,7 @@ namespace Diggy_MiniGame_1
 
 		public void ResetAppearance()
 		{
+			_isStunned = false;
 			StopCoroutine(_shootingCoroutine);
 			_animator.runtimeAnimatorController = _originalAnimatorController; // Reset to original animations
 			_spriteRenderer.sprite = _originalSprite;

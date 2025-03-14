@@ -4095,10 +4095,10 @@ MonoBehaviour:
   - {fileID: 2122008698}
   - {fileID: 790480909}
   _buffSprites:
-  - {fileID: 21300000, guid: b3166cba22ade0243ba93ab3feafa768, type: 3}
+  - {fileID: -8793630883318300477, guid: 7c3988934416c8b4d95b77bdf2388438, type: 3}
   - {fileID: 21300000, guid: 2eab7c118b2be7d4a9d429f27783252c, type: 3}
   _buffAnimators:
-  - {fileID: 9100000, guid: 4eca7d9b7216af0448fe71e00046faf3, type: 2}
+  - {fileID: 9100000, guid: b71f2a0cae42ead449eea07397258769, type: 2}
   - {fileID: 9100000, guid: 521bd869c42ca664aba57bfef3d346c8, type: 2}
 --- !u!1 &599266518
 GameObject:
@@ -10417,7 +10417,7 @@ MonoBehaviour:
   - {fileID: 8519440210539594582, guid: b67da450c4019cf458414492aa0eab19, type: 3}
   - {fileID: 8104382938848839087, guid: 4d13f9970e928ef439d7ad8361a0bc88, type: 3}
   _spriteRenderer: {fileID: 1583556022}
-  _buffedScale: {x: 0.12, y: 0.12, z: 0.12}
+  _buffedScale: {x: 0.07, y: 0.07, z: 0.12}
   _uiLayerMask:
     serializedVersion: 2
     m_Bits: 32
@@ -14057,7 +14057,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2100560599
 RectTransform:
   m_ObjectHideFlags: 0
