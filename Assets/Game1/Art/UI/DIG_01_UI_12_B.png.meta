@@ -1,13 +1,10 @@
 fileFormatVersion: 2
-guid: c645cd672684431488164a9b807168dd
+guid: f1f205faff7e09b4cbd91bfb8770a067
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5132187736456414836
-    second: DIG_01_PER_002_C_0
-  - first:
-      213: -8015232940761057722
-    second: DIG_01_PER_002_C_1
+      213: -8873243859176640601
+    second: DIG_01_UI_12_B_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -155,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_PER_002_C_0
+      name: DIG_01_UI_12_B_0
       rect:
         serializedVersion: 2
-        x: 153
-        y: 4
-        width: 1641
-        height: 2014
+        x: 2
+        y: 2
+        width: 217
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -170,30 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8936e7f17ec6c8b0800000000000000
-      internalID: -5132187736456414836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DIG_01_PER_002_C_1
-      rect:
-        serializedVersion: 2
-        x: 706
-        y: 1993
-        width: 19
-        height: 29
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6467ded5b1c24c090800000000000000
-      internalID: -8015232940761057722
+      spriteID: 7af2c58f8b7ebd480800000000000000
+      internalID: -8873243859176640601
       vertices: []
       indices: 
       edges: []

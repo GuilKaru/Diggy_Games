@@ -16,6 +16,7 @@ namespace Diggy_MiniGame_1
 		[SerializeField] private PlayerController _playerController; 
 		[SerializeField] private PlayerHealth _playerHealth;
 		[SerializeField] private ScoreManager _scoreManager;
+		[SerializeField] private InfluencerManager _influencerManager;
 
 		[Header("Game Manager Audio")]
 		[SerializeField]
@@ -42,7 +43,7 @@ namespace Diggy_MiniGame_1
 		private void Update()
 		{
 			// Handle Pause toggle with Escape key
-			if (Input.GetKeyDown(KeyCode.Escape))
+			if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver && !_influencerManager.IsInfluencerMenuOpen)
 			{
 				if (!_isGameOver)
 				{

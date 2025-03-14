@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c28f43e592d7a0648ab45a942d78f751
+guid: 728f094006afcb44ead38d805f8d51b2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1922900228185393966
-    second: DIG_01_PER_003_C_0
+      213: -7584531198141882929
+    second: DIG_01_BUFFINFLU_000_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_PER_003_C_0
+      name: DIG_01_BUFFINFLU_000_0
       rect:
         serializedVersion: 2
-        x: 158
-        y: 4
-        width: 1640
-        height: 1967
+        x: 0
+        y: 0
+        width: 305
+        height: 304
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e2b028fc1938faa10800000000000000
-      internalID: 1922900228185393966
+      spriteID: fcd92e25f055eb690800000000000000
+      internalID: -7584531198141882929
       vertices: []
       indices: 
       edges: []

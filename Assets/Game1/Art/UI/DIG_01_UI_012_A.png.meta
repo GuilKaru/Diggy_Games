@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9630de6aa69a58943b8cb80e36696d83
+guid: a07d00ffd6a83ec4bb05e0e153cb6529
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5167251595074938604
-    second: DIG_01_PER_002_A1_0
+      213: -2831210279572282588
+    second: DIG_01_UI_012_A_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_PER_002_A1_0
+      name: DIG_01_UI_012_A_0
       rect:
         serializedVersion: 2
-        x: 236
-        y: 4
-        width: 1608
-        height: 2047
+        x: 2
+        y: 2
+        width: 250
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ce6238dc2f3c5b740800000000000000
-      internalID: 5167251595074938604
+      spriteID: 423e8a9404585b8d0800000000000000
+      internalID: -2831210279572282588
       vertices: []
       indices: 
       edges: []

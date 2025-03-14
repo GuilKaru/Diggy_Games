@@ -32,11 +32,19 @@ namespace Diggy_MiniGame_1
 		[SerializeField]
 		private Button[] _buffButtons;
 
+		[Header("Influencer Cooldown UI")]
+		[SerializeField]
+		private Button _influencerCooldownButton;
+		[SerializeField]
+		private Image _cooldownFillImage;
+
 		[Header("Appearance Options")]
 		[SerializeField]
 		private Sprite[] _buffSprites;
 		[SerializeField]
 		private RuntimeAnimatorController[] _buffAnimators;
+
+		public bool IsInfluencerMenuOpen => _influencerMenu.activeSelf;
 
 		#endregion
 
@@ -75,7 +83,7 @@ namespace Diggy_MiniGame_1
 			}
 		}
 
-		private void OpenMenu()
+		public void OpenMenu()
 		{
 			_influencerMenu.SetActive(true);
 			Time.timeScale = 0f; // Pause game
@@ -100,7 +108,7 @@ namespace Diggy_MiniGame_1
 		private void ActivateInfluencerBuff(int appearanceIndex)
 		{
 			CloseMenu();
-
+			_cooldownFillImage.fillAmount = 0f;
 			PlayAudioInfluencerManagerClip(0);
 
 			StartCoroutine(ApplySpeedBuff());
@@ -153,7 +161,16 @@ namespace Diggy_MiniGame_1
 		private IEnumerator BuffCooldown()
 		{
 			_isCooldown = true;
-			yield return new WaitForSeconds(_initialCooldown);
+			float elapsedTime = 0f;
+
+			while (elapsedTime < _initialCooldown)
+			{
+				elapsedTime += Time.deltaTime;
+				_cooldownFillImage.fillAmount = elapsedTime / _initialCooldown;
+				yield return null;
+			}
+
+			_cooldownFillImage.fillAmount = 1f; // Reset when ready
 			_isCooldown = false;
 			_isBuffActive = false;
 		}

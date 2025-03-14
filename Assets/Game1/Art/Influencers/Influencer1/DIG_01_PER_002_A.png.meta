@@ -155,10 +155,10 @@ TextureImporter:
       name: DIG_01_PER_002_A_0
       rect:
         serializedVersion: 2
-        x: 221
-        y: 4
-        width: 1609
-        height: 2040
+        x: 359
+        y: 146
+        width: 2101
+        height: 1822
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

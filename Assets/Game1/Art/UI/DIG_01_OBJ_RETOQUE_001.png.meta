@@ -1,13 +1,16 @@
 fileFormatVersion: 2
-guid: 1afb9580a898dcd4682d03e20777d472
+guid: 8b18ab76653e7c54893a4ba43fa10ccc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8583828389788466315
-    second: DIG_01_PER_003_D_0
+      213: 5925411159891881462
+    second: DIG_01_OBJ_RETOQUE_001_0
   - first:
-      213: 4926572985920154171
-    second: DIG_01_PER_003_D_1
+      213: -5036199440258822654
+    second: DIG_01_OBJ_RETOQUE_001_1
+  - first:
+      213: 7770812275808976734
+    second: DIG_01_OBJ_RETOQUE_001_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,13 +52,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.75516814, y: 0.25670955}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 2021, y: 350, z: 0, w: 1567}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -155,45 +158,67 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_PER_003_D_0
+      name: DIG_01_OBJ_RETOQUE_001_0
       rect:
         serializedVersion: 2
-        x: 1299
-        y: 1922
-        width: 12
-        height: 15
+        x: 338
+        y: 424
+        width: 14
+        height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b8c31420172ef1770800000000000000
-      internalID: 8583828389788466315
+      spriteID: 6fdad754e0a4b3250800000000000000
+      internalID: 5925411159891881462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DIG_01_PER_003_D_1
+      name: DIG_01_OBJ_RETOQUE_001_1
       rect:
         serializedVersion: 2
-        x: 11
-        y: 6
-        width: 1887
-        height: 1883
+        x: 351
+        y: 333
+        width: 3435
+        height: 531
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b3a6ec15704be5440800000000000000
-      internalID: 4926572985920154171
+      spriteID: 20e0a51ca43db1ab0800000000000000
+      internalID: -5036199440258822654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_01_OBJ_RETOQUE_001_2
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 188
+        width: 186
+        height: 132
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e5fb6d3e79877db60800000000000000
+      internalID: 7770812275808976734
       vertices: []
       indices: 
       edges: []
@@ -202,8 +227,8 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
-    internalID: 0
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
@@ -211,7 +236,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_OBJ_RETOQUE_001_0: 5925411159891881462
+      DIG_01_OBJ_RETOQUE_001_1: -5036199440258822654
+      DIG_01_OBJ_RETOQUE_001_2: 7770812275808976734
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
