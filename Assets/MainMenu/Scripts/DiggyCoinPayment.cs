@@ -80,8 +80,9 @@ namespace MainMenu
             if (isError)
             {
                 string errorMessage = actionResult.AsErr().content;
-
                 Debug.LogError(errorMessage);
+                
+                //Not Enough Funds
                 logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
 
                 if (actionId == "buy_coin_diggy")
@@ -166,7 +167,9 @@ namespace MainMenu
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
             GameManager.instance.boomUsername.UpdateCoins();
             loadingPanel.SetActive(false);
-            logCoroutine = StartCoroutine(DisplayTempLog(message));
+            //logCoroutine = StartCoroutine(DisplayTempLog(message));
+            
+            //Purchase Successful
         }
 
         #endregion

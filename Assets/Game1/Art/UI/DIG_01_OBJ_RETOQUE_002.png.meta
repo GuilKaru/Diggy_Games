@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_OBJ_RETOQUE_002_0: 4348771119347018554
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

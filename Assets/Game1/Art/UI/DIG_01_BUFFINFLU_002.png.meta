@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_BUFFINFLU_002_0: 5654740629381952602
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

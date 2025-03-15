@@ -128,6 +128,7 @@ namespace MainMenu
                 logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
                 
                 loadingPanel.SetActive(false);
+                
                 return;
             }
 
@@ -284,6 +285,8 @@ namespace MainMenu
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
             
             logCoroutine = StartCoroutine(DisplayTempLog(message));
+            
+            //Insuficient Funds
             
             loadingPanel.SetActive(false);
         }

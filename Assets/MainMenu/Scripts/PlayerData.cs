@@ -26,5 +26,7 @@ namespace MainMenu
         [SerializeField] public string priceDiggyx50;
         [SerializeField] public string priceDiggyx100;
         [SerializeField] public string priceDiggyx200;
+
+        [SerializeField] public string loginDate;
     }
 }
