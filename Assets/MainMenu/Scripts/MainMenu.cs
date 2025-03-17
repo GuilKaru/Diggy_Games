@@ -47,6 +47,10 @@ namespace MainMenu
 		[SerializeField] private TextMeshProUGUI _priceDiggyx200;
 
 		[SerializeField] private BoomUsername _boomUsername;
+		
+		[SerializeField] public GameObject _purchaseSuccessfulObject;
+		[SerializeField] public GameObject _purchaseFailedObject;
+		[SerializeField] public GameObject _insufficientFundsObject;
 
 		private int _currentTutorialIndex = 0;
 		
@@ -55,6 +59,7 @@ namespace MainMenu
 		private static extern void OpenNewTab(string url);
 
 		#endregion
+		
 		#region Unity Methods
 
 		public void LoggedIn()
@@ -296,6 +301,23 @@ namespace MainMenu
 			#else
 			Application.OpenURL(url);
 			#endif		
+		}
+		
+		//Purchase Successful
+		public void PurchaseSuccessfulClose()
+		{
+			_purchaseSuccessfulObject.SetActive(false);
+		}
+		
+		//Insufficient Funds
+		public void InsufficientFundsClose()
+		{
+			_insufficientFundsObject.SetActive(false);
+		}
+
+		public void PurchaseFailedClose()
+		{
+			_purchaseFailedObject.SetActive(false);
 		}
 		#endregion
 	}

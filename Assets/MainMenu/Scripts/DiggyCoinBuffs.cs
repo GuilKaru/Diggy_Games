@@ -101,6 +101,8 @@ namespace MainMenu
                 {
                     Debug.Log("Not enough Diggy Coins");
                     loadingPanel.SetActive(false);
+                    
+                    GameManager.instance.mainMenu._insufficientFundsObject.SetActive(true);
                 }
                 else if (actionId == "buy_sweep_buff" && diggyCoin >= 5)
                 {
@@ -151,6 +153,8 @@ namespace MainMenu
                 logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
                 
                 loadingPanel.SetActive(false);
+                
+                GameManager.instance.mainMenu._purchaseFailedObject.SetActive(true);
                 
                 return;
             }
@@ -214,6 +218,8 @@ namespace MainMenu
 
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
             loadingPanel.SetActive(false);
+            
+            GameManager.instance.mainMenu._purchaseSuccessfulObject.SetActive(true);
             GameManager.instance.boomUsername.UpdateCoins();
             //logCoroutine = StartCoroutine(DisplayTempLog(message));
         }

@@ -129,6 +129,8 @@ namespace MainMenu
                 
                 loadingPanel.SetActive(false);
                 
+                GameManager.instance.mainMenu._purchaseFailedObject.SetActive(true);
+                
                 return;
             }
 
@@ -284,11 +286,12 @@ namespace MainMenu
 
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
             
-            logCoroutine = StartCoroutine(DisplayTempLog(message));
+            //logCoroutine = StartCoroutine(DisplayTempLog(message));
             
-            //Insuficient Funds
             
             loadingPanel.SetActive(false);
+            
+            GameManager.instance.mainMenu._insufficientFundsObject.SetActive(true);
         }
         #endregion
 
