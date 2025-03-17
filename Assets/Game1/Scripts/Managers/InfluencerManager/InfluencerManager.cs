@@ -77,10 +77,10 @@ namespace Diggy_MiniGame_1
 
 		private void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.Alpha6) && !_isCooldown && !_isBuffActive)
+			/*if (Input.GetKeyDown(KeyCode.Alpha6) && !_isCooldown && !_isBuffActive)
 			{
 				OpenMenu();
-			}
+			}*/
 		}
 
 		public void OpenMenu()
