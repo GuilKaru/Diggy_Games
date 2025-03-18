@@ -17,7 +17,7 @@ namespace Diggy_MiniGame_1
 		[SerializeField] private PlayerController _playerController; 
 		[SerializeField] private PlayerHealth _playerHealth;
 		[SerializeField] private ScoreManager _scoreManager;
-		[SerializeField] private InfluencerManager _influencerManager;
+		//[SerializeField] private InfluencerManager _influencerManager;
 		
 		[SerializeField] public TextMeshProUGUI ScoreText;
 		[SerializeField] public TextMeshProUGUI UsernameText;
@@ -48,7 +48,7 @@ namespace Diggy_MiniGame_1
 		private void Update()
 		{
 			// Handle Pause toggle with Escape key
-			if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver && !_influencerManager.IsInfluencerMenuOpen)
+			if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver )//&& !_influencerManager.IsInfluencerMenuOpen)
 			{
 				if (!_isGameOver)
 				{
