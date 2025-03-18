@@ -74,37 +74,7 @@ namespace MainMenu
             
             GameManager.instance.playerData.loginDate = currentDateTimeS;
 
-            /*var dataAcc = UserUtil.GetAllData("hxm5m-iyu4m-q5aka-wwzd6-dpd2z-meblw-scprf-tl4bx-ifcqp-o6rox-qqe");
-            
-            if (dataAcc.IsErr)
-            {
-	            Debug.Log($"Failed to get user data");
-	            return;
-            }
-            var dataAccOk = dataAcc.AsOk();
-
-            string diggyBalance = "";
-            
-            string userBalance = dataAccOk.tokenData.elements.Reduce(e =>
-            {
-	            var balance = e.Value;
-                
-	            if (balance.TryGetTokenConfig(out var tokenConfig) == false)
-	            {
-		            Debug.Log($"Failed to get user balance");
-		            return "";
-	            }
-
-	            if (balance.canisterId == "dfg2l-2yaaa-aaaap-akpsa-cai")
-	            {
-		            diggyBalance = $"{TokenUtil.ConvertToDecimal(balance.baseUnitAmount, tokenConfig.decimals)}";
-		            return  $"{TokenUtil.ConvertToDecimal(balance.baseUnitAmount, tokenConfig.decimals)}";
-	            }
-
-	            return null;
-            });
-            Debug.Log($"This is the user balance ---> {userBalance}");
-            Debug.Log($"This is the DiggyBalance of the other ACC ---> {diggyBalance}");*/
+            //Read Config to know if the game is in Maintenance
             
         }
 

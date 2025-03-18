@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using Boom.Tutorials;
+using Diggy_MiniGame_1;
 
 namespace MainMenu
 {
@@ -230,8 +231,106 @@ namespace MainMenu
                 new Candid.World.Models.Field() { FieldName = "username", FieldValue = string.IsNullOrEmpty(userName)? loginData.principal.SimplifyAddress() : userName },
                 new Candid.World.Models.Field() { FieldName = "maxscore", FieldValue = score },
             });
+            
+                CoroutineManagerUtil.DelayAction(UpdateLeaderboardGameOver, 3f, transform);
+        }
+        
+        public void UpdateLeaderboardGameOver()
+        {
+            //content.text = "";
 
-            CoroutineManagerUtil.DelayAction(UpdateLeaderboard, 3f, transform);
+            var loginData = UserUtil.GetLogInData().AsOk();
+            var ownPrincipal = loginData.principal;
+
+            DisplayLeaderboardWithEntityAsEntriesGameOver(ownPrincipal);
+        }
+
+        private void DisplayLeaderboardWithEntityAsEntriesGameOver(string ownPrincipal)
+        {
+            //I use try query all entities with a predefined filter that specifies that
+            //I only want the entities from the world canister with a field tag of value "lb"
+            EntityUtil.TryQueryEntities(EntityUtil.Queries.worldEntityFieldTagLb, out var lbEntries);
+            //EntityUtil.TryQueryEntities(BoomManager.Instance.WORLD_CANISTER_ID, e => e.eid.Contains("lb_"), out var lbEntries);
+            //We initialize the entry list in case it is null
+            if (lbEntries == null)
+            {
+                lbEntries = new();
+            }
+            
+            LBEntries.Clear();
+            LBEntries = new List<LBEntry>();
+
+            if (_playerObjects == null || _playerObjects.Count == 0)
+            {
+                _playerObjects = new();
+            }
+            else
+            {
+                foreach (var playerObject in _playerObjects)
+                {
+                    Destroy(playerObject);
+                }
+
+                _playerObjects.Clear();
+                _playerObjects = new();
+            }
+            
+            //bool userEntryExist = false;
+            
+            foreach (var entity in lbEntries)
+            {
+                /*if (entity.eid == ownPrincipal)
+                {
+                    userEntryExist = true;
+                }*/
+                
+                entity.TryGetFieldAsText("username", out var username);
+                entity.TryGetFieldAsText("maxscore", out var score);
+
+                if (username is null or "None")
+                {
+                    username = entity.eid;
+                }
+
+                if (score is null or "None")
+                {
+                    score = "0";
+                }
+                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid, playerPrefab);
+                
+                LBEntries.Add(entries);
+                
+            }
+
+
+            if (LBEntries.Count > 0)
+            {
+                LBEntries.Sort((x, y) => y.Score.CompareTo(x.Score));
+            }
+
+
+            for (int i = 0; i < LBEntries.Count; i++)
+            {
+                GameObject playerObject = Instantiate(LBEntries[i].playerStatsPrefab, playerStatsContainer);
+                playerObject.transform.SetParent(playerStatsContainer);
+                LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
+                
+                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, $"#{i + 1}");
+                _playerObjects.Add(playerObject);
+
+                if (LBEntries[i].Principal == ownPrincipal)
+                {
+                    playerRank.text = $"#{i + 1}";
+                    playerName.text = LBEntries[i].Username;
+                    playerScore.text = LBEntries[i].Score.ToString();
+
+                    Diggy_MiniGame_1.GameManager.Instance.ScoreText.text = LBEntries[i].Score.ToString();
+                    Diggy_MiniGame_1.GameManager.Instance.UsernameText.text = LBEntries[i].Username;
+                    Diggy_MiniGame_1.GameManager.Instance.RankText.text = $"{i + 1}";
+
+                    return;
+                }
+            }
         }
     }
 }

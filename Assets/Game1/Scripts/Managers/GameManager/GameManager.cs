@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using MainMenu;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 namespace Diggy_MiniGame_1
 {
@@ -17,6 +18,10 @@ namespace Diggy_MiniGame_1
 		[SerializeField] private PlayerHealth _playerHealth;
 		[SerializeField] private ScoreManager _scoreManager;
 		[SerializeField] private InfluencerManager _influencerManager;
+		
+		[SerializeField] public TextMeshProUGUI ScoreText;
+		[SerializeField] public TextMeshProUGUI UsernameText;
+		[SerializeField] public TextMeshProUGUI RankText;
 
 		[Header("Game Manager Audio")]
 		[SerializeField]
