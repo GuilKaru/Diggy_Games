@@ -157,8 +157,12 @@ namespace MainMenu
                 GameObject playerObject = Instantiate(LBEntries[i].playerStatsPrefab, playerStatsContainer);
                 playerObject.transform.SetParent(playerStatsContainer);
                 LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
+
+                string firstThree = LBEntries[i].Principal.Substring(0, 3);
+                string lastThree = LBEntries[i].Principal.Substring(LBEntries[i].Principal.Length - 3, 3);
+                string shortened = $"{firstThree} ... {lastThree}";
                 
-                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, $"#{i + 1}");
+                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, shortened, $"#{i + 1}");
                 _playerObjects.Add(playerObject);
 
                 if (LBEntries[i].Principal == ownPrincipal)
