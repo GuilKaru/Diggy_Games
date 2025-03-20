@@ -24,6 +24,7 @@ namespace MainMenu
 		[SerializeField] private GameObject _furnaceFrenzyLeaderBoard;
 		[SerializeField] private GameObject _furnaceFrenzyStore;
 		[SerializeField] private GameObject _loadingPanel;
+		[SerializeField] private GameObject _rewardsPanel;
 		[SerializeField] private Button _playButton;
 
 		[Header("Game Manager Audio")]
@@ -52,6 +53,12 @@ namespace MainMenu
 		[SerializeField] public GameObject _purchaseFailedObject;
 		[SerializeField] public GameObject _insufficientFundsObject;
 
+		[SerializeField] public bool playerWhitelisted = false;
+		[SerializeField] public bool whitelistActivated = false;
+
+		[SerializeField] private GameObject _maintenancePlay;
+		[SerializeField] private GameObject _maintenanceStore;
+		
 		private int _currentTutorialIndex = 0;
 		
 		//Open New Tab variable
@@ -67,15 +74,31 @@ namespace MainMenu
             _loginMenu.SetActive(false);
             _loadingPanel.SetActive(false);
             _usernameMenu.SetActive(true);
-            
-            DateTime curentDateTime = DateTime.UtcNow;
-            string currentDateTimeS = curentDateTime.ToString("dd/MM/yyyy HH:mm:ss");
-            Debug.Log ($"User logged in: {currentDateTimeS}");
-            
-            GameManager.instance.playerData.loginDate = currentDateTimeS;
+            ConfigUtil.TryGetConfig("bg4su-6iaaa-aaaap-anxsa-cai", "maintenanceConfig", out var outConfig);
 
-            //Read Config to know if the game is in Maintenance
+            outConfig.fields.TryGetValue("whitelistActivation", out var whitelist);
+
+            if (whitelist == "true") whitelistActivated = true;
             
+            GameManager.instance.principalChecker.currentPrincipalId = UserUtil.GetPrincipal();
+            GameManager.instance.principalChecker.CreatePrincipalList();
+            GameManager.instance.principalChecker.CheckPrincipals();
+            
+            //Read Config to know if the game is in Maintenance
+            outConfig.fields.TryGetValue("playMaintenance", out  var playMaintenance);
+            outConfig.fields.TryGetValue("storeMaintenance", out var storeMaintenance);
+
+            if (playMaintenance == "true")
+            {
+	            _maintenancePlay.SetActive(true);
+            }
+
+            if (storeMaintenance == "true")
+            {
+	            _maintenanceStore.SetActive(true);
+            }
+			
+            ActivatePlayButton();
         }
 
         public void UsernameMenuChange()
@@ -111,14 +134,36 @@ namespace MainMenu
 
         public void ActivatePlayButton()
         {
-	        if (GameManager.instance.playerData.diggyCoinsD > 0)
+	        if (whitelistActivated)
 	        {
-		        _playButton.interactable = true;
+		        if (playerWhitelisted)
+		        {
+			        if (GameManager.instance.playerData.diggyCoinsD > 0)
+			        {
+				        _playButton.interactable = true;
+			        }
+			        else
+			        {
+				        _playButton.interactable = false;
+			        }
+		        }
+		        else
+		        {
+			        _playButton.interactable = false;
+		        }
 	        }
 	        else
 	        {
-		        _playButton.interactable = false;
+		        if (GameManager.instance.playerData.diggyCoinsD > 0)
+		        {
+			        _playButton.interactable = true;
+		        }
+		        else
+		        {
+			        _playButton.interactable = false;
+		        }
 	        }
+	        
         }
         public void CoinsSafe(double diggyCoin, double sweepBuff, double timeBuff, double rockBuff, double shieldBuff, double tripleBuff)
         {
@@ -216,6 +261,11 @@ namespace MainMenu
 			PlayAudioMainMenuClip(0);
 			
 			_boomUsername.UpdateCoins();
+		}
+
+		public void OpenRewards(bool active)
+		{
+			_rewardsPanel.SetActive(active);
 		}
 
 		public void OpenStore()

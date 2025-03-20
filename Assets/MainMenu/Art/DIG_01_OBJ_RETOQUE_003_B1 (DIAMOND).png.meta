@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e72b02e453d40ea4f828108ef3a7d142
+guid: 1900ff06e34b64045b7c7811f828c31b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1667381388399210756
-    second: DIG_01_OBJ_RETOQUE_003 (PANEL LEADERBOARD)_0
+      213: -4843914084450735315
+    second: DIG_01_OBJ_RETOQUE_003_B1 (DIAMOND)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_OBJ_RETOQUE_003 (PANEL LEADERBOARD)_0
+      name: DIG_01_OBJ_RETOQUE_003_B1 (DIAMOND)_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 31
         y: 0
-        width: 1920
-        height: 1080
+        width: 595
+        height: 684
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cfe0e5f16754cd8e0800000000000000
-      internalID: -1667381388399210756
+      spriteID: d2b6dc9edc5f6ccb0800000000000000
+      internalID: -4843914084450735315
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DIG_01_OBJ_RETOQUE_003 (PANEL LEADERBOARD)_0: -1667381388399210756
+      DIG_01_OBJ_RETOQUE_003_B1 (DIAMOND)_0: -4843914084450735315
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

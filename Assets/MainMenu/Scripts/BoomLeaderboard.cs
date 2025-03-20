@@ -45,6 +45,9 @@ namespace MainMenu
         [SerializeField] public TextMeshProUGUI playerRank;
         [SerializeField] public TextMeshProUGUI playerName;
         [SerializeField] public TextMeshProUGUI playerScore;
+        [SerializeField] public Image playerRankTier;
+        
+        [SerializeField] private List<Sprite> playerSprites = new List<Sprite>();
         
         //[SerializeField] TMP_Text content;
 
@@ -161,8 +164,30 @@ namespace MainMenu
                 string firstThree = LBEntries[i].Principal.Substring(0, 3);
                 string lastThree = LBEntries[i].Principal.Substring(LBEntries[i].Principal.Length - 3, 3);
                 string shortened = $"{firstThree} ... {lastThree}";
+                Sprite currentSprite;
+
+                if (i < 3)
+                {
+                    currentSprite = playerSprites[0];
+                }
+                else if (i < 10)
+                {
+                    currentSprite = playerSprites[1];
+                }
+                else if (i < 30)
+                {
+                    currentSprite = playerSprites[2];
+                }
+                else if (i < 100)
+                {
+                    currentSprite = playerSprites[3];
+                }
+                else
+                {
+                    currentSprite = playerSprites[4];
+                }
                 
-                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, shortened, $"#{i + 1}");
+                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, shortened, $"#{i + 1}", currentSprite);
                 _playerObjects.Add(playerObject);
 
                 if (LBEntries[i].Principal == ownPrincipal)
@@ -170,12 +195,13 @@ namespace MainMenu
                     playerRank.text = $"#{i + 1}";
                     playerName.text = LBEntries[i].Username;
                     playerScore.text = LBEntries[i].Score.ToString();
+                    playerRankTier.sprite = currentSprite;
                 }
             }
-            foreach (LBEntry entry in LBEntries)
+            /*foreach (LBEntry entry in LBEntries)
             {
                 Debug.Log($"Username: {entry.Username} // Score: {entry.Score} // Principal: {entry.Principal}");
-            }
+            }*/
             /*if(userEntryExist == false)
             {
                 names.Add(ownPrincipal.SimplifyAddress());
@@ -319,7 +345,30 @@ namespace MainMenu
                 playerObject.transform.SetParent(playerStatsContainer);
                 LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
                 
-                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, $"#{i + 1}");
+                Sprite currentSprite;
+
+                if (i < 3)
+                {
+                    currentSprite = playerSprites[0];
+                }
+                else if (i < 10)
+                {
+                    currentSprite = playerSprites[1];
+                }
+                else if (i < 30)
+                {
+                    currentSprite = playerSprites[2];
+                }
+                else if (i < 100)
+                {
+                    currentSprite = playerSprites[3];
+                }
+                else
+                {
+                    currentSprite = playerSprites[4];
+                }
+                
+                playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, $"#{i + 1}", currentSprite);
                 _playerObjects.Add(playerObject);
 
                 if (LBEntries[i].Principal == ownPrincipal)

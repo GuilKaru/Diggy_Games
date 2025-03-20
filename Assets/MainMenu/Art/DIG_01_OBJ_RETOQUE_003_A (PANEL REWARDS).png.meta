@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e72b02e453d40ea4f828108ef3a7d142
+guid: f245387b351732e4da816906b2cd3290
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1667381388399210756
-    second: DIG_01_OBJ_RETOQUE_003 (PANEL LEADERBOARD)_0
+      213: -9184887904414765754
+    second: DIG_01_OBJ_RETOQUE_003_A (PANEL REWARDS)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -152,7 +152,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_OBJ_RETOQUE_003 (PANEL LEADERBOARD)_0
+      name: DIG_01_OBJ_RETOQUE_003_A (PANEL REWARDS)_0
       rect:
         serializedVersion: 2
         x: 0
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: cfe0e5f16754cd8e0800000000000000
-      internalID: -1667381388399210756
+      spriteID: 64d63935d19b88080800000000000000
+      internalID: -9184887904414765754
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DIG_01_OBJ_RETOQUE_003 (PANEL LEADERBOARD)_0: -1667381388399210756
+      DIG_01_OBJ_RETOQUE_003_A (PANEL REWARDS)_0: -9184887904414765754
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

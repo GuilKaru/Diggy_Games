@@ -17,6 +17,7 @@ namespace MainMenu
         [SerializeField] public BoomUsername boomUsername;
         [SerializeField] public BoomScoreFF boomScoreFF;
         [SerializeField] public BoomLeaderboard boomLeaderboard;
+        [SerializeField] public PrincipalChecker principalChecker;
         
         [Header("Main Menu Objects")]
         [SerializeField] GameObject gamesObject;

@@ -69,8 +69,6 @@ namespace MainMenu
                 string errorMessage = actionResult.AsErr().content;
                 
                 Debug.LogError(errorMessage);
-
-                return;
             }
             else
             {
@@ -98,15 +96,13 @@ namespace MainMenu
             
             UpdateCoins();
             UpdateUsername(outVal);
+            
+            DateAction().Forget();
         }
 
         private void UpdateUsername(string value)
         {
-            if (value is "None" or null)
-            {
-                return;
-            }
-            else
+            if (value is not ("None" or null))
             {
                 GameManager.instance.mainMenu.NameSafe(value);
             }
@@ -127,6 +123,34 @@ namespace MainMenu
             
             GameManager.instance.mainMenu.CoinsSafe(diggyCoinD, sweepBuffD, timeBuffD, rockBuffD, shieldBuffD, tripleBuffD);
 
+        }
+        
+        public async UniTaskVoid DateAction()
+        {
+            if (logCoroutine != null) StopCoroutine(logCoroutine);
+            
+            DateTime curentDateTime = DateTime.UtcNow;
+            string currentDateTimeS = curentDateTime.ToString("dd/MM/yyyy HH:mm:ss");
+            
+            GameManager.instance.playerData.loginDate = currentDateTimeS;
+            
+            if (string.IsNullOrEmpty(currentDateTimeS)) return;
+
+            List<Field> fields = new()
+            {
+                new Field("date", currentDateTimeS),
+            };
+
+            var actionResult = await ActionUtil.ProcessAction("set_date", fields);
+
+            bool isError = actionResult.IsErr;
+
+            if (isError)
+            {
+                string errorMessage = actionResult.AsErr().content;
+                
+                Debug.LogError(errorMessage);
+            }
         }
     }
 }
