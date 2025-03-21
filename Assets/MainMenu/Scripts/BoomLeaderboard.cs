@@ -225,7 +225,8 @@ namespace MainMenu
             actionMode = actionM;
 
             var loginData = UserUtil.GetLogInData().AsOk();
-
+            Diggy_MiniGame_1.GameManager.Instance.ScoreText.text = $"Total Score: {score}";
+            Diggy_MiniGame_1.GameManager.Instance.UsernameText.text = $"{GameManager.instance.playerData.username}";
             SetEntityAsEntry(loginData, score, userName, actionM);
         }
 
@@ -255,14 +256,15 @@ namespace MainMenu
             {
                 lbEntry.TryGetFieldAsDouble("score", out currentScore);
             }*/
-
+            Debug.Log("It's making this action");
             ActionUtil.ProcessAction(actionM, new()
             {
                 new Candid.World.Models.Field() { FieldName = "username", FieldValue = string.IsNullOrEmpty(userName)? loginData.principal.SimplifyAddress() : userName },
                 new Candid.World.Models.Field() { FieldName = "maxscore", FieldValue = score },
             });
-            
-                CoroutineManagerUtil.DelayAction(UpdateLeaderboardGameOver, 3f, transform);
+            Debug.Log("Before CoroutineManager");
+            //CoroutineManagerUtil.DelayAction(UpdateLeaderboardGameOver, 1f, transform);
+            UpdateLeaderboardGameOver();
         }
         
         public void UpdateLeaderboardGameOver()
@@ -277,6 +279,7 @@ namespace MainMenu
 
         private void DisplayLeaderboardWithEntityAsEntriesGameOver(string ownPrincipal)
         {
+            
             //I use try query all entities with a predefined filter that specifies that
             //I only want the entities from the world canister with a field tag of value "lb"
             EntityUtil.TryQueryEntities(EntityUtil.Queries.worldEntityFieldTagLb, out var lbEntries);
@@ -341,7 +344,7 @@ namespace MainMenu
 
             for (int i = 0; i < LBEntries.Count; i++)
             {
-                GameObject playerObject = Instantiate(LBEntries[i].playerStatsPrefab, playerStatsContainer);
+                /*GameObject playerObject = Instantiate(LBEntries[i].playerStatsPrefab, playerStatsContainer);
                 playerObject.transform.SetParent(playerStatsContainer);
                 LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
                 
@@ -369,17 +372,14 @@ namespace MainMenu
                 }
                 
                 playerStats.PutPlayerStats(LBEntries[i].Score.ToString(), LBEntries[i].Username, LBEntries[i].Principal, $"#{i + 1}", currentSprite);
-                _playerObjects.Add(playerObject);
+                _playerObjects.Add(playerObject);*/
 
                 if (LBEntries[i].Principal == ownPrincipal)
                 {
-                    playerRank.text = $"#{i + 1}";
+                    /*playerRank.text = $"#{i + 1}";
                     playerName.text = LBEntries[i].Username;
-                    playerScore.text = LBEntries[i].Score.ToString();
-
-                    Diggy_MiniGame_1.GameManager.Instance.ScoreText.text = LBEntries[i].Score.ToString();
-                    Diggy_MiniGame_1.GameManager.Instance.UsernameText.text = LBEntries[i].Username;
-                    Diggy_MiniGame_1.GameManager.Instance.RankText.text = $"{i + 1}";
+                    playerScore.text = LBEntries[i].Score.ToString();*/
+                    Diggy_MiniGame_1.GameManager.Instance.RankText.text = $"Rank: {i + 1}";
 
                     return;
                 }

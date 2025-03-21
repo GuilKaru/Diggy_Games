@@ -412,7 +412,7 @@ MonoBehaviour:
   _purchaseFailedObject: {fileID: 1300470223}
   _insufficientFundsObject: {fileID: 837964836}
   playerWhitelisted: 0
-  whitelistActivated: 1
+  whitelistActivated: 0
   _maintenancePlay: {fileID: 260764524}
   _maintenanceStore: {fileID: 1603060003}
 --- !u!1 &13171779

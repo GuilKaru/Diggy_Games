@@ -1670,7 +1670,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -159.85312}
+  m_AnchoredPosition: {x: 0, y: 14}
   m_SizeDelta: {x: 1030, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &310324631
@@ -5806,7 +5806,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 14}
+  m_AnchoredPosition: {x: 0, y: -70}
   m_SizeDelta: {x: 1030, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &771669742
@@ -11337,7 +11337,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 26.701347, y: 23.820002}
+    oldSize: {x: 26.7, y: 23.831837}
     newSize: {x: 26.701347, y: 23.820002}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -14315,7 +14315,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -66.99999}
+  m_AnchoredPosition: {x: 0, y: -160}
   m_SizeDelta: {x: 1030, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1933982986
@@ -14347,8 +14347,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4289405967
+  m_fontColor: {r: 0.06003024, g: 0.13930185, b: 0.6698113, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

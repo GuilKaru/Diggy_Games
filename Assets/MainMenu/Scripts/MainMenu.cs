@@ -79,6 +79,7 @@ namespace MainMenu
             outConfig.fields.TryGetValue("whitelistActivation", out var whitelist);
 
             if (whitelist == "true") whitelistActivated = true;
+            else if (whitelist == "false") whitelistActivated = false;
             
             GameManager.instance.principalChecker.currentPrincipalId = UserUtil.GetPrincipal();
             GameManager.instance.principalChecker.CreatePrincipalList();
