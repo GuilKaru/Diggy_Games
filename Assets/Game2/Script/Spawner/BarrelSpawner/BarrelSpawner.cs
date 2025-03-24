@@ -15,7 +15,7 @@ namespace Diggy_MiniGame_2
 		private float[] _spawnIntervals; // Array of spawn intervals
 
 		private SpawnerManager _spawnerManager;
-
+		private bool canSpawn = true;
 
 
 		private void Start()
@@ -82,6 +82,11 @@ namespace Diggy_MiniGame_2
 			{
 				Debug.LogWarning("No available Y position for spawning.");
 			}
+		}
+
+		public void SetSpawning(bool value)
+		{
+			canSpawn = value; // Enable or disable spawning
 		}
 
 		private IEnumerator ReleasePositionAfterDelay(float yPos, float delay)

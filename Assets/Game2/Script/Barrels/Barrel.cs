@@ -13,6 +13,15 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private float _destroyXPositionRight = 10f; // Position where the barrel will be destroyed if moving right
 
+
+		private float _originalSpeed;
+
+
+		private void Start()
+		{
+			_originalSpeed = _moveSpeed;
+		}
+
 		private void Update()
 		{
 			MoveBarrel();
@@ -24,6 +33,19 @@ namespace Diggy_MiniGame_2
 			float direction = _moveRight ? 1f : -1f;
 			transform.Translate(Vector2.right * direction * _moveSpeed * Time.deltaTime);
 		}
+
+		#region Speed Control
+		public void SetSpeed(float newSpeed)
+		{
+			_moveSpeed = newSpeed;
+		}
+
+		// Method to restore speed to its original value
+		public void RestoreSpeed()
+		{
+			_moveSpeed = _originalSpeed; // Restore the speed
+		}
+		#endregion
 
 		private void CheckPositionAndDestroy()
 		{
@@ -44,8 +66,16 @@ namespace Diggy_MiniGame_2
 				if (playerController != null)
 				{
 					DestroyCoins(playerController);
+					playerController.PlayerTakeDamage();
 				}
 			}
+
+			if (other.CompareTag("Rock"))
+			{
+
+				Destroy(gameObject);
+			}
+
 
 			if (other.CompareTag("TransportLine"))
 			{

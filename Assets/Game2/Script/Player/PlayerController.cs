@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Diggy_MiniGame_2
 {
@@ -26,6 +27,14 @@ namespace Diggy_MiniGame_2
 		private int _maxCarriedObjects = 5;
 		[SerializeField]
 		private Vector3 _pickupOffset = new Vector3(0, 1f, 0);
+
+		[Header("Player Hit")]
+		[SerializeField]
+		private SpriteRenderer _spriteRenderer;
+
+		[Header("Player Collider")]
+		[SerializeField]
+		private Collider2D _collider2D;
 
 		[Header("Difficulty Drift Settings")]
 		[SerializeField]
@@ -189,6 +198,34 @@ namespace Diggy_MiniGame_2
 
 		#endregion
 
+		//Take Damage
+		#region Take Damage
+
+		public void PlayerTakeDamage()
+		{
+			StartCoroutine(ToggleSpriteAndCollider(0.2f));
+		}
+
+		private IEnumerator ToggleSpriteAndCollider(float delay)
+		{
+			_collider2D.enabled = !_collider2D.enabled;
+			yield return new WaitForSeconds(delay);
+
+			float _toggleDuration = 2.0f;
+			float _toggleInterval = 0.2f;
+
+			float endTime = Time.time + _toggleDuration;
+
+			while (Time.time < endTime)
+			{
+				_spriteRenderer.enabled = !_spriteRenderer.enabled;
+				yield return new WaitForSeconds(_toggleInterval);
+			}
+			_spriteRenderer.enabled = true;
+			_collider2D.enabled = true;
+
+		}
+		#endregion
 
 		// Gizmos
 		#region Gizmos
