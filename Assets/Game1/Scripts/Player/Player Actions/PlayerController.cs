@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
 using System;
@@ -19,6 +20,12 @@ namespace Diggy_MiniGame_1
 		private Vector2 _minBounds; // Minimum X and Y values
 		[SerializeField]
 		private Vector2 _maxBounds; // Maximum X and Y values
+
+		[Header("Mobile Joystick")]
+		[SerializeField]
+		private DynamicJoystick _joystick;
+		[SerializeField]
+		private Button _shootButton;
 
 		[Header("Shovel Throw")]
 		[SerializeField]
@@ -114,6 +121,8 @@ namespace Diggy_MiniGame_1
 		private Animator _originalAnimator;
 		private Sprite _originalSprite;
 		private Vector3 _originalScale;
+
+		private bool _isUsingJoystick;
 		#endregion
 
 		//Animations
@@ -166,6 +175,8 @@ namespace Diggy_MiniGame_1
 			_originalAnimatorController = _animator.runtimeAnimatorController;
 			_originalScale = transform.localScale;
 
+			_isUsingJoystick = _joystick != null && _joystick.gameObject.activeInHierarchy;
+
 			ChangeAnimationState(_idleAnim);
 
 		}
@@ -173,6 +184,17 @@ namespace Diggy_MiniGame_1
 		private void Update()
 		{
 			_isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
+			if (_isUsingJoystick)
+			{
+				// Use mobile joystick
+				_moveInput = _joystick.InputVector;
+			}
+			else
+			{
+				// Use new input system for PC
+				_moveInput = _moveAction.ReadValue<Vector2>();
+			}
+
 		}
 
 		private void OnEnable()
@@ -243,7 +265,6 @@ namespace Diggy_MiniGame_1
 
 			// Move the Rigidbody to the clamped position
 			_rb.MovePosition(newPosition);
-			
 
 		}
 
@@ -374,6 +395,31 @@ namespace Diggy_MiniGame_1
 		}
 
 		#endregion
+
+		//Mobile Shoot
+		#region Mobile Shoot
+		public void OnShootStart()
+		{
+			_isShooting = true;
+
+			if (_shootingCoroutine == null)
+			{
+				_shootingCoroutine = StartCoroutine(ShootingCoroutine());
+			}
+		}
+
+		public void OnShootStop()
+		{
+			_isShooting = false;
+
+			if (_shootingCoroutine != null)
+			{
+				StopCoroutine(_shootingCoroutine);
+				_shootingCoroutine = null;
+			}
+		}
+		#endregion
+
 
 		//Stun
 		#region Stun
