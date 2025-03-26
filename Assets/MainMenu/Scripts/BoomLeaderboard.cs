@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Boom;
 using Boom.Utility;
@@ -20,14 +21,11 @@ namespace MainMenu
         public double Score {get; set;}
         public string Principal {get; set;}
 
-        public GameObject playerStatsPrefab;
-
-        public LBEntry(string username, int score, string principal, GameObject playerStats)
+        public LBEntry(string username, int score, string principal)
         {
             Username = username;
             Score = score;
             Principal = principal;
-            this.playerStatsPrefab = playerStats;
         }
     }
     public class BoomLeaderboard : MonoBehaviour
@@ -35,6 +33,7 @@ namespace MainMenu
 
         private List<LBEntry> LBEntries = new List<LBEntry>();
         private List <GameObject> _playerObjects = new List<GameObject>();
+        public GameObject playerStatsPrefab;
         
         string actionMode;
 
@@ -134,7 +133,7 @@ namespace MainMenu
                 {
                     score = "0";
                 }
-                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid, playerPrefab);
+                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid);
                 
                 LBEntries.Add(entries);
                 
@@ -157,7 +156,7 @@ namespace MainMenu
 
             for (int i = 0; i < LBEntries.Count; i++)
             {
-                GameObject playerObject = Instantiate(LBEntries[i].playerStatsPrefab, playerStatsContainer);
+                GameObject playerObject = Instantiate(playerStatsPrefab, playerStatsContainer);
                 playerObject.transform.SetParent(playerStatsContainer);
                 LeaderboardPlayerStats playerStats = playerObject.GetComponent<LeaderboardPlayerStats>();
 
@@ -218,8 +217,18 @@ namespace MainMenu
             {
                 content.text += $" -> {i}) Username: {sortedNames[i]}, Score: {sortedNumbers[i]}\n";
             }*/
+            
+            //SaveLeaderboard(LBEntries);
         }
 
+        public void SaveLeaderboard(List<LBEntry> entries)
+        {
+            string json = JsonConvert.SerializeObject(entries, Formatting.Indented);
+            
+            string filePath = Application.persistentDataPath + "/leaderboard.json";
+
+            File.WriteAllText(filePath, json);
+        }
         public void SetLeaderboardEntry(string actionM, string score, string userName)
         {
             actionMode = actionM;
@@ -329,7 +338,7 @@ namespace MainMenu
                 {
                     score = "0";
                 }
-                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid, playerPrefab);
+                LBEntry entries = new LBEntry(username, int.Parse(score), entity.eid);
                 
                 LBEntries.Add(entries);
                 

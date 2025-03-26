@@ -14164,6 +14164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37933fbf0549a8848814138d175a5fb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStatsPrefab: {fileID: 5698500218232566137, guid: 20868a6f5480d8445939712a44e299eb, type: 3}
   playerStatsContainer: {fileID: 2062760012}
   playerPrefab: {fileID: 5698500218232566137, guid: 20868a6f5480d8445939712a44e299eb, type: 3}
   playerRank: {fileID: 115578354}
