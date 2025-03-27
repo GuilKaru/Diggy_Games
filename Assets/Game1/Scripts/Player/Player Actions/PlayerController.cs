@@ -175,7 +175,7 @@ namespace Diggy_MiniGame_1
 			_originalAnimatorController = _animator.runtimeAnimatorController;
 			_originalScale = transform.localScale;
 
-			_isUsingJoystick = _joystick != null && _joystick.gameObject.activeInHierarchy;
+			_isUsingJoystick = _joystick != null && _joystick.InputVector.magnitude > 0.1f;
 
 			ChangeAnimationState(_idleAnim);
 
@@ -184,16 +184,8 @@ namespace Diggy_MiniGame_1
 		private void Update()
 		{
 			_isPointerOverUI = EventSystem.current.IsPointerOverGameObject();
-			if (_isUsingJoystick)
-			{
-				// Use mobile joystick
-				_moveInput = _joystick.InputVector;
-			}
-			else
-			{
-				// Use new input system for PC
-				_moveInput = _moveAction.ReadValue<Vector2>();
-			}
+			_moveInput = _joystick.InputVector + _moveAction.ReadValue<Vector2>();
+			_moveInput = Vector2.ClampMagnitude(_moveInput, 1f); // Normalize input
 
 		}
 

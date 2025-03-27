@@ -4536,7 +4536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &597494661
 Transform:
   m_ObjectHideFlags: 0
@@ -6602,7 +6602,8 @@ MonoBehaviour:
   _playerController: {fileID: 1583556021}
   _playerHealth: {fileID: 1583556027}
   _scoreManager: {fileID: 29782462}
-  _influencerManager: {fileID: 597494662}
+  _influencerManager: {fileID: 0}
+  mobileControlsUI: {fileID: 2004327951}
   ScoreText: {fileID: 771669742}
   UsernameText: {fileID: 310324631}
   RankText: {fileID: 1933982986}
@@ -8611,7 +8612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1213791233
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11507,7 +11508,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 26.7, y: 23.831837}
+    oldSize: {x: 26.701347, y: 23.820002}
     newSize: {x: 26.701347, y: 23.820002}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -15094,7 +15095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2004327952
 RectTransform:
   m_ObjectHideFlags: 0
