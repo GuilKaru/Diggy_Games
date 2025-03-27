@@ -6603,6 +6603,7 @@ MonoBehaviour:
   _playerHealth: {fileID: 1583556027}
   _scoreManager: {fileID: 29782462}
   _influencerManager: {fileID: 0}
+  mobileControlsUI: {fileID: 2004327951}
   ScoreText: {fileID: 771669742}
   UsernameText: {fileID: 310324631}
   RankText: {fileID: 1933982986}
@@ -15094,7 +15095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2004327952
 RectTransform:
   m_ObjectHideFlags: 0

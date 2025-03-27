@@ -18,7 +18,10 @@ namespace Diggy_MiniGame_1
 		[SerializeField] private PlayerHealth _playerHealth;
 		[SerializeField] private ScoreManager _scoreManager;
 		[SerializeField] private InfluencerManager _influencerManager;
+
+		[SerializeField] private GameObject mobileControlsUI; // Assign your mobile control UI in the inspector
 		
+
 		[SerializeField] public TextMeshProUGUI ScoreText;
 		[SerializeField] public TextMeshProUGUI UsernameText;
 		[SerializeField] public TextMeshProUGUI RankText;
@@ -31,6 +34,8 @@ namespace Diggy_MiniGame_1
 
 		private bool _isGamePaused;
 		private bool _isGameOver;
+		private bool isUsingKeyboard = false;
+
 
 		private void Awake()
 		{
@@ -47,6 +52,8 @@ namespace Diggy_MiniGame_1
 
 		private void Update()
 		{
+			CheckForInput();
+
 			// Handle Pause toggle with Escape key
 			if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver && !_influencerManager.IsInfluencerMenuOpen)
 			{
@@ -122,6 +129,45 @@ namespace Diggy_MiniGame_1
 		{
 			yield return new WaitForSeconds(0.2f);
 			//SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		}
+
+		//Check For Input
+
+		private void CheckForInput()
+		{
+			if (Input.anyKeyDown && !Input.GetMouseButton(0)) // Ignore mouse clicks
+			{
+				if (!isUsingKeyboard)
+				{
+					isUsingKeyboard = true;
+					ToggleMobileUI(false);
+				}
+			}
+
+			if (Input.touchCount > 0 || Input.GetMouseButtonDown(0)) // Detect touch or click
+			{
+				if (isUsingKeyboard)
+				{
+					isUsingKeyboard = false;
+					ToggleMobileUI(true);
+				}
+			}
+		}
+
+		private void ToggleMobileUI(bool show)
+		{
+			if (mobileControlsUI != null)
+			{
+				CanvasGroup canvasGroup = mobileControlsUI.GetComponent<CanvasGroup>();
+				if (canvasGroup == null)
+				{
+					canvasGroup = mobileControlsUI.AddComponent<CanvasGroup>(); // Add if missing
+				}
+
+				canvasGroup.alpha = show ? 1f : 0f;   // Hide visually
+				canvasGroup.interactable = show;      // Allow interactions when visible
+				canvasGroup.blocksRaycasts = show;    // Prevent clicks when invisible
+			}
 		}
 
 
