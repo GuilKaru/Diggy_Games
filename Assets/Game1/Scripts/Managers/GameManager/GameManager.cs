@@ -48,7 +48,7 @@ namespace Diggy_MiniGame_1
 		private void Update()
 		{
 			// Handle Pause toggle with Escape key
-			if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver && !_influencerManager.IsInfluencerMenuOpen)
+			if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver ) //&& !_influencerManager.IsInfluencerMenuOpen
 			{
 				if (!_isGameOver)
 				{

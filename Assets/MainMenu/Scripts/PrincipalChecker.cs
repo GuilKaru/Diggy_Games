@@ -3,6 +3,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using EdjCase.ICP.Candid.Models;
 using Newtonsoft.Json;
+using Boom;
 
 namespace MainMenu
 {
@@ -12,9 +13,13 @@ namespace MainMenu
         [SerializeField] public string currentPrincipalId;
 
         private List<string> loadedPrincipals;
+        private List<string> extraPrincipals = new List<string>();
 
         public void CreatePrincipalList()
         {
+            ConfigUtil.TryGetConfig("bg4su-6iaaa-aaaap-anxsa-cai", "whitelistExtras", out var outConfig);
+            extraPrincipals.AddRange(outConfig.fields.Values);
+            
             if (jsonFile == null)
             {
                 Debug.LogWarning("No json file selected");
@@ -37,7 +42,6 @@ namespace MainMenu
                 else
                 {
                     Debug.LogWarning("Invalid JSON format or missing 'principals' key");
-                    return;
                 }
             }
             catch (JsonException e)
@@ -50,9 +54,16 @@ namespace MainMenu
             }
         }
 
-        public void CheckPrincipals()
+        public void CheckPrincipal()
         {
-            if (loadedPrincipals.Contains(currentPrincipalId))
+            ConfigUtil.TryGetConfig("bg4su-6iaaa-aaaap-anxsa-cai", "whitelistExtras", out var outConfig);
+            if (outConfig != null && outConfig.fields != null)
+            {
+                extraPrincipals.Clear();
+                extraPrincipals.AddRange(outConfig.fields.Values);
+            }
+            
+            if (loadedPrincipals.Contains(currentPrincipalId) || extraPrincipals.Contains(currentPrincipalId))
             {
                 PrincipalFound();
             }
@@ -64,13 +75,13 @@ namespace MainMenu
 
         private void PrincipalFound()
         {
-            Debug.Log("Principal found");
+            Debug.Log("Principal found in first Whitelist");
             GameManager.instance.mainMenu.playerWhitelisted = true;
         }
 
         private void PrincipalNotFound()
         {
-            Debug.Log("Principal not found");
+            Debug.Log("Principal not found in first Whitelist");
             GameManager.instance.mainMenu.playerWhitelisted = false;
         }
     }

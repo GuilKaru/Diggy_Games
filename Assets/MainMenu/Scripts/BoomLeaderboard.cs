@@ -109,7 +109,6 @@ namespace MainMenu
                 }
 
                 _playerObjects.Clear();
-                _playerObjects = new();
             }
             
             //bool userEntryExist = false;

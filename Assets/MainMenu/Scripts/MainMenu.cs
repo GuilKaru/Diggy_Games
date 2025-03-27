@@ -74,32 +74,67 @@ namespace MainMenu
             _loginMenu.SetActive(false);
             _loadingPanel.SetActive(false);
             _usernameMenu.SetActive(true);
-            ConfigUtil.TryGetConfig("bg4su-6iaaa-aaaap-anxsa-cai", "maintenanceConfig", out var outConfig);
 
-            outConfig.fields.TryGetValue("whitelistActivation", out var whitelist);
+            StartCoroutine(CheckMaintenance());
+        }
 
-            if (whitelist == "true") whitelistActivated = true;
-            else if (whitelist == "false") whitelistActivated = false;
-            
-            GameManager.instance.principalChecker.currentPrincipalId = UserUtil.GetPrincipal();
-            GameManager.instance.principalChecker.CreatePrincipalList();
-            GameManager.instance.principalChecker.CheckPrincipals();
-            
-            //Read Config to know if the game is in Maintenance
-            outConfig.fields.TryGetValue("playMaintenance", out  var playMaintenance);
-            outConfig.fields.TryGetValue("storeMaintenance", out var storeMaintenance);
+        public void LoggedOut()
+        {
+	        _loginMenu.SetActive(true);
+	        _furnaceFrenzyMenu.SetActive(false);
+        }
 
-            if (playMaintenance == "true")
-            {
-	            _maintenancePlay.SetActive(true);
-            }
+        IEnumerator CheckMaintenance()
+        {
+	        GameManager.instance.principalChecker.currentPrincipalId = UserUtil.GetPrincipal();
+	        GameManager.instance.principalChecker.CreatePrincipalList();
+	        
+	        while (UserUtil.IsLoggedIn())
+	        {
+		        ConfigUtil.TryGetConfig("bg4su-6iaaa-aaaap-anxsa-cai", "maintenanceConfig", out var outConfig);
+		        
+		        outConfig.fields.TryGetValue("whitelistActivation", out var whitelist);
 
-            if (storeMaintenance == "true")
-            {
-	            _maintenanceStore.SetActive(true);
-            }
+		        if (whitelist == "true") whitelistActivated = true;
+		        else if (whitelist == "false") whitelistActivated = false;
+
+
+		        if (whitelistActivated)
+		        {
+			        if (!playerWhitelisted)
+			        {
+				        GameManager.instance.principalChecker.CheckPrincipal();
+			        }
+		        }
+
+		        //Read Config to know if the game is in Maintenance
+		        outConfig.fields.TryGetValue("playMaintenance", out  var playMaintenance);
+		        outConfig.fields.TryGetValue("storeMaintenance", out var storeMaintenance);
+
+		        if (playMaintenance == "true")
+		        {
+			        _maintenancePlay.SetActive(true);
+		        }
+		        else
+		        {
+			        _maintenancePlay.SetActive(false);
+		        }
+
+		        if (storeMaintenance == "true")
+		        {
+			        _maintenanceStore.SetActive(true);
+		        }
+		        else
+		        {
+			        _maintenanceStore.SetActive(false);
+		        }
 			
-            ActivatePlayButton();
+		        ActivatePlayButton();
+		        
+		        yield return new WaitForSeconds(60f);
+		        
+		        Debug.Log($"Time passed, trying the whitelist again");
+	        }
         }
 
         public void UsernameMenuChange()
