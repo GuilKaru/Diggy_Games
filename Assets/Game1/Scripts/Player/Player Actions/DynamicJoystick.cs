@@ -14,8 +14,6 @@ namespace Diggy_MiniGame_1
 
 		public void OnPointerDown(PointerEventData eventData)
 		{
-			joystickBackground.position = eventData.position; // Move joystick to touch position
-			joystickBackground.gameObject.SetActive(true);
 			joystickKnob.position = eventData.position;
 		}
 
