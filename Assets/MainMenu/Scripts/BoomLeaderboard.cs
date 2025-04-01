@@ -46,7 +46,7 @@ namespace MainMenu
         [SerializeField] public TextMeshProUGUI playerScore;
         [SerializeField] public Image playerRankTier;
         
-        [SerializeField] private List<Sprite> playerSprites = new List<Sprite>();
+        [SerializeField] public List<Sprite> playerSprites = new List<Sprite>();
         
         //[SerializeField] TMP_Text content;
 

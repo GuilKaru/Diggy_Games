@@ -163,6 +163,7 @@ namespace MainMenu
 
             gameManager.boomLeaderboard.playerRank.text = "No Rank";
             gameManager.boomLeaderboard.playerName.text = username;
+            gameManager.boomLeaderboard.playerRankTier.sprite = gameManager.boomLeaderboard.playerSprites[4];
             gameManager.ScoreUpdateFF();
             
             ActivatePlayButton();

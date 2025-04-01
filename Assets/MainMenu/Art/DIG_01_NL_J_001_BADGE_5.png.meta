@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3c84ec2183a07744baa42567df6f1d1e
+guid: 6423db5c47a9ebe4d88080217cae3be6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7827519859326440669
-    second: DIG_01_NL_J_001_F (NORMAL)_0
+      213: -452663107102351042
+    second: DIG_01_NL_J_001_BADGE_5_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,12 +126,12 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 29
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 100
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -152,13 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_NL_J_001_F (NORMAL)_0
+      name: DIG_01_NL_J_001_BADGE_5_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 333
-        height: 117
+        width: 684
+        height: 838
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: dd4d77f07dfe0ac60800000000000000
-      internalID: 7827519859326440669
+      spriteID: e316d3a6d41d7b9f0800000000000000
+      internalID: -452663107102351042
       vertices: []
       indices: 
       edges: []
@@ -187,7 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DIG_01_NL_J_001_F (NORMAL)_0: 7827519859326440669
+      DIG_01_NL_J_001_BADGE_5_0: -452663107102351042
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

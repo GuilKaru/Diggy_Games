@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_01_NL_J_001_C (ACTIVO)_0: -8663766004222431753
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
