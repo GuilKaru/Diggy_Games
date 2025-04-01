@@ -17,7 +17,7 @@ namespace Diggy_MiniGame_1
 		[SerializeField] private PlayerController _playerController; 
 		[SerializeField] private PlayerHealth _playerHealth;
 		[SerializeField] private ScoreManager _scoreManager;
-		[SerializeField] private InfluencerManager _influencerManager;
+		//[SerializeField] private InfluencerManager _influencerManager;
 
 		[SerializeField] private GameObject mobileControlsUI; // Assign your mobile control UI in the inspector
 		
