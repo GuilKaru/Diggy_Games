@@ -22,13 +22,17 @@ namespace Diggy_MiniGame_2
 			{
 				if (other.GetComponent<PickUpScore>() != null)
 				{
-					PickUpScore pickup = other.GetComponent<PickUpScore>();
-					_scorePickUps.Add(other.gameObject);
+					if (!_scorePickUps.Contains(other.gameObject)) // Prevent duplicates
+					{
+						_scorePickUps.Add(other.gameObject);
+					}
 				}
 				else if (other.GetComponent<PickUpTime>() != null)
 				{
-					PickUpTime pickup = other.GetComponent<PickUpTime>();
-					_timePickUps.Add(other.gameObject);
+					if (!_timePickUps.Contains(other.gameObject)) // Prevent duplicates
+					{
+						_timePickUps.Add(other.gameObject);
+					}
 				}
 			}
 		}

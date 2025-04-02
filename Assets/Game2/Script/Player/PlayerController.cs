@@ -179,6 +179,13 @@ namespace Diggy_MiniGame_2
 					_carriedObjects.Add(col.gameObject);
 					col.gameObject.transform.SetParent(transform);
 
+					// Notify the spawner to free up the spawn point
+					PickupTracker tracker = col.GetComponent<PickupTracker>();
+					if (tracker != null)
+					{
+						tracker.NotifyPickup();
+					}
+
 					// Set the sorting order of the sprite to create a stacked visual effect
 					SpriteRenderer spriteRenderer = col.GetComponent<SpriteRenderer>();
 					if (spriteRenderer != null)

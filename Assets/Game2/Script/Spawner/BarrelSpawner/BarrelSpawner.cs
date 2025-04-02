@@ -14,8 +14,18 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private float[] _spawnIntervals; // Array of spawn intervals
 
+		[Header("Warning Sign")]
+		[SerializeField]
+		private GameObject _warningPrefab; // Warning sign prefab
+		[SerializeField]
+		private float _warningDuration = 1.5f; // Time before spawning the barrel
+		[SerializeField]
+		private Transform _warningParent;
+
 		private SpawnerManager _spawnerManager;
 		private bool canSpawn = true;
+
+		
 
 
 		private void Start()
@@ -34,55 +44,67 @@ namespace Diggy_MiniGame_2
 
 			while (true)
 			{
-				SpawnBarrel();
-
 				if (_spawnIntervals.Length > 0)
 				{
 					float nextSpawnTime = _spawnIntervals[Random.Range(0, _spawnIntervals.Length)];
+
+					// Handle the warning first before spawning the barrel
+					StartCoroutine(ShowWarningThenSpawn(nextSpawnTime));
+
 					yield return new WaitForSeconds(nextSpawnTime);
 				}
 				else
 				{
-					// Wait for a default interval (1 second or a value of your choice)
 					yield return new WaitForSeconds(1f);
 				}
 			}
 		}
 
-		public void SpawnBarrel()
+		public void SpawnBarrelAtPosition(float yPos)
 		{
-			if (_spawnerManager == null || _barrelPrefabs.Length == 0)
+			if (_barrelPrefabs.Length == 0)
 			{
-				Debug.LogWarning("SpawnerManager is null or barrelPrefabs are empty.");
+				Debug.LogWarning("BarrelPrefabs are empty.");
 				return;
 			}
 
+			Vector2 spawnPos = new Vector2(transform.position.x, yPos);
+			GameObject randomBarrel = _barrelPrefabs[Random.Range(0, _barrelPrefabs.Length)];
+			GameObject barrel = Instantiate(randomBarrel, spawnPos, Quaternion.identity, _barrelParent);
+
+			// Set sorting order
+			SpriteRenderer spriteRenderer = barrel.GetComponent<SpriteRenderer>();
+			if (spriteRenderer != null)
+			{
+				spriteRenderer.sortingOrder = Mathf.RoundToInt(yPos * -10);
+			}
+
+			Debug.Log($"Barrel spawned at position: {spawnPos} with sorting order: {spriteRenderer?.sortingOrder}");
+
+			// **Release the position after a delay**
+			StartCoroutine(ReleasePositionAfterDelay(yPos, 8.5f));
+		}
+
+		private IEnumerator ShowWarningThenSpawn(float delay)
+		{
 			float yPos = _spawnerManager.GetAvailablePosition();
 
 			if (yPos != -2)
 			{
-				Vector2 spawnPos = new Vector2(transform.position.x, yPos);
-				GameObject randomBarrel = _barrelPrefabs[Random.Range(0, _barrelPrefabs.Length)];
-				GameObject barrel = Instantiate(randomBarrel, spawnPos, Quaternion.identity, _barrelParent);
-
-				// Set the sorting order based on the Y position
-				SpriteRenderer spriteRenderer = barrel.GetComponent<SpriteRenderer>();
-				if (spriteRenderer != null)
-				{
-					spriteRenderer.sortingOrder = Mathf.RoundToInt(yPos * -10); // Higher Y position gets a lower sorting order
-				}
-
+				Vector2 warningPos = _spawnerManager.GetWarningPosition(transform.position.x < 0, yPos);
 				_spawnerManager.OccupyPosition(yPos);
 
-				Debug.Log($"Barrel spawned at position: {spawnPos} with sorting order: {spriteRenderer?.sortingOrder}");
+				// **Instantiate the warning under the _warningParent**
+				GameObject warning = Instantiate(_warningPrefab, warningPos, Quaternion.identity, _warningParent);
 
-				StartCoroutine(ReleasePositionAfterDelay(yPos, 8.5f)); // Release the position after 5 seconds
-			}
-			else
-			{
-				Debug.LogWarning("No available Y position for spawning.");
+				yield return new WaitForSeconds(_warningDuration);
+
+				Destroy(warning);
+
+				SpawnBarrelAtPosition(yPos);
 			}
 		}
+
 
 		public void SetSpawning(bool value)
 		{
@@ -101,6 +123,10 @@ namespace Diggy_MiniGame_2
 			Gizmos.color = Color.red;
 			Gizmos.DrawCube(transform.position, new Vector3(1, 1, 1));
 		}
+
+
+
+
 	}
 }
 
