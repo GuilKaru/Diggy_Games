@@ -104,8 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _moveSpeed: 3
   _moveRight: 0
-  _destroyXPositionLeft: -10
-  _destroyXPositionRight: 10
+  _destroyXPositionLeft: -9
+  _destroyXPositionRight: 9
 --- !u!50 &153885591584117572
 Rigidbody2D:
   serializedVersion: 5

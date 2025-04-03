@@ -57,6 +57,8 @@ namespace Diggy_MiniGame_2
 		private List<GameObject> _carriedObjects = new List<GameObject>();
 		private bool _isDriftingLeft = false;
 		private bool _isDriftingRight = false;
+		private bool _isStunned = false; // Tracks if the player is stunned
+		private float _stunEndTime = 0f; // Time when the stun effect ends
 		#endregion
 
 		//Initialization
@@ -91,7 +93,17 @@ namespace Diggy_MiniGame_2
 
 		private void FixedUpdate()
 		{
-			MovePlayer();
+			if (_isStunned && Time.time >= _stunEndTime)
+			{
+				_isStunned = false; // End the stun effect
+				Debug.Log("Player is no longer stunned.");
+			}
+
+			// Allow movement only if the player is not stunned knocked back
+			if (!_isStunned)
+			{
+				MovePlayer();
+			}
 			UpdateCarriedObjects();
 		}
 
@@ -203,6 +215,16 @@ namespace Diggy_MiniGame_2
 		}
 
 
+		#endregion
+
+		//Stun Player
+		#region Stun
+		public void StunPlayer(float duration)
+		{
+			_isStunned = true;
+			_stunEndTime = Time.time + duration; // Calculate when the stun ends
+			Debug.Log("Player stunned for " + duration + " seconds.");
+		}
 		#endregion
 
 		//Take Damage

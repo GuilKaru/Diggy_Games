@@ -315,6 +315,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _barrelPrefabs:
   - {fileID: 9073667739305893459, guid: c512c2919c04c6041b5622bd2da234a3, type: 3}
+  - {fileID: 2389874535579678590, guid: f7efb8fb738f60a40aa81a679609df78, type: 3}
+  - {fileID: 2294666858324544253, guid: 93717b011f515514d901e35b8184a9d3, type: 3}
+  - {fileID: 8186675188916226852, guid: 817dabdcf95378e4e84830edeb3918c7, type: 3}
   _barrelParent: {fileID: 421582762}
   _initialDelay: 4
   _spawnIntervals:
@@ -492,6 +495,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _barrelPrefabs:
   - {fileID: 9034309357175997345, guid: fea8991283fda5843b9a2a5bd733583e, type: 3}
+  - {fileID: 8907610337270856705, guid: b5b88d0c1ce3b9e46ab6c0fc79f4157a, type: 3}
+  - {fileID: 2622711022740505020, guid: e0a3dfcda18519341902eb37c473ac45, type: 3}
+  - {fileID: 1652911911131365806, guid: cd9f075ba33fc4a41895ebb7adf9b376, type: 3}
   _barrelParent: {fileID: 1054966895}
   _initialDelay: 2
   _spawnIntervals:
@@ -4337,7 +4343,7 @@ GameObject:
   - component: {fileID: 1960242432}
   - component: {fileID: 1960242431}
   - component: {fileID: 1960242433}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Diggy
   m_TagString: Player
   m_Icon: {fileID: 0}
