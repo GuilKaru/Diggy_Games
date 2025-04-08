@@ -54,7 +54,7 @@ namespace Diggy_MiniGame_2
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = _driftDirection == DriftDirection.Left ? Color.red :
+			/*Gizmos.color = _driftDirection == DriftDirection.Left ? Color.red :
 			   _driftDirection == DriftDirection.Right ? Color.blue :
 			   Color.yellow; // Different colors for each drift type
 
@@ -75,7 +75,7 @@ namespace Diggy_MiniGame_2
 				Gizmos.color = Color.white;
 				Gizmos.DrawLine(transform.position, transform.position + arrowDirection * 1f);
 				Gizmos.DrawSphere(transform.position + arrowDirection * 1f, 0.1f);
-			}
+			}*/
 		}
 	}
 
