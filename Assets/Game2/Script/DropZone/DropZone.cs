@@ -1,3 +1,4 @@
+using Diggy_MiniGame_1;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Diggy_MiniGame_2
@@ -9,11 +10,13 @@ namespace Diggy_MiniGame_2
 
 		private ScoreManager _scoreManager;
 		private TimerManager _timerManager;
+		private PlayerController _playerController;
 
 		private void Awake()
 		{
 			_scoreManager = FindObjectOfType<ScoreManager>();
 			_timerManager = FindObjectOfType<TimerManager>();
+			_playerController = FindObjectOfType<PlayerController>();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
@@ -44,6 +47,7 @@ namespace Diggy_MiniGame_2
 				if (_scorePickUps.Count > 0)
 				{
 					CalculateScore();
+					
 				}
 
 				if (_timePickUps.Count > 0)
@@ -88,6 +92,8 @@ namespace Diggy_MiniGame_2
 				Destroy(pickup);
 			}
 
+			_playerController.DropAllPickups();
+
 			_scorePickUps.Clear();
 		}
 
@@ -99,6 +105,8 @@ namespace Diggy_MiniGame_2
 				timePickup.HandleDrop();
 				Destroy(pickup);
 			}
+
+			_playerController.DropAllPickups();
 
 			_timePickUps.Clear();
 		}

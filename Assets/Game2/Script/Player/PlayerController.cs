@@ -28,6 +28,14 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private Vector3 _pickupOffset = new Vector3(0, 1f, 0);
 
+		[Header("Coin Visuals")]
+		[SerializeField]
+		private List<GameObject> _coinVisuals;
+
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
 		[Header("Player Hit")]
 		[SerializeField]
 		private SpriteRenderer _spriteRenderer;
@@ -43,7 +51,6 @@ namespace Diggy_MiniGame_2
 		private float _rightDriftSpeed = 0.1f;
 
 		
-
 		#endregion
 
 		//Private variables
@@ -59,6 +66,11 @@ namespace Diggy_MiniGame_2
 		private bool _isDriftingRight = false;
 		private bool _isStunned = false; // Tracks if the player is stunned
 		private float _stunEndTime = 0f; // Time when the stun effect ends
+
+		private string _currentState;
+		private string _idleAnim = "Player_Idle";
+		private string _hitAnim = "Player_Hit";
+
 		#endregion
 
 		//Initialization
@@ -68,6 +80,7 @@ namespace Diggy_MiniGame_2
 		{
 			_rb = GetComponent<Rigidbody2D>();
 			_playerInput = GetComponent<PlayerInput>();
+			ChangeAnimationState(_idleAnim);
 			_moveAction = _playerInput.actions["Move"];
 			_pickUpAction = _playerInput.actions["PickUp"];
 		}
@@ -86,7 +99,6 @@ namespace Diggy_MiniGame_2
 			_pickUpAction.performed -= OnPickup;
 		}
 		#endregion
-
 
 		//Movement
 		#region Movement 
@@ -183,9 +195,22 @@ namespace Diggy_MiniGame_2
 			if (_carriedObjects.Count >= _maxCarriedObjects)
 				return; // Prevent picking up more than max allowed
 
+
 			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _pickupRadius);
 			foreach (Collider2D col in colliders)
 			{
+				PickUpTime timePickup = col.GetComponent<PickUpTime>();
+				if (timePickup != null)
+				{
+					timePickup.OnPickedUp();
+				}
+
+				PickUpScore scorePickup = col.GetComponent<PickUpScore>();
+				if (scorePickup != null)
+				{
+					scorePickup.OnPickedUp();
+				}
+
 				if (col.CompareTag("PickUp") && !_carriedObjects.Contains(col.gameObject))
 				{
 					_carriedObjects.Add(col.gameObject);
@@ -204,6 +229,8 @@ namespace Diggy_MiniGame_2
 					{
 						spriteRenderer.sortingOrder = _carriedObjects.Count;
 					}
+					UpdateCoinVisuals();
+
 					break;
 				}
 			}
@@ -214,6 +241,27 @@ namespace Diggy_MiniGame_2
 			return _carriedObjects; // Returns the list of carried objects
 		}
 
+		public void DropAllPickups()
+		{
+			foreach (GameObject obj in _carriedObjects)
+			{
+				if (obj != null)
+				{
+					obj.transform.SetParent(null);
+					obj.SetActive(false); // Or just drop it in place if you want to reuse them
+				}
+			}
+			_carriedObjects.Clear();
+			UpdateCoinVisuals();
+		}
+
+		private void UpdateCoinVisuals()
+		{
+			for (int i = 0; i < _coinVisuals.Count; i++)
+			{
+				_coinVisuals[i].SetActive(i == _carriedObjects.Count - 1);
+			}
+		}
 
 		#endregion
 
@@ -233,6 +281,7 @@ namespace Diggy_MiniGame_2
 		public void PlayerTakeDamage()
 		{
 			StartCoroutine(ToggleSpriteAndCollider(0.2f));
+			ChangeAnimationState(_hitAnim);
 		}
 
 		private IEnumerator ToggleSpriteAndCollider(float delay)
@@ -252,6 +301,22 @@ namespace Diggy_MiniGame_2
 			}
 			_spriteRenderer.enabled = true;
 			_collider2D.enabled = true;
+			ChangeAnimationState(_idleAnim);
+		}
+		#endregion
+
+		//Animation
+		#region Animation
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
 
 		}
 		#endregion

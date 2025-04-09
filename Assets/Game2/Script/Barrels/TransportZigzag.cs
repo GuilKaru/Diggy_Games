@@ -15,6 +15,8 @@ namespace Diggy_MiniGame_2
 		[SerializeField] private float[] _switchXPositions; // X positions where it can switch lanes
 		[SerializeField] private float _laneSwitchSpeed = 3f;
 
+
+
 		private float _originalSpeed;
 		private bool _isSwitchingLane = false;
 		private float _targetY; // Y position to smoothly move to
@@ -144,6 +146,7 @@ namespace Diggy_MiniGame_2
 				{
 					DestroyCoins(playerController);
 					playerController.PlayerTakeDamage();
+					playerController.DropAllPickups();
 				}
 			}
 

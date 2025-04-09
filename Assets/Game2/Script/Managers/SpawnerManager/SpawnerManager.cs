@@ -69,6 +69,11 @@ namespace Diggy_MiniGame_2
 
 			return isLeftSpawner ? _warningPositionsLeft[index] : _warningPositionsRight[index];
 		}
+
+		public int GetYIndex(float yPos)
+		{
+			return _spawnPositionsY.IndexOf(yPos);
+		}
 	}
 }
 

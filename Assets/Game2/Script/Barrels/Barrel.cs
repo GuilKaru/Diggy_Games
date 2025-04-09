@@ -65,6 +65,7 @@ namespace Diggy_MiniGame_2
 				PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
 				if (playerController != null)
 				{
+					playerController.DropAllPickups();
 					DestroyCoins(playerController);
 					playerController.PlayerTakeDamage();
 				}

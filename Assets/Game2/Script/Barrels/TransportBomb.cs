@@ -130,6 +130,7 @@ namespace Diggy_MiniGame_2
 					if (playerController != null)
 					{
 						playerController.StunPlayer(_stunDuration);
+						playerController.DropAllPickups();
 					}
 				}
 			}

@@ -16,7 +16,7 @@ namespace Diggy_MiniGame_2
 
 		[Header("Warning Sign")]
 		[SerializeField]
-		private GameObject _warningPrefab; // Warning sign prefab
+		private GameObject[] _warningPrefabsPerLane; // Warning sign prefab
 		[SerializeField]
 		private float _warningDuration = 1.5f; // Time before spawning the barrel
 		[SerializeField]
@@ -94,17 +94,21 @@ namespace Diggy_MiniGame_2
 				Vector2 warningPos = _spawnerManager.GetWarningPosition(transform.position.x < 0, yPos);
 				_spawnerManager.OccupyPosition(yPos);
 
-				// **Instantiate the warning under the _warningParent**
-				GameObject warning = Instantiate(_warningPrefab, warningPos, Quaternion.identity, _warningParent);
+				// Find the correct index of the yPos
+				int index = _spawnerManager.GetYIndex(yPos);
 
-				yield return new WaitForSeconds(_warningDuration);
+				if (index >= 0 && index < _warningPrefabsPerLane.Length)
+				{
+					GameObject warning = Instantiate(_warningPrefabsPerLane[index], warningPos, Quaternion.identity, _warningParent);
 
-				Destroy(warning);
+					yield return new WaitForSeconds(_warningDuration);
+
+					Destroy(warning);
+				}
 
 				SpawnBarrelAtPosition(yPos);
 			}
 		}
-
 
 		public void SetSpawning(bool value)
 		{
