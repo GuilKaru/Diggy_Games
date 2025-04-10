@@ -14,7 +14,27 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private float _driftSpeed = 0.1f; // Optional custom drift speed
 
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
+		private string _idleAnim = "TransportLine_Idle";
+		private string _leftAnim = "TransportLine_Left";
+		private string _rightAnim = "TransportLine_Right";
+		private string _currentState;
+
 		private Dictionary<PlayerController, int> _playerTriggers = new Dictionary<PlayerController, int>();
+
+		private void Awake()
+		{
+			_animator = GetComponent<Animator>();
+			
+		}
+
+		private void Update()
+		{
+			UpdateAnimationBasedOnDirection();
+		}
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
@@ -30,6 +50,7 @@ namespace Diggy_MiniGame_2
 					else if (_driftDirection == DriftDirection.Right)
 					{
 						playerController.StartRightDrift();
+
 					}
 				}
 			}
@@ -50,33 +71,41 @@ namespace Diggy_MiniGame_2
 		public void SetDriftDirection(DriftDirection direction)
 		{
 			_driftDirection = direction;
+			UpdateAnimationBasedOnDirection();
 		}
 
-		private void OnDrawGizmos()
+		private void UpdateAnimationBasedOnDirection()
 		{
-			/*Gizmos.color = _driftDirection == DriftDirection.Left ? Color.red :
-			   _driftDirection == DriftDirection.Right ? Color.blue :
-			   Color.yellow; // Different colors for each drift type
-
-			BoxCollider2D box = GetComponent<BoxCollider2D>();
-			if (box != null)
+			switch (_driftDirection)
 			{
-				Vector2 size = box.size;
-				Vector3 center = transform.position + (Vector3)box.offset;
+				case DriftDirection.Left:
+					ChangeAnimationState(_leftAnim);
+					break;
 
-				// Draw wire cube showing the transport area
-				Gizmos.DrawWireCube(center, size);
+				case DriftDirection.Right:
+					ChangeAnimationState(_rightAnim);
+					break;
+
+				case DriftDirection.None:
+					ChangeAnimationState(_idleAnim);
+					break;
 			}
-
-			// Draw arrow direction
-			if (_driftDirection != DriftDirection.None)
-			{
-				Vector3 arrowDirection = _driftDirection == DriftDirection.Left ? Vector3.left : Vector3.right;
-				Gizmos.color = Color.white;
-				Gizmos.DrawLine(transform.position, transform.position + arrowDirection * 1f);
-				Gizmos.DrawSphere(transform.position + arrowDirection * 1f, 0.1f);
-			}*/
 		}
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
+		}
+
+
 	}
 
 }

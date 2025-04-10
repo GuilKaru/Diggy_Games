@@ -1,0 +1,611 @@
+fileFormatVersion: 2
+guid: d1b7e450ffb71c34a90afe2b8c910923
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6298087616298680860
+    second: DIGGY_02_FON_005-A_0
+  - first:
+      213: -2037648060138202142
+    second: DIGGY_02_FON_005-A_1
+  - first:
+      213: -4553927443658762211
+    second: DIGGY_02_FON_005-A_2
+  - first:
+      213: 6181198563014985168
+    second: DIGGY_02_FON_005-A_3
+  - first:
+      213: -6781685112183084554
+    second: DIGGY_02_FON_005-A_4
+  - first:
+      213: 4155040654012858478
+    second: DIGGY_02_FON_005-A_5
+  - first:
+      213: 8229031993182479258
+    second: DIGGY_02_FON_005-A_6
+  - first:
+      213: 4216140457564481965
+    second: DIGGY_02_FON_005-A_7
+  - first:
+      213: -3137247166674913561
+    second: DIGGY_02_FON_005-A_8
+  - first:
+      213: -1604726356268234414
+    second: DIGGY_02_FON_005-A_9
+  - first:
+      213: 6252719851738119786
+    second: DIGGY_02_FON_005-A_10
+  - first:
+      213: 4589889368365015107
+    second: DIGGY_02_FON_005-A_11
+  - first:
+      213: 4267628404251607210
+    second: DIGGY_02_FON_005-A_12
+  - first:
+      213: 8975269216904932508
+    second: DIGGY_02_FON_005-A_13
+  - first:
+      213: -210531163191245896
+    second: DIGGY_02_FON_005-A_14
+  - first:
+      213: 2597467743781072126
+    second: DIGGY_02_FON_005-A_15
+  - first:
+      213: 3141028799324129077
+    second: DIGGY_02_FON_005-A_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6
+        width: 69
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1205cd715d476750800000000000000
+      internalID: 6298087616298680860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_1
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 11
+        width: 56
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2ebd23e92e1d8b3e0800000000000000
+      internalID: -2037648060138202142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_2
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 13
+        width: 52
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1811d32e133dc0c0800000000000000
+      internalID: -4553927443658762211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_3
+      rect:
+        serializedVersion: 2
+        x: 407
+        y: 13
+        width: 50
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d5c9aaf75708c550800000000000000
+      internalID: 6181198563014985168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_4
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 11
+        width: 48
+        height: 143
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f9a5c5425d92e1a0800000000000000
+      internalID: -6781685112183084554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_5
+      rect:
+        serializedVersion: 2
+        x: 659
+        y: 13
+        width: 46
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e604eb1e57ba9a930800000000000000
+      internalID: 4155040654012858478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_6
+      rect:
+        serializedVersion: 2
+        x: 783
+        y: 9
+        width: 44
+        height: 145
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9367fe9ff4633270800000000000000
+      internalID: 8229031993182479258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_7
+      rect:
+        serializedVersion: 2
+        x: 913
+        y: 13
+        width: 40
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da9a848786db28a30800000000000000
+      internalID: 4216140457564481965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_8
+      rect:
+        serializedVersion: 2
+        x: 1039
+        y: 13
+        width: 44
+        height: 141
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e6bdb1e2524674d0800000000000000
+      internalID: -3137247166674913561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_9
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 11
+        width: 46
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 259cce491eddab9e0800000000000000
+      internalID: -1604726356268234414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_10
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 11
+        width: 48
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6e32eaa39f16c650800000000000000
+      internalID: 6252719851738119786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_11
+      rect:
+        serializedVersion: 2
+        x: 1407
+        y: 11
+        width: 50
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3402dbfef0092bf30800000000000000
+      internalID: 4589889368365015107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_12
+      rect:
+        serializedVersion: 2
+        x: 1535
+        y: 13
+        width: 52
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa0c8cc3c69a93b30800000000000000
+      internalID: 4267628404251607210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_13
+      rect:
+        serializedVersion: 2
+        x: 1661
+        y: 11
+        width: 56
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9ced1dbccf8e8c70800000000000000
+      internalID: 8975269216904932508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_14
+      rect:
+        serializedVersion: 2
+        x: 1789
+        y: 11
+        width: 58
+        height: 142
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b306d3c50b041df0800000000000000
+      internalID: -210531163191245896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_15
+      rect:
+        serializedVersion: 2
+        x: 1925
+        y: 13
+        width: 58
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: efc2b97a62f0c0420800000000000000
+      internalID: 2597467743781072126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIGGY_02_FON_005-A_16
+      rect:
+        serializedVersion: 2
+        x: 2023
+        y: 0
+        width: 32
+        height: 119
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5378cf41d0d279b20800000000000000
+      internalID: 3141028799324129077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DIGGY_02_FON_005-A_0: 6298087616298680860
+      DIGGY_02_FON_005-A_1: -2037648060138202142
+      DIGGY_02_FON_005-A_10: 6252719851738119786
+      DIGGY_02_FON_005-A_11: 4589889368365015107
+      DIGGY_02_FON_005-A_12: 4267628404251607210
+      DIGGY_02_FON_005-A_13: 8975269216904932508
+      DIGGY_02_FON_005-A_14: -210531163191245896
+      DIGGY_02_FON_005-A_15: 2597467743781072126
+      DIGGY_02_FON_005-A_16: 3141028799324129077
+      DIGGY_02_FON_005-A_2: -4553927443658762211
+      DIGGY_02_FON_005-A_3: 6181198563014985168
+      DIGGY_02_FON_005-A_4: -6781685112183084554
+      DIGGY_02_FON_005-A_5: 4155040654012858478
+      DIGGY_02_FON_005-A_6: 8229031993182479258
+      DIGGY_02_FON_005-A_7: 4216140457564481965
+      DIGGY_02_FON_005-A_8: -3137247166674913561
+      DIGGY_02_FON_005-A_9: -1604726356268234414
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

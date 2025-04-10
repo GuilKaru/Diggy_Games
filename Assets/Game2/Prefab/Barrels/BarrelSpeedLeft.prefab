@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8752878902516749537}
   - component: {fileID: 9118757020427454038}
   - component: {fileID: 6460604187109754895}
-  - component: {fileID: 6606182634256945679}
+  - component: {fileID: 1696899601778181681}
   m_Layer: 0
   m_Name: BarrelSpeedLeft
   m_TagString: Barrel
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 10.38, y: 3.15, z: 0}
-  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7166669919533666240, guid: 719af8582ee15be4a9c232797861eca3, type: 3}
+  m_Sprite: {fileID: 127414833820092273, guid: b711c9a957c3dc1498f589babe3c5422, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,10 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e789c399db231b4b86eae646d660c2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveSpeed: 5
+  _moveSpeed: 6
   _moveRight: 0
-  _destroyXPositionLeft: -10
-  _destroyXPositionRight: 10
+  _destroyXPositionLeft: -9
+  _destroyXPositionRight: 9
 --- !u!50 &6460604187109754895
 Rigidbody2D:
   serializedVersion: 5
@@ -133,7 +133,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &6606182634256945679
+--- !u!61 &1696899601778181681
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -167,15 +167,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.0000047683716, y: -3.689409}
+  m_Offset: {x: -0.52, y: 0.000000044703484}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 17.31247, y: 19.2}
+    oldSize: {x: 3.45, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 10.6281185, y: 6.4633155}
+  m_Size: {x: 2.0510304, y: 0.57054615}
   m_EdgeRadius: 0

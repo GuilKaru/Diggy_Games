@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Diggy_MiniGame_2.BarrelSpawner;
 namespace Diggy_MiniGame_2
 {
 	public class SpawnerManager : MonoBehaviour
@@ -23,8 +24,17 @@ namespace Diggy_MiniGame_2
 
 		private void Start()
 		{
-			if (_leftSpawner != null) _leftSpawner.SetSpawnerManager(this);
-			if (_rightSpawner != null) _rightSpawner.SetSpawnerManager(this);
+			if (_leftSpawner != null)
+			{
+				_leftSpawner.SetSpawnerManager(this);
+				_leftSpawner.SetSide(SpawnerSide.Left);
+			}
+			if (_rightSpawner != null)
+			{
+				_rightSpawner.SetSpawnerManager(this);
+				_rightSpawner.SetSide(SpawnerSide.Right);
+			}
+
 		}
 
 		public bool CanSpawnAtPosition(float yPos)

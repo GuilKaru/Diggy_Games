@@ -13,6 +13,8 @@ namespace Diggy_MiniGame_2
 		private float _initialDelay = 2f; // Initial delay before spawning starts
 		[SerializeField]
 		private float[] _spawnIntervals; // Array of spawn intervals
+		[SerializeField]
+		private SpawnerSide _side;
 
 		[Header("Warning Sign")]
 		[SerializeField]
@@ -21,6 +23,8 @@ namespace Diggy_MiniGame_2
 		private float _warningDuration = 1.5f; // Time before spawning the barrel
 		[SerializeField]
 		private Transform _warningParent;
+
+		public enum SpawnerSide { Left, Right }
 
 		private SpawnerManager _spawnerManager;
 		private bool canSpawn = true;
@@ -91,7 +95,8 @@ namespace Diggy_MiniGame_2
 
 			if (yPos != -2)
 			{
-				Vector2 warningPos = _spawnerManager.GetWarningPosition(transform.position.x < 0, yPos);
+				bool isLeftSpawner = _side == SpawnerSide.Left;
+				Vector2 warningPos = _spawnerManager.GetWarningPosition(isLeftSpawner, yPos);
 				_spawnerManager.OccupyPosition(yPos);
 
 				// Find the correct index of the yPos
@@ -128,7 +133,10 @@ namespace Diggy_MiniGame_2
 			Gizmos.DrawCube(transform.position, new Vector3(1, 1, 1));
 		}
 
-
+		public void SetSide(SpawnerSide side)
+		{
+			_side = side;
+		}
 
 
 	}

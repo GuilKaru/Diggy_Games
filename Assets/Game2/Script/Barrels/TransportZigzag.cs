@@ -15,16 +15,30 @@ namespace Diggy_MiniGame_2
 		[SerializeField] private float[] _switchXPositions; // X positions where it can switch lanes
 		[SerializeField] private float _laneSwitchSpeed = 3f;
 
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+		//[SerializeField]
+		//private SpriteRenderer _spriteRenderer;
 
+		private string _idleAnim = "TransportZigZag_Idle";
 
+		private string _currentState;
 		private float _originalSpeed;
 		private bool _isSwitchingLane = false;
 		private float _targetY; // Y position to smoothly move to
 
 		private void Start()
 		{
+			ChangeAnimationState(_idleAnim);
 			_originalSpeed = _moveSpeed;
 			_targetY = transform.position.y; // Start at the current Y position
+		}
+
+		private void Awake()
+		{
+			_animator = GetComponentInChildren<Animator>();
+			//_spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 		}
 
 		private void Update()
@@ -174,6 +188,20 @@ namespace Diggy_MiniGame_2
 					Destroy(carriedObject);
 				}
 			}
+		}
+
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
 		}
 	}
 }
