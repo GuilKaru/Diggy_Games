@@ -15,10 +15,6 @@ namespace Diggy_MiniGame_2
 		[Header("Y Position Settings")]
 		[SerializeField]
 		private List<float> _spawnPositionsY = new List<float>(); // List of Y positions where barrels can be spawned
-		[SerializeField]
-		private List<Vector2> _warningPositionsLeft;  // Predefined warning positions for left spawner
-		[SerializeField]
-		private List<Vector2> _warningPositionsRight; // Predefined warning positions for right spawner
 
 		private HashSet<float> _occupiedPositionsY = new HashSet<float>(); // To keep track of occupied Y positions
 
@@ -70,14 +66,6 @@ namespace Diggy_MiniGame_2
 				}
 			}
 			return -2; // If no available positions
-		}
-
-		public Vector2 GetWarningPosition(bool isLeftSpawner, float yPos)
-		{
-			int index = _spawnPositionsY.IndexOf(yPos);
-			if (index == -1) return Vector2.zero; // Default to (0,0) if not found
-
-			return isLeftSpawner ? _warningPositionsLeft[index] : _warningPositionsRight[index];
 		}
 
 		public int GetYIndex(float yPos)

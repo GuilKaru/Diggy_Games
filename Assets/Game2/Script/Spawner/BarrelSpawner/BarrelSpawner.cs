@@ -16,20 +16,12 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private SpawnerSide _side;
 
-		[Header("Warning Sign")]
-		[SerializeField]
-		private GameObject[] _warningPrefabsPerLane; // Warning sign prefab
-		[SerializeField]
-		private float _warningDuration = 1.5f; // Time before spawning the barrel
-		[SerializeField]
-		private Transform _warningParent;
-
 		public enum SpawnerSide { Left, Right }
 
 		private SpawnerManager _spawnerManager;
 		private bool canSpawn = true;
 
-		
+
 
 
 		private void Start()
@@ -48,12 +40,18 @@ namespace Diggy_MiniGame_2
 
 			while (true)
 			{
-				if (_spawnIntervals.Length > 0)
+				if (_spawnIntervals.Length > 0 && canSpawn)
 				{
 					float nextSpawnTime = _spawnIntervals[Random.Range(0, _spawnIntervals.Length)];
 
-					// Handle the warning first before spawning the barrel
-					StartCoroutine(ShowWarningThenSpawn(nextSpawnTime));
+					// Just spawn the barrel directly (no warning)
+					float yPos = _spawnerManager.GetAvailablePosition();
+
+					if (yPos != -2)
+					{
+						_spawnerManager.OccupyPosition(yPos);
+						SpawnBarrelAtPosition(yPos);
+					}
 
 					yield return new WaitForSeconds(nextSpawnTime);
 				}
@@ -85,34 +83,7 @@ namespace Diggy_MiniGame_2
 
 			Debug.Log($"Barrel spawned at position: {spawnPos} with sorting order: {spriteRenderer?.sortingOrder}");
 
-			// **Release the position after a delay**
 			StartCoroutine(ReleasePositionAfterDelay(yPos, 8.5f));
-		}
-
-		private IEnumerator ShowWarningThenSpawn(float delay)
-		{
-			float yPos = _spawnerManager.GetAvailablePosition();
-
-			if (yPos != -2)
-			{
-				bool isLeftSpawner = _side == SpawnerSide.Left;
-				Vector2 warningPos = _spawnerManager.GetWarningPosition(isLeftSpawner, yPos);
-				_spawnerManager.OccupyPosition(yPos);
-
-				// Find the correct index of the yPos
-				int index = _spawnerManager.GetYIndex(yPos);
-
-				if (index >= 0 && index < _warningPrefabsPerLane.Length)
-				{
-					GameObject warning = Instantiate(_warningPrefabsPerLane[index], warningPos, Quaternion.identity, _warningParent);
-
-					yield return new WaitForSeconds(_warningDuration);
-
-					Destroy(warning);
-				}
-
-				SpawnBarrelAtPosition(yPos);
-			}
 		}
 
 		public void SetSpawning(bool value)
@@ -137,7 +108,6 @@ namespace Diggy_MiniGame_2
 		{
 			_side = side;
 		}
-
 
 	}
 }
