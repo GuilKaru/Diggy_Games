@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIGGY_02_OBJ_002_C_0: 6149645230587738306
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
