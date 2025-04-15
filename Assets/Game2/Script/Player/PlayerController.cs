@@ -36,6 +36,16 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private Animator _animator;
 
+		[Header("Player Audio")]
+		[SerializeField]
+		private AudioSource _coinAudioSource;
+		[SerializeField]
+		private AudioClip[] _coinClips;
+		[SerializeField]
+		private AudioSource _hitAudioSource;
+		[SerializeField]
+		private AudioClip[] _playerHitClip;
+
 		[Header("Player Hit")]
 		[SerializeField]
 		private SpriteRenderer _spriteRenderer;
@@ -195,6 +205,7 @@ namespace Diggy_MiniGame_2
 			if (_carriedObjects.Count >= _maxCarriedObjects)
 				return; // Prevent picking up more than max allowed
 
+				PlayAudioCoinClip(0);
 
 			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _pickupRadius);
 			foreach (Collider2D col in colliders)
@@ -282,6 +293,7 @@ namespace Diggy_MiniGame_2
 		{
 			StartCoroutine(ToggleSpriteAndCollider(0.2f));
 			ChangeAnimationState(_hitAnim);
+			PlayAudioPlayerHitClip(0);
 		}
 
 		private IEnumerator ToggleSpriteAndCollider(float delay)
@@ -319,6 +331,29 @@ namespace Diggy_MiniGame_2
 			_currentState = newState;
 
 		}
+		#endregion
+
+		//Audio
+		#region Audio
+
+		public void PlayAudioPlayerHitClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _playerHitClip.Length)
+			{
+				_hitAudioSource.clip = _playerHitClip[clipIndex];
+				_hitAudioSource.Play();
+			}
+		}
+
+		public void PlayAudioCoinClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _coinClips.Length)
+			{
+				_coinAudioSource.clip = _coinClips[clipIndex];
+				_coinAudioSource.Play();
+			}
+		}
+
 		#endregion
 
 		// Gizmos

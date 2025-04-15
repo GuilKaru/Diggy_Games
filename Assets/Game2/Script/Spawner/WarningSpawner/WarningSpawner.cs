@@ -3,11 +3,16 @@ namespace Diggy_MiniGame_2
 {
 	public class WarningSpawner : MonoBehaviour
 	{
-		public Transform spawnPosition;  // The position to spawn the warning sign (set in Inspector)
-		public GameObject warningPrefab;  // The prefab to spawn (set in Inspector)
-		public float warningDuration = 5f;  // Duration for which the warning sign appears
-		public Transform warningParent;
-		private GameObject currentWarning;  // Reference to the currently spawned warning sign
+		[SerializeField]
+		private Transform _spawnPosition;  // The position to spawn the warning sign (set in Inspector)
+		[SerializeField]
+		private GameObject _warningPrefab;  // The prefab to spawn (set in Inspector)
+		[SerializeField]
+		private float _warningDuration = 5f;  // Duration for which the warning sign appears
+		[SerializeField]
+		private Transform _warningParent;
+
+		private GameObject _currentWarning;  // Reference to the currently spawned warning sign
 
 
 		private bool isWarningActive = false;  // To toggle the warning on/off
@@ -23,22 +28,22 @@ namespace Diggy_MiniGame_2
 
 		private void SpawnWarningSign()
 		{
-			if (warningPrefab != null && spawnPosition != null)
+			if (_warningPrefab != null && _spawnPosition != null)
 			{
 				// Instantiate the warning sign at the specified position
-				currentWarning = Instantiate(warningPrefab, spawnPosition.position, Quaternion.identity, warningParent);
+				_currentWarning = Instantiate(_warningPrefab, _spawnPosition.position, Quaternion.identity, _warningParent);
 				isWarningActive = true;
 
 				// Start the duration timer to destroy the warning sign after the set time
-				Invoke("DestroyWarningSign", warningDuration);
+				Invoke("DestroyWarningSign", _warningDuration);
 			}
 		}
 
 		private void DestroyWarningSign()
 		{
-			if (currentWarning != null)
+			if (_currentWarning != null)
 			{
-				Destroy(currentWarning);
+				Destroy(_currentWarning);
 				isWarningActive = false;
 			}
 		}

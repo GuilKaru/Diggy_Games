@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.UI;
+using Diggy_MiniGame_1;
 namespace Diggy_MiniGame_2
 {
 	public class PremiumBuffManager : MonoBehaviour
@@ -12,6 +13,28 @@ namespace Diggy_MiniGame_2
 		//Serialize Fields
 		#region Serialized Fields
 		[SerializeField] private List<BuffData> _buffs = new List<BuffData>(); // List of all buffs
+
+		[Header("Premium Buff Audio")]
+		[SerializeField]
+		private AudioSource _gameManagerAudioSource;
+		[SerializeField]
+		private AudioClip[] _gameManagerClips;
+
+		[SerializeField]
+		private AudioSource _shieldAudioSource;
+		[SerializeField]
+		private AudioClip[] _shieldBuffClips;
+
+		[SerializeField]
+		private AudioSource _timeStopAudioSource;
+		[SerializeField]
+		private AudioClip[] _timeStopBuffClips;
+
+		[SerializeField]
+		private AudioSource _blastBuffAudioSource;
+		[SerializeField]
+		private AudioClip[] _blastBuffClips;
+
 		#endregion
 
 
@@ -185,7 +208,6 @@ namespace Diggy_MiniGame_2
 		}
 		#endregion
 
-
 		//Buff Active
 		#region Buff Active
 		// Activates a specific buff by name
@@ -261,18 +283,20 @@ namespace Diggy_MiniGame_2
 			{
 				case "StopEnemiesBuff":
 					StopEnemies(buff);
+					PlayAudioGameManagerClip(0);
 					break;
 
 				case "DestroyChildrenBuff":
 					foreach (var target in buff.targetGameObjects)
 					{
 						DestroyAllChildren(target);
+						PlayAudioGameManagerClip(0);
 					}
 					break;
 
 				case "SpawnRockBuff":
 					SpawnRock(buff);
-					
+					PlayAudioGameManagerClip(0);
 					break;
 
 				case "ShieldBuff":
@@ -293,7 +317,7 @@ namespace Diggy_MiniGame_2
 		private void StopEnemies(BuffData buff)
 		{
 			// Find all enemies with relevant scripts
-			var enemies = FindObjectsOfType<MonoBehaviour>().Where(obj => obj is Barrel).ToList();
+			var enemies = FindObjectsOfType<MonoBehaviour>().Where(obj => obj is Barrel || obj is TransportZigzag || obj is TransportBomb).ToList();
 			// Set the speed of each enemy to 0
 			foreach (var enemy in enemies)
 			{
@@ -301,6 +325,16 @@ namespace Diggy_MiniGame_2
 				{
 					barrel.SetSpeed(0); // Set speed to 0 for Barrel type
 				}
+				else if (enemy is TransportZigzag transportZigZag)
+				{
+					transportZigZag.SetSpeed(0);
+				}
+				else if (enemy is TransportBomb transportBomb)
+				{
+					transportBomb.SetSpeed(0);
+				}
+
+
 			}
 
 			// Stop spawning
@@ -314,6 +348,7 @@ namespace Diggy_MiniGame_2
 
 			// Wait for the duration of the buff before restoring the speed and resuming spawning
 			StartCoroutine(RestoreEnemiesAfterDelay(enemies, barrelSpawner, buff.cooldownTime));
+			StartCoroutine(SoundQueue());
 		}
 
 		//Restore Enemies
@@ -329,7 +364,15 @@ namespace Diggy_MiniGame_2
 				{
 					barrel.RestoreSpeed(); // Assuming OriginalSpeed is the default speed
 				}
-				
+				else if (enemy is TransportZigzag transportZigZag)
+				{
+					transportZigZag.RestoreSpeed();
+				}
+				else if (enemy is TransportBomb transportBomb)
+				{
+					transportBomb.RestoreSpeed();
+				}
+
 			}
 
 			// Resume spawning
@@ -337,6 +380,12 @@ namespace Diggy_MiniGame_2
 			{
 				barrelSpawner.SetSpawning(true);
 			}
+		}
+
+		private IEnumerator SoundQueue()
+		{
+			yield return new WaitForSeconds(0.1f);
+			PlayAudioTimeStopBuffClip(0);
 		}
 		#endregion
 
@@ -368,6 +417,7 @@ namespace Diggy_MiniGame_2
 			// Spawn effect BEFORE destroying children
 			GameObject effect = Instantiate(_destroyEffectPrefab, target.transform.position, Quaternion.identity);
 			// Start animation
+			PlayAudioBlastBuffClip(0);
 			StartCoroutine(PlayDestroyEffect(effect));
 
 			// Destroy all children immediately
@@ -448,7 +498,7 @@ namespace Diggy_MiniGame_2
 				Debug.LogWarning("ActivateShield: No Shield component found on the player!");
 				return;
 			}
-
+			PlayAudioShieldBuffClip(0);
 			shield.ActivateShield(3); // Shield can take 3 hits
 			Debug.Log("Shield Buff activated: Shield absorbs 3 hits.");
 		}
@@ -493,62 +543,103 @@ namespace Diggy_MiniGame_2
 		}
 		#endregion
 
+		//Buff Audio
+		#region Buff Audio
+
+		private void PlayAudioShieldBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _shieldBuffClips.Length)
+			{
+				_shieldAudioSource.clip = _shieldBuffClips[clipIndex];
+				_shieldAudioSource.Play();
+			}
+		}
+
+
+		private void PlayAudioTimeStopBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _timeStopBuffClips.Length)
+			{
+				_timeStopAudioSource.clip = _timeStopBuffClips[clipIndex];
+				_timeStopAudioSource.Play();
+			}
+		}
+
+		private void PlayAudioBlastBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _blastBuffClips.Length)
+			{
+				_blastBuffAudioSource.clip = _blastBuffClips[clipIndex];
+				_blastBuffAudioSource.Play();
+			}
+		}
+
+		private void PlayAudioGameManagerClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _gameManagerClips.Length)
+			{
+				_gameManagerAudioSource.clip = _gameManagerClips[clipIndex];
+				_gameManagerAudioSource.Play();
+			}
+		}
+		#endregion
+
 		//Buff Usages with Backend
 		#region Buff Usages with Backend
-/*
-		private void LowerBuffUsage(BuffData buff)
-		{
-			if (buff.buffName == "DestroyChildrenBuff")
-			{
-				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.sweepBuffI - 1).ToString();
-				if ((MainMenu.GameManager.instance.playerData.sweepBuffI - 1) <= 0)
+		/*
+				private void LowerBuffUsage(BuffData buff)
 				{
-					//Logic to block sweepBuff
-					UnlockBuff(buff.buffName);
-				}
-				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_sweep");
-			}
-			else if (buff.buffName == "StopEnemiesBuff")
-			{
-				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.timeBuffI - 1).ToString();
-				if ((MainMenu.GameManager.instance.playerData.timeBuffI - 1) <= 0)
-				{
-					//Logic to block sweepBuff
-					UnlockBuff(buff.buffName);
-				}
-				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_time");
-			}
-			else if (buff.buffName == "SpawnRockBuff")
-			{
-				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.rockBuffI - 1).ToString();
-				if ((MainMenu.GameManager.instance.playerData.rockBuffI - 1) <= 0)
-				{
-					//Logic to block sweepBuff
-					UnlockBuff(buff.buffName);
-				}
-				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_rock");
-			}
-			else if (buff.buffName == "ShieldBuff")
-			{
-				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.shieldBuffI - 1).ToString();
-				if ((MainMenu.GameManager.instance.playerData.shieldBuffI - 1) <= 0)
-				{
-					//Logic to block sweepBuff
-					UnlockBuff(buff.buffName);
-				}
-				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_shield");
-			}
-			else if (buff.buffName == "ShotgunBuff")
-			{
-				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.tripleBuffI - 1).ToString();
-				if ((MainMenu.GameManager.instance.playerData.tripleBuffI - 1) <= 0)
-				{
-					//Logic to block sweepBuff
-					UnlockBuff(buff.buffName);
-				}
-				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_triple");
-			}
-		}*/
+					if (buff.buffName == "DestroyChildrenBuff")
+					{
+						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.sweepBuffI - 1).ToString();
+						if ((MainMenu.GameManager.instance.playerData.sweepBuffI - 1) <= 0)
+						{
+							//Logic to block sweepBuff
+							UnlockBuff(buff.buffName);
+						}
+						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_sweep");
+					}
+					else if (buff.buffName == "StopEnemiesBuff")
+					{
+						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.timeBuffI - 1).ToString();
+						if ((MainMenu.GameManager.instance.playerData.timeBuffI - 1) <= 0)
+						{
+							//Logic to block sweepBuff
+							UnlockBuff(buff.buffName);
+						}
+						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_time");
+					}
+					else if (buff.buffName == "SpawnRockBuff")
+					{
+						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.rockBuffI - 1).ToString();
+						if ((MainMenu.GameManager.instance.playerData.rockBuffI - 1) <= 0)
+						{
+							//Logic to block sweepBuff
+							UnlockBuff(buff.buffName);
+						}
+						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_rock");
+					}
+					else if (buff.buffName == "ShieldBuff")
+					{
+						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.shieldBuffI - 1).ToString();
+						if ((MainMenu.GameManager.instance.playerData.shieldBuffI - 1) <= 0)
+						{
+							//Logic to block sweepBuff
+							UnlockBuff(buff.buffName);
+						}
+						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_shield");
+					}
+					else if (buff.buffName == "ShotgunBuff")
+					{
+						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.tripleBuffI - 1).ToString();
+						if ((MainMenu.GameManager.instance.playerData.tripleBuffI - 1) <= 0)
+						{
+							//Logic to block sweepBuff
+							UnlockBuff(buff.buffName);
+						}
+						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_triple");
+					}
+				}*/
 		#endregion
 	}
 

@@ -21,6 +21,15 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private LayerMask playerLayer; // LayerMask to detect the player
 
+
+		[Header("Visual Effect Settings")]
+		[SerializeField]
+		private GameObject _explosionEffectPrefab; // Prefab for the fire/tar effect
+		[SerializeField]
+		private float _fireEffectDuration = 2f; // Duration before the fire effect disappears
+
+
+
 		private PlayerController _playerController;
 		private bool hasExploded = false;
 		private float _originalSpeed;
@@ -71,10 +80,12 @@ namespace Diggy_MiniGame_2
 		{
 			if (other.CompareTag("Player"))
 			{
+
 				// Destroy coins carried by the player when they collide with the barrel
 				PlayerController playerController = other.gameObject.GetComponent<PlayerController>();
 				if (playerController != null)
 				{
+					
 					ExplodeAndStun(other.gameObject);
 					DestroyCoins(playerController);
 					playerController.PlayerTakeDamage();
@@ -83,7 +94,6 @@ namespace Diggy_MiniGame_2
 
 			if (other.CompareTag("Rock"))
 			{
-
 				Destroy(gameObject);
 			}
 
@@ -117,8 +127,6 @@ namespace Diggy_MiniGame_2
 		private void ExplodeAndStun(GameObject player)
 		{
 			hasExploded = true;
-
-
 			// Check if the player is within the explosion radius
 			Collider2D[] hitObjects = Physics2D.OverlapCircleAll(transform.position, explosionRadius, playerLayer);
 
@@ -131,6 +139,7 @@ namespace Diggy_MiniGame_2
 					{
 						playerController.StunPlayer(_stunDuration);
 						playerController.DropAllPickups();
+						SpawnExplosionEffect();
 					}
 				}
 			}
@@ -138,6 +147,18 @@ namespace Diggy_MiniGame_2
 			// Destroy the TNT object
 			DestroyTransport();
 		}
+
+		private void SpawnExplosionEffect()
+		{
+			if (_explosionEffectPrefab != null)
+			{
+				// Instantiate the fire effect at the current position
+				GameObject fireEffect = Instantiate(_explosionEffectPrefab, transform.position, Quaternion.identity);
+			}
+		}
+
+		
+
 
 		private void OnDrawGizmosSelected()
 		{

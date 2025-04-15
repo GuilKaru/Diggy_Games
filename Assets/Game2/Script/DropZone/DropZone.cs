@@ -5,6 +5,12 @@ namespace Diggy_MiniGame_2
 {
 	public class DropZone : MonoBehaviour
 	{
+		[Header("Player Audio")]
+		[SerializeField]
+		private AudioSource _coinDropAudioSource;
+		[SerializeField]
+		private AudioClip[] _coinDropClips;
+
 		private List<GameObject> _scorePickUps = new List<GameObject>();
 		private List<GameObject> _timePickUps = new List<GameObject>();
 
@@ -23,6 +29,7 @@ namespace Diggy_MiniGame_2
 		{
 			if (other.CompareTag("PickUp"))
 			{
+				
 				if (other.GetComponent<PickUpScore>() != null)
 				{
 					if (!_scorePickUps.Contains(other.gameObject)) // Prevent duplicates
@@ -37,6 +44,7 @@ namespace Diggy_MiniGame_2
 						_timePickUps.Add(other.gameObject);
 					}
 				}
+
 			}
 		}
 
@@ -54,6 +62,8 @@ namespace Diggy_MiniGame_2
 				{
 					CalculateTime();
 				}
+
+				
 			}
 		}
 
@@ -93,8 +103,17 @@ namespace Diggy_MiniGame_2
 			}
 
 			_playerController.DropAllPickups();
-
+			PlayAudioCoinDropClip(0);
 			_scorePickUps.Clear();
+		}
+
+		public void PlayAudioCoinDropClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _coinDropClips.Length)
+			{
+				_coinDropAudioSource.clip = _coinDropClips[clipIndex];
+				_coinDropAudioSource.Play();
+			}
 		}
 
 		private void CalculateTime()
@@ -107,7 +126,7 @@ namespace Diggy_MiniGame_2
 			}
 
 			_playerController.DropAllPickups();
-
+			PlayAudioCoinDropClip(0);
 			_timePickUps.Clear();
 		}
 	}

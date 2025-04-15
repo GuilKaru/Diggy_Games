@@ -10,6 +10,12 @@ namespace Diggy_MiniGame_2
 
 		private float _currentTime;
 		private bool _isRunning = true;
+		private GameManager _gameManager;
+
+		private void Awake()
+		{
+			_gameManager = FindObjectOfType<GameManager>();
+		}
 
 		private void Start()
 		{
@@ -28,7 +34,7 @@ namespace Diggy_MiniGame_2
 				{
 					_currentTime = 0;
 					_isRunning = false;
-					Debug.Log("Game Over!");
+					_gameManager.GameOver();
 				}
 			}
 		}

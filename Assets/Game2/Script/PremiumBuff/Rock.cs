@@ -3,6 +3,18 @@ namespace Diggy_MiniGame_2
 {
 	public class Rock : MonoBehaviour
 	{
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
+
+		[SerializeField]
+		private AudioSource _rockAudioSource;
+		[SerializeField]
+		private AudioClip[] _rockBuffClips;
+
+		private string _currentState;
+		private string _rockHitAnim = "Rock_Hit";
+
 		#region Private Variables
 		private int _health;
 		private float _lifetime;
@@ -30,12 +42,27 @@ namespace Diggy_MiniGame_2
 		public void RockTakeDamage()
 		{
 			_health--;
-			
+			PlayAudioRockBuffClip(0);
+			ChangeAnimationState(_rockHitAnim);
+
 			Debug.Log($"Rock took damage. Remaining health: {_health}");
 			if (_health <= 0)
 			{
 				DestroyRock();
 			}
+		}
+
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
 		}
 
 		#endregion
@@ -57,6 +84,18 @@ namespace Diggy_MiniGame_2
 		{
 			Destroy(gameObject);
 		}
+
+		private void PlayAudioRockBuffClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _rockBuffClips.Length)
+			{
+				_rockAudioSource.clip = _rockBuffClips[clipIndex];
+				_rockAudioSource.Play();
+			}
+		}
+
+
+	
 		#endregion
 	}
 }
