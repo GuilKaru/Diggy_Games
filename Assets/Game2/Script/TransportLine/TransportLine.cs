@@ -14,6 +14,9 @@ namespace Diggy_MiniGame_2
 		[SerializeField]
 		private float _driftSpeed = 0.1f; // Optional custom drift speed
 
+		[SerializeField]
+		private bool _directionLocked = false; // New flag
+
 		[Header("Animation")]
 		[SerializeField]
 		private Animator _animator;
@@ -24,6 +27,8 @@ namespace Diggy_MiniGame_2
 		private string _currentState;
 
 		private Dictionary<PlayerController, int> _playerTriggers = new Dictionary<PlayerController, int>();
+
+		private Coroutine _unlockRoutine = null;
 
 		private void Awake()
 		{
@@ -70,8 +75,28 @@ namespace Diggy_MiniGame_2
 
 		public void SetDriftDirection(DriftDirection direction)
 		{
+			if (_directionLocked && direction != _driftDirection)
+				return; // Ignore if locked and trying to change direction
+
 			_driftDirection = direction;
 			UpdateAnimationBasedOnDirection();
+
+			if (!_directionLocked)
+			{
+				_directionLocked = true;
+
+				// Optional: Automatically unlock after a delay (e.g., 1 second)
+				if (_unlockRoutine != null)
+					StopCoroutine(_unlockRoutine);
+
+				_unlockRoutine = StartCoroutine(UnlockDirectionAfterDelay(5f));
+			}
+		}
+
+		private IEnumerator UnlockDirectionAfterDelay(float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			_directionLocked = false;
 		}
 
 		private void UpdateAnimationBasedOnDirection()

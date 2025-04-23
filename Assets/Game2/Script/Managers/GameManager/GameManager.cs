@@ -16,7 +16,7 @@ namespace Diggy_MiniGame_2
 		[SerializeField] private ScoreManager _scoreManager;
 		[SerializeField] private TimerManager _timerManager;
 
-		//[SerializeField] private GameObject mobileControlsUI; // Assign your mobile control UI in the inspector
+		[SerializeField] private GameObject mobileControlsUI; // Assign your mobile control UI in the inspector
 
 /*
 		[SerializeField] public TextMeshProUGUI ScoreText;
@@ -49,7 +49,7 @@ namespace Diggy_MiniGame_2
 
 		private void Update()
 		{
-			//CheckForInput();
+			CheckForInput();
 
 			// Handle Pause toggle with Escape key
 			if (Input.GetKeyDown(KeyCode.Escape) && !_isGameOver)
@@ -130,7 +130,7 @@ namespace Diggy_MiniGame_2
 
 		//Check For Input
 
-	/*	private void CheckForInput()
+		private void CheckForInput()
 		{
 			if (Input.anyKeyDown && !Input.GetMouseButton(0)) // Ignore mouse clicks
 			{
@@ -165,7 +165,7 @@ namespace Diggy_MiniGame_2
 				canvasGroup.interactable = show;      // Allow interactions when visible
 				canvasGroup.blocksRaycasts = show;    // Prevent clicks when invisible
 			}
-		}*/
+		}
 
 
 		private void PlayAudioGameManagerClip(int clipIndex)

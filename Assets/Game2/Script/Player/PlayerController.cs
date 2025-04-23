@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
@@ -19,6 +20,12 @@ namespace Diggy_MiniGame_2
 		private Vector2 _minBounds;
 		[SerializeField]
 		private Vector2 _maxBounds;
+
+		[Header("Mobile Joystick")]
+		[SerializeField]
+		private JoyStick _joystick;
+		[SerializeField]
+		private Button _shootButton;
 
 		[Header("Pickup Settings")]
 		[SerializeField]
@@ -81,6 +88,7 @@ namespace Diggy_MiniGame_2
 		private string _idleAnim = "Player_Idle";
 		private string _hitAnim = "Player_Hit";
 
+		private bool _isUsingJoystick;
 		#endregion
 
 		//Initialization
@@ -93,6 +101,8 @@ namespace Diggy_MiniGame_2
 			ChangeAnimationState(_idleAnim);
 			_moveAction = _playerInput.actions["Move"];
 			_pickUpAction = _playerInput.actions["PickUp"];
+
+			_isUsingJoystick = _joystick != null && _joystick.InputVector.magnitude > 0.1f;
 		}
 
 		private void OnEnable()
@@ -115,6 +125,9 @@ namespace Diggy_MiniGame_2
 
 		private void FixedUpdate()
 		{
+			_moveInput = _joystick.InputVector + _moveAction.ReadValue<Vector2>();
+			_moveInput = Vector2.ClampMagnitude(_moveInput, 1f); // Normalize input
+
 			if (_isStunned && Time.time >= _stunEndTime)
 			{
 				_isStunned = false; // End the stun effect
@@ -163,7 +176,7 @@ namespace Diggy_MiniGame_2
 			_moveInput = context.ReadValue<Vector2>();
 		}
 
-		private void UpdateCarriedObjects()
+		public void UpdateCarriedObjects()
 		{
 			// Remove null objects from the list
 			_carriedObjects.RemoveAll(item => item == null);
@@ -200,7 +213,7 @@ namespace Diggy_MiniGame_2
 		//PickUp Objects
 		#region PickUp Objects
 
-		private void OnPickup(InputAction.CallbackContext context)
+		public void OnPickup(InputAction.CallbackContext context)
 		{
 			if (_carriedObjects.Count >= _maxCarriedObjects)
 				return; // Prevent picking up more than max allowed
@@ -271,6 +284,52 @@ namespace Diggy_MiniGame_2
 			for (int i = 0; i < _coinVisuals.Count; i++)
 			{
 				_coinVisuals[i].SetActive(i == _carriedObjects.Count - 1);
+			}
+		}
+
+		public void TriggerPickup()
+		{
+			// Simulate a pickup without using the Input System context
+			if (_carriedObjects.Count >= _maxCarriedObjects)
+				return;
+
+			PlayAudioCoinClip(0);
+
+			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _pickupRadius);
+			foreach (Collider2D col in colliders)
+			{
+				PickUpTime timePickup = col.GetComponent<PickUpTime>();
+				if (timePickup != null)
+				{
+					timePickup.OnPickedUp();
+				}
+
+				PickUpScore scorePickup = col.GetComponent<PickUpScore>();
+				if (scorePickup != null)
+				{
+					scorePickup.OnPickedUp();
+				}
+
+				if (col.CompareTag("PickUp") && !_carriedObjects.Contains(col.gameObject))
+				{
+					_carriedObjects.Add(col.gameObject);
+					col.gameObject.transform.SetParent(transform);
+
+					PickupTracker tracker = col.GetComponent<PickupTracker>();
+					if (tracker != null)
+					{
+						tracker.NotifyPickup();
+					}
+
+					SpriteRenderer spriteRenderer = col.GetComponent<SpriteRenderer>();
+					if (spriteRenderer != null)
+					{
+						spriteRenderer.sortingOrder = _carriedObjects.Count;
+					}
+
+					UpdateCoinVisuals();
+					break;
+				}
 			}
 		}
 
