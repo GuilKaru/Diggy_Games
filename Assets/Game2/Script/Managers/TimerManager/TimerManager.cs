@@ -54,6 +54,16 @@ namespace Diggy_MiniGame_2
 			// Optional: Cap time to the starting time
 			_currentTime = Mathf.Min(_currentTime, _startingTime);
 		}
+
+		public float GetCurrentTime()
+		{
+			return _currentTime;
+		}
+
+		public float GetStartingTime()
+		{
+			return _startingTime;
+		}
 	}
 }
 

@@ -169,14 +169,6 @@ namespace Diggy_MiniGame_2
 				Destroy(gameObject);
 			}
 
-			if (other.CompareTag("TransportLine"))
-			{
-				TransportLine transportLine = other.GetComponent<TransportLine>();
-				if (transportLine != null)
-				{
-					transportLine.SetDriftDirection(_moveRight ? TransportLine.DriftDirection.Right : TransportLine.DriftDirection.Left);
-				}
-			}
 		}
 
 		private void DestroyCoins(PlayerController playerController)

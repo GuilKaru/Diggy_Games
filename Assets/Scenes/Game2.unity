@@ -5801,6 +5801,54 @@ Transform:
   - {fileID: 809086946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1300738327
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1300738328}
+  - component: {fileID: 1300738329}
+  m_Layer: 0
+  m_Name: DifficultyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1300738328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300738327}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1641365187}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1300738329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300738327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22ebd30a506439b4c9a6f16173f526f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _timerManager: {fileID: 1898182301}
+  _playerController: {fileID: 1960242427}
+  difficultyIncreaseTime: 30
+  driftIncrement: 1
 --- !u!1 &1312568838
 GameObject:
   m_ObjectHideFlags: 0
@@ -7706,6 +7754,7 @@ Transform:
   - {fileID: 466987876}
   - {fileID: 2103813457}
   - {fileID: 2079775420}
+  - {fileID: 1300738328}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1656173118
@@ -9796,8 +9845,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 5
-  _minBounds: {x: -10, y: -10}
-  _maxBounds: {x: 10, y: 10}
+  _minBounds: {x: -7.25, y: -4}
+  _maxBounds: {x: 7.25, y: 3.5}
   _joystick: {fileID: 1176192578}
   _shootButton: {fileID: 2028847888}
   _pickupRadius: 0.9
@@ -9884,7 +9933,7 @@ Transform:
   m_GameObject: {fileID: 1960242426}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.874, z: 0}
+  m_LocalPosition: {x: 0, y: -2, z: 0}
   m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

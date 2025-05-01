@@ -208,6 +208,13 @@ namespace Diggy_MiniGame_2
 			_isDriftingRight = false;
 		}
 
+		public void IncreaseDriftDifficulty(float driftIncrement)
+		{
+			_leftDriftSpeed += driftIncrement;
+			_rightDriftSpeed += driftIncrement;
+			Debug.Log($"Drift speeds increased! Left: {_leftDriftSpeed}, Right: {_rightDriftSpeed}");
+		}
+
 		#endregion
 
 		//PickUp Objects
