@@ -415,6 +415,14 @@ MonoBehaviour:
   whitelistActivated: 0
   _maintenancePlay: {fileID: 260764524}
   _maintenanceStore: {fileID: 1603060003}
+  playTab: {fileID: 1831187589}
+  marketTab: {fileID: 227305755}
+  notificationsTab: {fileID: 724317177}
+  diggysTab: {fileID: 654138034}
+  coinsTab: {fileID: 1134667593}
+  buffsTab: {fileID: 455426200}
+  newsTab: {fileID: 521615500}
+  leaderboardTab: {fileID: 178673461}
 --- !u!1 &12511188
 GameObject:
   m_ObjectHideFlags: 0
@@ -11523,7 +11531,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1147618418
 RectTransform:
   m_ObjectHideFlags: 0

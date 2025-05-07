@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Boom.Utility;
 using Boom.Values;
+using UnityEngine.Serialization;
 
 namespace MainMenu
 {
@@ -58,6 +59,20 @@ namespace MainMenu
 
 		[SerializeField] private GameObject _maintenancePlay;
 		[SerializeField] private GameObject _maintenanceStore;
+		
+		#region MenuTabs Variables
+
+		[SerializeField] private GameObject playTab;
+		[SerializeField] private GameObject marketTab;
+		[SerializeField] private GameObject notificationsTab;
+		[SerializeField] private GameObject diggysTab;
+		[SerializeField] private GameObject coinsTab;
+		[SerializeField] private GameObject buffsTab;
+		[SerializeField] private GameObject newsTab;
+		[SerializeField] private GameObject leaderboardTab;
+		private string _currentTab;
+		
+		#endregion
 		
 		private int _currentTutorialIndex = 0;
 		
@@ -376,6 +391,119 @@ namespace MainMenu
 		{
 			_purchaseFailedObject.SetActive(false);
 		}
+		#endregion
+		
+		#region Tabs Methods
+
+		private void CloseBigTabs()
+		{
+			playTab.SetActive(false);
+			marketTab.SetActive(false);
+			leaderboardTab.SetActive(false);
+		}
+
+		private void CloseSmallTabs()
+		{
+			diggysTab.SetActive(false);
+			coinsTab.SetActive(false);
+			buffsTab.SetActive(false);
+			newsTab.SetActive(false);
+			notificationsTab.SetActive(false);
+		}
+		public void OpenPlayTab()
+		{
+			if (_currentTab == "Play") return;
+			
+			CloseBigTabs();
+			CloseSmallTabs();
+			playTab.SetActive(true);
+			_currentTab = "Play";
+		}
+
+		public void OpenMarketTab()
+		{
+			if (_currentTab == "Market") return;
+			
+			CloseBigTabs();
+			CloseSmallTabs();
+			marketTab.SetActive(true);
+			_currentTab = "Market";
+		}
+
+		public void OpenLeaderboardTab()
+		{
+			if (_currentTab == "Leaderboard") return;
+			CloseBigTabs();
+			CloseSmallTabs();
+			leaderboardTab.SetActive(true);
+			_currentTab = "Leaderboard";
+		}
+
+		public void OpenNotificationsTab()
+		{
+			if (notificationsTab.activeSelf)
+			{
+				notificationsTab.SetActive(false);
+			}
+			else
+			{
+				CloseSmallTabs();
+				notificationsTab.SetActive(true);
+			}
+		}
+
+		public void OpenDiggysTab()
+		{
+			if (diggysTab.activeSelf)
+			{
+				diggysTab.SetActive(false);
+			}
+			else
+			{
+				CloseSmallTabs();
+				diggysTab.SetActive(true);
+			}
+		}
+		
+		public void OpenCoinsTab()
+		{
+			if (coinsTab.activeSelf)
+			{
+				coinsTab.SetActive(false);
+			}
+			else
+			{
+				CloseSmallTabs();
+				coinsTab.SetActive(true);
+			}
+		}
+		
+		public void OpenBuffsTab()
+		{
+			if (buffsTab.activeSelf)
+			{
+				buffsTab.SetActive(false);
+			}
+			else
+			{
+				CloseSmallTabs();
+				buffsTab.SetActive(true);
+			}
+		}
+		
+		public void OpenNewsTab()
+		{
+			if (newsTab.activeSelf)
+			{
+				newsTab.SetActive(false);
+			}
+			else
+			{
+				CloseSmallTabs();
+				newsTab.SetActive(true);
+			}
+		}
+		
 		#endregion
 	}
 }
