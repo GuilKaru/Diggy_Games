@@ -21,7 +21,9 @@ namespace MainMenu
         [SerializeField] private GameObject _gameSelectorMenu;
         [SerializeField] private GameObject _furnaceFrenzyMenu;
 		[SerializeField] private GameObject _furnaceFrenzyTutorial;
+		[SerializeField] private GameObject _diggysDroneDashTutorial;
 		[SerializeField] private GameObject[] _tutorialImages;
+		[SerializeField] private GameObject[] _tutorial2Images;
 		[SerializeField] private GameObject _furnaceFrenzyLeaderBoard;
 		[SerializeField] private GameObject _furnaceFrenzyStore;
 		[SerializeField] private GameObject _loadingPanel;
@@ -75,7 +77,8 @@ namespace MainMenu
 		#endregion
 		
 		private int _currentTutorialIndex = 0;
-		
+		private int _currentTutorial2Index = 0;
+
 		//Open New Tab variable
 		[DllImport("__Internal")]
 		private static extern void OpenNewTab(string url);
@@ -252,6 +255,7 @@ namespace MainMenu
 	        _boomUsername.UpdateCoins();
         }
 
+		#region Tutorial 1 
 		public void OpenTutorial()
 		{
 			_furnaceFrenzyTutorial.SetActive(true);
@@ -299,6 +303,56 @@ namespace MainMenu
 				_tutorialImages[i].SetActive(i == _currentTutorialIndex);
 			}
 		}
+		#endregion
+
+		public void OpenSecondTutorial()
+		{
+			_diggysDroneDashTutorial.SetActive(true);
+			_currentTutorial2Index = 0; // Reset to the first tutorial page
+			UpdateSecondTutorialView();
+			PlayAudioMainMenuClip(0);
+			
+			_boomUsername.UpdateCoins();
+		}
+
+		public void CloseSecondTutorial()
+		{
+			_diggysDroneDashTutorial.SetActive(false);
+			_currentTutorial2Index = 0; // Ensure first image is shown next time
+			UpdateSecondTutorialView();
+			PlayAudioMainMenuClip(0);
+			
+			_boomUsername.UpdateCoins();
+		}
+
+		public void NextSecondTutorial()
+		{
+			if (_currentTutorial2Index < _tutorial2Images.Length - 1)
+			{
+				_currentTutorial2Index++;
+				UpdateSecondTutorialView();
+				PlayAudioMainMenuClip(0);
+			}
+		}
+
+		public void PreviousSecondTutorial()
+		{
+			if (_currentTutorial2Index > 0)
+			{
+				_currentTutorial2Index--;
+				PlayAudioMainMenuClip(0);
+				UpdateSecondTutorialView();
+			}
+		}
+
+		private void UpdateSecondTutorialView()
+		{
+			for (int i = 0; i < _tutorial2Images.Length; i++)
+			{
+				_tutorial2Images[i].SetActive(i == _currentTutorial2Index);
+			}
+		}
+
 
 		public void OpenLeaderboard()
 		{
