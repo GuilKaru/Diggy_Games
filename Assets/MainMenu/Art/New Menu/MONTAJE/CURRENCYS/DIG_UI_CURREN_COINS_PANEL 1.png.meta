@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 072e0a1ef73b0f94f91f8b10cca71532
+guid: ba8d5ed15001fbc48bc892159d947bfd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3922799363530856751
-    second: DIG_01_TUTNEW_002_0
+      213: -5983283110670929782
+    second: DIG_UI_CURREN_COINS_PANEL 1_0
+  - first:
+      213: 8240501295420647497
+    second: DIG_UI_CURREN_COINS_PANEL 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +49,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,12 +129,12 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: -1
+    textureFormat: 29
     textureCompression: 1
-    compressionQuality: 50
+    compressionQuality: 100
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 0
+    overridden: 1
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -152,13 +155,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_01_TUTNEW_002_0
+      name: DIG_UI_CURREN_COINS_PANEL 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 1306
         width: 2560
-        height: 1440
+        height: 134
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +170,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d66d9343ca6f89c0800000000000000
-      internalID: -3922799363530856751
+      spriteID: a807ddd26bb17fca0800000000000000
+      internalID: -5983283110670929782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_UI_CURREN_COINS_PANEL 1_1
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 644
+        width: 842
+        height: 614
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 948a1b4a4442c5270800000000000000
+      internalID: 8240501295420647497
       vertices: []
       indices: 
       edges: []
@@ -177,7 +202,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -187,7 +212,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DIG_01_TUTNEW_002_0: -3922799363530856751
+      DIG_UI_CURREN_COINS_PANEL 1_0: -5983283110670929782
+      DIG_UI_CURREN_COINS_PANEL 1_1: 8240501295420647497
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      DIG_02_TUTO_003_0: 3635471231396047747
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
