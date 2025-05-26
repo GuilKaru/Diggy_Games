@@ -14,7 +14,14 @@ namespace MainMenu
         {
             loadingScreen.SetActive(true);
             Time.timeScale = 1;
-            StartCoroutine(LoadLevelFFAsync());
+            StartCoroutine(LoadLevelAsync(1));
+        }
+
+        public void PlayGameDD()
+        {
+            loadingScreen.SetActive(true);
+            Time.timeScale = 1;
+            StartCoroutine((LoadLevelAsync(2)));
         }
 
         public void Restart(string gameName)
@@ -35,24 +42,40 @@ namespace MainMenu
             GameManager.instance.ScoreUpdateFF();
         }
 
-        IEnumerator LoadLevelFFAsync()
+        IEnumerator LoadLevelAsync(int game)
         {
-            AsyncOperation loadOperations = SceneManager.LoadSceneAsync("Game1", LoadSceneMode.Additive);
+            AsyncOperation loadOperations;
+            
+            if (game == 1)
+            {
+                loadOperations = SceneManager.LoadSceneAsync("Game1", LoadSceneMode.Additive);
+            }
+            else
+            {
+                loadOperations = SceneManager.LoadSceneAsync("Game2", LoadSceneMode.Additive);
+            }
 
-            loadOperations.allowSceneActivation = false;
-
-            while (loadOperations.progress < 0.9f) // wait for it to load
+            if (loadOperations == null)
             {
                 yield return null;
             }
-            
-            yield return new WaitForSeconds(2f); //Simulate Delay so there are no errors
-            
-            loadOperations.allowSceneActivation = true;
+            else
+            {
+                loadOperations.allowSceneActivation = false;
 
-            loadingScreen.SetActive(false);
+                while (loadOperations.progress < 0.9f) // wait for it to load
+                {
+                    yield return null;
+                }
 
-            GameManager.instance.ActivateMainMenu(false);
+                yield return new WaitForSeconds(2f); //Simulate Delay so there are no errors
+
+                loadOperations.allowSceneActivation = true;
+
+                loadingScreen.SetActive(false);
+
+                GameManager.instance.ActivateMainMenu(false);
+            }
         }
     }
 }

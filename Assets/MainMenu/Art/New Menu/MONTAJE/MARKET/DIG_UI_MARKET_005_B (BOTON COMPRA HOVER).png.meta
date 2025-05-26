@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: a3b54c422f46a8d49aa4288a6449a7df
+guid: d2357104d3931394797ade02666f9a4e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1718764988361367515
-    second: DIG_UI_MARKET_004 (EFECTO ACTIVO)_0
+      213: 1088302631507743242
+    second: DIG_UI_MARKET_005_B (BOTON COMPRA HOVER)_0
+  - first:
+      213: 775901781088546089
+    second: DIG_UI_MARKET_005_B (BOTON COMPRA HOVER)_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -128,10 +131,10 @@ TextureImporter:
     resizeAlgorithm: 0
     textureFormat: 12
     textureCompression: 1
-    compressionQuality: 100
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -152,13 +155,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_UI_MARKET_004 (EFECTO ACTIVO)_0
+      name: DIG_UI_MARKET_005_B (BOTON COMPRA HOVER)_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
-        width: 437
-        height: 594
+        y: 1
+        width: 185
+        height: 61
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,8 +170,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 520a7587958b528e0800000000000000
-      internalID: -1718764988361367515
+      spriteID: a02542f2a7d6a1f00800000000000000
+      internalID: 1088302631507743242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DIG_UI_MARKET_005_B (BOTON COMPRA HOVER)_1
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 173
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92d206a1f8e84ca00800000000000000
+      internalID: 775901781088546089
       vertices: []
       indices: 
       edges: []
@@ -187,7 +212,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DIG_UI_MARKET_004 (EFECTO ACTIVO)_0: -1718764988361367515
+      DIG_UI_MARKET_005_B (BOTON COMPRA HOVER)_0: 1088302631507743242
+      DIG_UI_MARKET_005_B (BOTON COMPRA HOVER)_1: 775901781088546089
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

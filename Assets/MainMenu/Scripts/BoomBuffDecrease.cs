@@ -122,7 +122,7 @@ namespace MainMenu
             GameManager.instance.boomUsername.UpdateCoins();
         }
         
-        public async UniTaskVoid PlayCoinsDecrease(string playAction)
+        public async UniTaskVoid PlayCoinsDecrease(string playAction, int game)
         {
             if (logCoroutine != null) StopCoroutine(logCoroutine);
 
@@ -209,7 +209,14 @@ namespace MainMenu
             //if (string.IsNullOrEmpty(message)) message = $"Rewards:\n\n{outcomesToDisplay.Reduce(e => $"> +{e.value} {e.key}", "\n")}";
 
             //logCoroutine = StartCoroutine(DisplayTempLog(message));
-            GameManager.instance.sceneController.PlayGameFF();
+            if (game == 1)
+            {
+                GameManager.instance.sceneController.PlayGameFF();
+            }
+            else if (game == 2)
+            {
+                GameManager.instance.sceneController.PlayGameDD();
+            }
             
             GameManager.instance.boomUsername.UpdateCoins();
         }

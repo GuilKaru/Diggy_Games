@@ -393,7 +393,14 @@ namespace MainMenu
 		public void PlayGame()
 		{
 			_loadingPanel.SetActive(true);
-			GameManager.instance.boomBuffDecrease.PlayCoinsDecrease("decrease_dc_x1");
+			GameManager.instance.boomBuffDecrease.PlayCoinsDecrease("decrease_dc_x1", 1);
+			PlayAudioMainMenuClip(0);
+		}
+		
+		public void PlayGameDD()
+		{
+			_loadingPanel.SetActive(true);
+			GameManager.instance.boomBuffDecrease.PlayCoinsDecrease("decrease_dc_x1", 2);
 			PlayAudioMainMenuClip(0);
 		}
 		

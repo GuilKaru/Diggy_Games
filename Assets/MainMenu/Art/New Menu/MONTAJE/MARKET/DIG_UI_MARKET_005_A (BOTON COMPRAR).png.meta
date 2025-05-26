@@ -1,13 +1,13 @@
 fileFormatVersion: 2
-guid: b6ce47b50340a824eb821846b5858220
+guid: a22e4e6c49712ea42ba4da1120b76d62
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4090142793311404709
-    second: DIG_UI_MARKET_005_A (BOTON COMPRAR)_0
+      213: -1742057504460653765
+    second: DIG_UI_MARKET_005_A (BOTON COMPRAR) 1_0
   - first:
-      213: -7148329914199774676
-    second: DIG_UI_MARKET_005_A (BOTON COMPRAR)_1
+      213: -220580715894703764
+    second: DIG_UI_MARKET_005_A (BOTON COMPRAR) 1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -129,12 +129,12 @@ TextureImporter:
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
-    textureFormat: 29
+    textureFormat: 12
     textureCompression: 1
-    compressionQuality: 100
+    compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
-    overridden: 1
+    overridden: 0
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
@@ -155,7 +155,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_UI_MARKET_005_A (BOTON COMPRAR)_0
+      name: DIG_UI_MARKET_005_A (BOTON COMPRAR) 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -170,14 +170,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: b5dbc0cccc4ec37c0800000000000000
-      internalID: -4090142793311404709
+      spriteID: b3bb154fde7f2d7e0800000000000000
+      internalID: -1742057504460653765
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DIG_UI_MARKET_005_A (BOTON COMPRAR)_1
+      name: DIG_UI_MARKET_005_A (BOTON COMPRAR) 1_1
       rect:
         serializedVersion: 2
         x: 6
@@ -192,8 +192,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c2ae2d601d70ccc90800000000000000
-      internalID: -7148329914199774676
+      spriteID: c697bc0f10750fcf0800000000000000
+      internalID: -220580715894703764
       vertices: []
       indices: 
       edges: []
@@ -212,8 +212,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DIG_UI_MARKET_005_A (BOTON COMPRAR)_0: -4090142793311404709
-      DIG_UI_MARKET_005_A (BOTON COMPRAR)_1: -7148329914199774676
+      DIG_UI_MARKET_005_A (BOTON COMPRAR) 1_0: -1742057504460653765
+      DIG_UI_MARKET_005_A (BOTON COMPRAR) 1_1: -220580715894703764
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
