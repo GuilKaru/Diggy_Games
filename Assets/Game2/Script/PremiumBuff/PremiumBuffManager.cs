@@ -57,41 +57,68 @@ namespace Diggy_MiniGame_2
 					//_buffUnlockedStates[buff.buffName] = false; // All buffs are initially locked
 					if (buff.buffName == "DestroyChildrenBuff")
 					{
+						buff.textMeshProUGUI.text = MainMenu.GameManager.instance.playerData.sweepBuffI.ToString();
+						
+						if (MainMenu.GameManager.instance.playerData.sweepBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
+						}
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
 						}
 					}
 					else if (buff.buffName == "StopEnemiesBuff")
 					{
+						buff.textMeshProUGUI.text = MainMenu.GameManager.instance.playerData.timeBuffI.ToString();
 						
+						if (MainMenu.GameManager.instance.playerData.timeBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
-						
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
 					}
 					else if (buff.buffName == "SpawnRockBuff")
 					{
-						
+						buff.textMeshProUGUI.text = MainMenu.GameManager.instance.playerData.rockBuffI.ToString();
+							
+						if (MainMenu.GameManager.instance.playerData.rockBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
-					
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
 					}
 					else if (buff.buffName == "ShieldBuff")
 					{
+						buff.textMeshProUGUI.text = MainMenu.GameManager.instance.playerData.shieldBuffI.ToString();
 						
+						if (MainMenu.GameManager.instance.playerData.shieldBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
-						
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
 					}
 					else if (buff.buffName == "ShotgunBuff")
 					{
+						buff.textMeshProUGUI.text = MainMenu.GameManager.instance.playerData.tripleBuffI.ToString();
 						
+						if (MainMenu.GameManager.instance.playerData.tripleBuffI > 0)
 						{
 							_buffUnlockedStates[buff.buffName] = true;
 						}
-					
+						else
+						{
+							_buffUnlockedStates[buff.buffName] = false;
+						}
 					}
 
 				}
@@ -140,7 +167,7 @@ namespace Diggy_MiniGame_2
 		}
 		private void Update()
 		{
-			if (Input.GetKeyDown(KeyCode.Y))
+			/*if (Input.GetKeyDown(KeyCode.Y))
 			{
 				UnlockBuff("DestroyChildrenBuff"); // Unlock DestroyChildrenBuff
 			}
@@ -183,7 +210,7 @@ namespace Diggy_MiniGame_2
 			else if (Input.GetKeyDown(KeyCode.Alpha5))
 			{
 				ActivateBuff("StopEnemiesBuff");
-			}
+			}*/
 
 			if (Input.GetKeyDown(KeyCode.Alpha1))
 			{
@@ -240,7 +267,8 @@ namespace Diggy_MiniGame_2
 				Debug.Log($"Buff '{buffName}' is on cooldown. Please wait.");
 				return;
 			}
-
+			
+			LowerBuffUsage(buff);
 
 			// Apply the buff logic
 			Debug.Log($"Activating Buff: {buff.buffName}");
@@ -586,60 +614,59 @@ namespace Diggy_MiniGame_2
 
 		//Buff Usages with Backend
 		#region Buff Usages with Backend
-		/*
-				private void LowerBuffUsage(BuffData buff)
+		private void LowerBuffUsage(BuffData buff)
+		{
+			if (buff.buffName == "DestroyChildrenBuff")
+			{
+				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.sweepBuffI - 1).ToString();
+				if ((MainMenu.GameManager.instance.playerData.sweepBuffI - 1) <= 0)
 				{
-					if (buff.buffName == "DestroyChildrenBuff")
-					{
-						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.sweepBuffI - 1).ToString();
-						if ((MainMenu.GameManager.instance.playerData.sweepBuffI - 1) <= 0)
-						{
-							//Logic to block sweepBuff
-							UnlockBuff(buff.buffName);
-						}
-						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_sweep");
-					}
-					else if (buff.buffName == "StopEnemiesBuff")
-					{
-						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.timeBuffI - 1).ToString();
-						if ((MainMenu.GameManager.instance.playerData.timeBuffI - 1) <= 0)
-						{
-							//Logic to block sweepBuff
-							UnlockBuff(buff.buffName);
-						}
-						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_time");
-					}
-					else if (buff.buffName == "SpawnRockBuff")
-					{
-						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.rockBuffI - 1).ToString();
-						if ((MainMenu.GameManager.instance.playerData.rockBuffI - 1) <= 0)
-						{
-							//Logic to block sweepBuff
-							UnlockBuff(buff.buffName);
-						}
-						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_rock");
-					}
-					else if (buff.buffName == "ShieldBuff")
-					{
-						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.shieldBuffI - 1).ToString();
-						if ((MainMenu.GameManager.instance.playerData.shieldBuffI - 1) <= 0)
-						{
-							//Logic to block sweepBuff
-							UnlockBuff(buff.buffName);
-						}
-						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_shield");
-					}
-					else if (buff.buffName == "ShotgunBuff")
-					{
-						buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.tripleBuffI - 1).ToString();
-						if ((MainMenu.GameManager.instance.playerData.tripleBuffI - 1) <= 0)
-						{
-							//Logic to block sweepBuff
-							UnlockBuff(buff.buffName);
-						}
-						MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_triple");
-					}
-				}*/
+					//Logic to block sweepBuff
+					UnlockBuff(buff.buffName);
+				}
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_sweep");
+			}
+			else if (buff.buffName == "StopEnemiesBuff")
+			{
+				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.timeBuffI - 1).ToString();
+				if ((MainMenu.GameManager.instance.playerData.timeBuffI - 1) <= 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buff.buffName);
+				}
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_time");
+			}
+			else if (buff.buffName == "SpawnRockBuff")
+			{
+				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.rockBuffI - 1).ToString();
+				if ((MainMenu.GameManager.instance.playerData.rockBuffI - 1) <= 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buff.buffName);
+				}
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_rock");
+			}
+			else if (buff.buffName == "ShieldBuff")
+			{
+				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.shieldBuffI - 1).ToString();
+				if ((MainMenu.GameManager.instance.playerData.shieldBuffI - 1) <= 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buff.buffName);
+				}
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_shield");
+			}
+			else if (buff.buffName == "ShotgunBuff")
+			{
+				buff.textMeshProUGUI.text = (MainMenu.GameManager.instance.playerData.tripleBuffI - 1).ToString();
+				if ((MainMenu.GameManager.instance.playerData.tripleBuffI - 1) <= 0)
+				{
+					//Logic to block sweepBuff
+					UnlockBuff(buff.buffName);
+				}
+				MainMenu.GameManager.instance.boomBuffDecrease.ActionHandler("decrease_triple");
+			}
+		}
 		#endregion
 	}
 
