@@ -18,10 +18,9 @@ namespace Diggy_MiniGame_2
 
 		[SerializeField] private GameObject mobileControlsUI; // Assign your mobile control UI in the inspector
 
-/*
 		[SerializeField] public TextMeshProUGUI ScoreText;
 		[SerializeField] public TextMeshProUGUI UsernameText;
-		[SerializeField] public TextMeshProUGUI RankText;*/
+		[SerializeField] public TextMeshProUGUI RankText;
 
 		[Header("Game Manager Audio")]
 		[SerializeField]
@@ -83,7 +82,7 @@ namespace Diggy_MiniGame_2
 			_isGameOver = true;
 			_gameOverMenuUI.SetActive(true);
 
-			//MainMenu.GameManager.instance.boomScoreFF.ActionButtonClickHandler(_scoreManager.scoreCount);
+			MainMenu.GameManager.instance.boomScoreFF.ActionButtonClickHandler(_scoreManager.scoreCount, 2);
 
 			// Freeze game time
 			Time.timeScale = 0;
@@ -113,7 +112,7 @@ namespace Diggy_MiniGame_2
 		// Back to Main Menu Logic (placeholder, to be implemented later)
 		public void BackToMainMenu()
 		{
-			MainMenu.GameManager.instance.sceneController.BackToMenu("MainMenu");
+			MainMenu.GameManager.instance.sceneController.BackToMenu("Game2");
 		}
 
 		private void ResetGameState()

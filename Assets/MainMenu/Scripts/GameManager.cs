@@ -9,7 +9,7 @@ namespace MainMenu
         [SerializeField] public MainMenu mainMenu;
         [SerializeField] public PlayerData playerData;
         
-        [SerializeField] private TextMeshProUGUI scoreTextFF;
+        //[SerializeField] private TextMeshProUGUI scoreTextFF;
         
         [SerializeField] public BoomBuffDecrease boomBuffDecrease;
         
@@ -51,6 +51,28 @@ namespace MainMenu
         public void ScoreSafeFF(string score)
         {
             playerData.furnaceFrenzyMaxScore = int.Parse(score);
+
+            boomLeaderboard.playerScore.text = score;
+        }
+
+        public void ScoreUpdateDD()
+        {
+            var principal = UserUtil.GetPrincipal();
+            EntityUtil.TryGetFieldAsText(principal, "score_2", "maxscore", out var outScore, "None");
+
+            if (outScore is "None" or null)
+            {
+                ScoreSafeFF("0");
+            }
+            else
+            {
+                ScoreSafeDD(outScore);
+            }
+        }
+        
+        public void ScoreSafeDD(string score)
+        {
+            playerData.dDMaxScore = int.Parse(score);
 
             boomLeaderboard.playerScore.text = score;
         }

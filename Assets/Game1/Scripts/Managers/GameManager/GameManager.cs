@@ -86,7 +86,7 @@ namespace Diggy_MiniGame_1
 			_isGameOver = true;
 			_gameOverMenuUI.SetActive(true);
 			
-			MainMenu.GameManager.instance.boomScoreFF.ActionButtonClickHandler(_scoreManager.scoreCount);
+			MainMenu.GameManager.instance.boomScoreFF.ActionButtonClickHandler(_scoreManager.scoreCount, 1);
 
 			// Freeze game time
 			Time.timeScale = 0;

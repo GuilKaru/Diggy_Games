@@ -11192,6 +11192,9 @@ MonoBehaviour:
   _scoreManager: {fileID: 1728885431}
   _timerManager: {fileID: 1898182301}
   mobileControlsUI: {fileID: 464432886}
+  ScoreText: {fileID: 1959540349}
+  UsernameText: {fileID: 2016432968}
+  RankText: {fileID: 879387679}
   _gameManagerAudioSource: {fileID: 1403530369}
   _gameManagerClips:
   - {fileID: 8300000, guid: 339dd71ed8cb35646a635ba753fbd834, type: 3}

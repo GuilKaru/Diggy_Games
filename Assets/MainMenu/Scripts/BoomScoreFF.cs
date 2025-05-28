@@ -23,7 +23,8 @@ namespace MainMenu
         private Coroutine logCoroutine;
 
         //The action ID
-        [SerializeField] string actionId = "set_max_score_1";
+        [SerializeField] string actionId1 = "set_max_score_1";
+        [SerializeField] string actionId2 = "set_max_score_2";
 
         #endregion
 
@@ -31,33 +32,55 @@ namespace MainMenu
         #region ACTION 
 
         //This function is just a wrapper so that we can register "ExecuteAction" function on the Action Button's onClick event
-        public void ActionButtonClickHandler(int score)
+        public void ActionButtonClickHandler(int score, int game)
         {
             //Forget() is included as we dont care awaiting for the result
-            MaxScoreCheck(score);
+            MaxScoreCheck(score, game);
         }
 
-        private void MaxScoreCheck(int score)
+        private void MaxScoreCheck(int score, int game)
         {
             var principal = UserUtil.GetPrincipal();
-
-            EntityUtil.TryGetFieldAsText(principal, "score_1", "maxscore", out var outVal, "None");
-
-            if(outVal == "None" || outVal == null)
+            
+            if (game == 1)
             {
-                ExecuteAction(score).Forget();
+                EntityUtil.TryGetFieldAsText(principal, "score_1", "maxscore", out var outVal, "None");
+                
+                if(outVal == "None" || outVal == null)
+                {
+                    ExecuteAction(score, game).Forget();
+                }
+                else
+                {
+                    int oldScore = int.Parse(outVal);
+                
+                    score += oldScore;
+                
+                    ExecuteAction(score, game).Forget();
+                }
             }
             else
             {
-                int oldScore = int.Parse(outVal);
+                EntityUtil.TryGetFieldAsText(principal, "score_2", "maxscore", out var outVal, "None");
                 
-                score += oldScore;
+                if(outVal == "None" || outVal == null)
+                {
+                    ExecuteAction(score, game).Forget();
+                }
+                else
+                {
+                    int oldScore = int.Parse(outVal);
                 
-                ExecuteAction(score).Forget();
+                    score += oldScore;
+                
+                    ExecuteAction(score, game).Forget();
+                }
             }
         }
+        
+        
 
-        public async UniTaskVoid ExecuteAction(int score)
+        public async UniTaskVoid ExecuteAction(int score, int game)
         {
             if (logCoroutine != null) StopCoroutine(logCoroutine);
 
@@ -78,26 +101,47 @@ namespace MainMenu
 
             //Here we execute the action by passing the actionId we wantto execute.
             //actionLogText.text = $"Processing Action of id: \"{actionId}\" with arguments:\n{JsonConvert.SerializeObject(fields)}";
-            var actionResult = await ActionUtil.ProcessAction(actionId, fields);
-
-            //SECTION C: Error handling
-
-            //Here we handle the errors
-            bool isError = actionResult.IsErr;
-
-            if (isError)
+            if (game == 1)
             {
-                string errorMessage = actionResult.AsErr().content;
+                var actionResult = await ActionUtil.ProcessAction(actionId1, fields);
+                
+                bool isError = actionResult.IsErr;
 
-                Debug.LogError(errorMessage);
-                //logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
+                if (isError)
+                {
+                    string errorMessage = actionResult.AsErr().content;
 
-                return;
-            }
+                    Debug.LogError(errorMessage);
+                    //logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
+
+                    return;
+                }
             
                 //GameManager.instance.playerData.furnaceFrenzyMaxScore = score;
                 GameManager.instance.ScoreUpdateFF();
-                GameManager.instance.boomLeaderboard.SetLeaderboardEntry("set_leaderboard_1", score.ToString(), GameManager.instance.playerData.username);
+                GameManager.instance.boomLeaderboard.SetLeaderboardEntry("set_leaderboard_1", score.ToString(), GameManager.instance.playerData.username, game);
+            }
+            else
+            {
+                var actionResult = await ActionUtil.ProcessAction(actionId2, fields);
+                
+                bool isError = actionResult.IsErr;
+
+                if (isError)
+                {
+                    string errorMessage = actionResult.AsErr().content;
+
+                    Debug.LogError(errorMessage);
+                    //logCoroutine = StartCoroutine(DisplayTempLog(errorMessage));
+
+                    return;
+                }
+            
+                //GameManager.instance.playerData.furnaceFrenzyMaxScore = score;
+                GameManager.instance.ScoreUpdateDD();
+                GameManager.instance.boomLeaderboard.SetLeaderboardEntry("set_leaderboard_1", score.ToString(), GameManager.instance.playerData.username, game);
+            }
+            
             
         }
 

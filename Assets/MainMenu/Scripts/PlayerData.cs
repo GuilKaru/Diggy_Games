@@ -9,6 +9,7 @@ namespace MainMenu
         [SerializeField] public string diggyCoins;
         [SerializeField] public double diggyCoinsD;
         [SerializeField] public int furnaceFrenzyMaxScore;
+        [SerializeField] public int dDMaxScore;
 
         [SerializeField] public string sweepBuff;
         [SerializeField] public string timeBuff;

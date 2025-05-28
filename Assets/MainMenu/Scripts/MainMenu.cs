@@ -28,7 +28,8 @@ namespace MainMenu
 		[SerializeField] private GameObject _furnaceFrenzyStore;
 		[SerializeField] private GameObject _loadingPanel;
 		[SerializeField] private GameObject _rewardsPanel;
-		[SerializeField] private Button _playButton;
+		[SerializeField] private Button _playButton1;
+		[SerializeField] private Button _playButton2;
 
 		[Header("Game Manager Audio")]
 		[SerializeField]
@@ -60,7 +61,7 @@ namespace MainMenu
 		[SerializeField] public bool whitelistActivated = false;
 
 		[SerializeField] private GameObject _maintenancePlay;
-		[SerializeField] private GameObject _maintenanceStore;
+		[SerializeField] private GameObject _maintenancePlay2;
 		
 		#region MenuTabs Variables
 
@@ -127,7 +128,7 @@ namespace MainMenu
 
 		        //Read Config to know if the game is in Maintenance
 		        outConfig.fields.TryGetValue("playMaintenance", out  var playMaintenance);
-		        outConfig.fields.TryGetValue("storeMaintenance", out var storeMaintenance);
+		        outConfig.fields.TryGetValue("playMaintenance2", out var playMaintenance2);
 
 		        if (playMaintenance == "true")
 		        {
@@ -138,13 +139,13 @@ namespace MainMenu
 			        _maintenancePlay.SetActive(false);
 		        }
 
-		        if (storeMaintenance == "true")
+		        if (playMaintenance2 == "true")
 		        {
-			        _maintenanceStore.SetActive(true);
+			        _maintenancePlay2.SetActive(true);
 		        }
 		        else
 		        {
-			        _maintenanceStore.SetActive(false);
+			        _maintenancePlay2.SetActive(false);
 		        }
 			
 		        ActivatePlayButton();
@@ -182,7 +183,13 @@ namespace MainMenu
             gameManager.boomLeaderboard.playerRank.text = "No Rank";
             gameManager.boomLeaderboard.playerName.text = username;
             gameManager.boomLeaderboard.playerRankTier.sprite = gameManager.boomLeaderboard.playerSprites[4];
+            
+            gameManager.boomLeaderboard.playerRank2.text = "No Rank";
+            gameManager.boomLeaderboard.playerName2.text = username;
+            gameManager.boomLeaderboard.playerRankTier2.sprite = gameManager.boomLeaderboard.playerSprites[4];
+            
             gameManager.ScoreUpdateFF();
+            gameManager.ScoreUpdateDD();
             
             ActivatePlayButton();
         }
@@ -195,27 +202,32 @@ namespace MainMenu
 		        {
 			        if (GameManager.instance.playerData.diggyCoinsD > 0)
 			        {
-				        _playButton.interactable = true;
+				        _playButton1.interactable = true;
+				        _playButton2.interactable = true;
 			        }
 			        else
 			        {
-				        _playButton.interactable = false;
+				        _playButton1.interactable = false;
+				        _playButton2.interactable = false;
 			        }
 		        }
 		        else
 		        {
-			        _playButton.interactable = false;
+			        _playButton1.interactable = false;
+			        _playButton2.interactable = false;
 		        }
 	        }
 	        else
 	        {
 		        if (GameManager.instance.playerData.diggyCoinsD > 0)
 		        {
-			        _playButton.interactable = true;
+			        _playButton1.interactable = true;
+			        _playButton2.interactable = true;
 		        }
 		        else
 		        {
-			        _playButton.interactable = false;
+			        _playButton1.interactable = false;
+			        _playButton2.interactable = false;
 		        }
 	        }
 	        
@@ -304,7 +316,7 @@ namespace MainMenu
 			}
 		}
 		#endregion
-
+		#region Tutorial 2
 		public void OpenSecondTutorial()
 		{
 			_diggysDroneDashTutorial.SetActive(true);
@@ -352,42 +364,11 @@ namespace MainMenu
 				_tutorial2Images[i].SetActive(i == _currentTutorial2Index);
 			}
 		}
-
-
-		public void OpenLeaderboard()
-		{
-			GameManager.instance.boomLeaderboard.UpdateLeaderboard();
-			_furnaceFrenzyLeaderBoard.SetActive(true);
-			
-			_boomUsername.UpdateCoins();
-		}
-		public void CloseLeaderBoard()
-		{
-			_furnaceFrenzyLeaderBoard.SetActive(false);
-			PlayAudioMainMenuClip(0);
-			
-			_boomUsername.UpdateCoins();
-		}
+#endregion
 
 		public void OpenRewards(bool active)
 		{
 			_rewardsPanel.SetActive(active);
-		}
-
-		public void OpenStore()
-		{
-			_furnaceFrenzyStore.SetActive(true);
-			PlayAudioMainMenuClip(0);
-			
-			_boomUsername.UpdateCoins();
-		}
-
-		public void CloseStore()
-		{
-			_furnaceFrenzyStore.SetActive(false);
-			PlayAudioMainMenuClip(0);
-			
-			_boomUsername.UpdateCoins();
 		}
 
 		public void PlayGame()
@@ -474,7 +455,7 @@ namespace MainMenu
 		public void OpenPlayTab()
 		{
 			if (_currentTab == "Play") return;
-			
+			_boomUsername.UpdateCoins();
 			CloseBigTabs();
 			CloseSmallTabs();
 			playTab.SetActive(true);
@@ -484,7 +465,7 @@ namespace MainMenu
 		public void OpenMarketTab()
 		{
 			if (_currentTab == "Market") return;
-			
+			_boomUsername.UpdateCoins();
 			CloseBigTabs();
 			CloseSmallTabs();
 			marketTab.SetActive(true);
@@ -494,6 +475,8 @@ namespace MainMenu
 		public void OpenLeaderboardTab()
 		{
 			if (_currentTab == "Leaderboard") return;
+			GameManager.instance.boomLeaderboard.UpdateLeaderboard();
+			_boomUsername.UpdateCoins();
 			CloseBigTabs();
 			CloseSmallTabs();
 			leaderboardTab.SetActive(true);
@@ -523,6 +506,7 @@ namespace MainMenu
 			{
 				CloseSmallTabs();
 				diggysTab.SetActive(true);
+				_boomUsername.UpdateCoins();
 			}
 		}
 		
@@ -536,6 +520,7 @@ namespace MainMenu
 			{
 				CloseSmallTabs();
 				coinsTab.SetActive(true);
+				_boomUsername.UpdateCoins();
 			}
 		}
 		
@@ -549,6 +534,7 @@ namespace MainMenu
 			{
 				CloseSmallTabs();
 				buffsTab.SetActive(true);
+				_boomUsername.UpdateCoins();
 			}
 		}
 		
