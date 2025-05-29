@@ -225,7 +225,7 @@ namespace Diggy_MiniGame_2
 			if (_carriedObjects.Count >= _maxCarriedObjects)
 				return; // Prevent picking up more than max allowed
 
-				PlayAudioCoinClip(0);
+				
 
 			Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _pickupRadius);
 			foreach (Collider2D col in colliders)
@@ -244,6 +244,7 @@ namespace Diggy_MiniGame_2
 
 				if (col.CompareTag("PickUp") && !_carriedObjects.Contains(col.gameObject))
 				{
+					PlayAudioCoinClip(0);
 					_carriedObjects.Add(col.gameObject);
 					col.gameObject.transform.SetParent(transform);
 
