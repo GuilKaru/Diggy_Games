@@ -17,6 +17,7 @@ TagManager:
   - PickUp
   - TransportLine
   - Shovel
+  - BulletParent
   layers:
   - Default
   - TransparentFX

@@ -3,7 +3,7 @@ namespace Diggy_MiniGame_3
 {
 	public class EnemySeeker : MonoBehaviour
 	{
-		[Header("Settings")]
+		[Header("Move Settings")]
 		[SerializeField]
 		private float _delayBeforeLaunch = 1.0f;
 		[SerializeField]
@@ -13,14 +13,19 @@ namespace Diggy_MiniGame_3
 		[SerializeField]
 		private string _playerTag = "Player";
 
+		[Header("Score Settings")]
+		[SerializeField]
+		private int _scoreValue = 10;
+
 		private Vector2 _targetPosition;
 		private bool _isLaunched = false;
 		private float _timer;
+		private ScoreManager _scoreManager;
 
 		private void Start()
 		{
 			_timer = _delayBeforeLaunch;
-
+			_scoreManager = FindObjectOfType<ScoreManager>();
 			GameObject player = GameObject.FindGameObjectWithTag(_playerTag);
 			if (player != null)
 			{
@@ -76,6 +81,7 @@ namespace Diggy_MiniGame_3
 
 			if (other.CompareTag("Shovel"))
 			{
+				_scoreManager.AddScore(_scoreValue);
 				Destroy(gameObject);
 			}
 		}

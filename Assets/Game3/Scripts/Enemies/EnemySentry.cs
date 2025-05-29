@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 namespace Diggy_MiniGame_3
 {
 	public class EnemySentry : MonoBehaviour
 	{
+		[Header("Enemy Sentry Settings")]
 		[SerializeField]
 		private float detectionAngle = 45f; // Cone half-angle
 		[SerializeField]
@@ -14,28 +16,36 @@ namespace Diggy_MiniGame_3
 		[SerializeField]
 		private Transform firePoint;
 
-		private Transform player;
-		private float fireTimer;
+		[SerializeField]
+		private int _scoreValue = 10;
+
+		private Transform _player;
+		private float _fireTimer;
+		private ScoreManager _scoreManager;
+		private bool hasFired = false;
 
 		private void Start()
 		{
-			player = GameObject.FindGameObjectWithTag("Player").transform;
+
+			_scoreManager = FindObjectOfType<ScoreManager>();
+			_player = GameObject.FindGameObjectWithTag("Player").transform;
 		}
 
 		private void Update()
 		{
-			fireTimer += Time.deltaTime;
+			_fireTimer += Time.deltaTime;
 
-			if (player != null && fireTimer >= fireCooldown && IsPlayerInCone())
+			if (!hasFired && _player != null && _fireTimer >= fireCooldown && IsPlayerInCone())
 			{
 				FireAtPlayer();
-				fireTimer = 0f;
+				hasFired = true;
+				StartCoroutine(SelfDestructAfterDelay(3f));
 			}
 		}
 
 		private bool IsPlayerInCone()
 		{
-			Vector2 toPlayer = player.position - transform.position;
+			Vector2 toPlayer = _player.position - transform.position;
 			float distance = toPlayer.magnitude;
 
 			if (distance > detectionRange)
@@ -48,13 +58,38 @@ namespace Diggy_MiniGame_3
 		private void FireAtPlayer()
 		{
 			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
-			Vector2 direction = (player.position - firePoint.position).normalized;
+			Vector2 direction = (_player.position - firePoint.position).normalized;
+
+			// Find bullet parent in the scene
+			GameObject bulletParent = GameObject.FindGameObjectWithTag("BulletParent");
+			if (bulletParent != null)
+			{
+				bullet.transform.SetParent(bulletParent.transform);
+			}
+
 
 			SentryBullet sentryBullet = bullet.GetComponent<SentryBullet>();
 			if (sentryBullet != null)
 			{
 				sentryBullet.SetDirection(direction);
 			}
+		}
+
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+
+			if (other.CompareTag("Shovel"))
+			{
+				_scoreManager.AddScore(_scoreValue);
+				Destroy(gameObject);
+			}
+		}
+
+		private IEnumerator SelfDestructAfterDelay(float delay)
+		{
+			yield return new WaitForSeconds(delay);
+			_scoreManager.AddScore(_scoreValue);
+			Destroy(gameObject);
 		}
 
 		private void OnDrawGizmos()

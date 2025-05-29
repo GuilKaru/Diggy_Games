@@ -33,7 +33,12 @@ namespace Diggy_MiniGame_3
 		{
 			if (_damageAreaPrefab != null)
 			{
-				Instantiate(_damageAreaPrefab, transform.position, Quaternion.identity);
+				GameObject bullet = Instantiate(_damageAreaPrefab, transform.position, Quaternion.identity);
+				GameObject bulletParent = GameObject.FindGameObjectWithTag("BulletParent");
+				if (bulletParent != null)
+				{
+					bullet.transform.SetParent(bulletParent.transform);
+				}
 			}
 		}
 	}
