@@ -16,6 +16,7 @@ TagManager:
   - Explosion
   - PickUp
   - TransportLine
+  - Shovel
   layers:
   - Default
   - TransparentFX
