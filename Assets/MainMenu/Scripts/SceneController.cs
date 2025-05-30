@@ -40,6 +40,7 @@ namespace MainMenu
             GameManager.instance.ActivateMainMenu(true);
             
             GameManager.instance.ScoreUpdateFF();
+            GameManager.instance.mainMenu.PlayMusicMainMenu(true);
         }
 
         IEnumerator LoadLevelAsync(int game)

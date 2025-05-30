@@ -31,7 +31,8 @@ namespace MainMenu
 		[SerializeField] private Button _playButton1;
 		[SerializeField] private Button _playButton2;
 
-		[Header("Game Manager Audio")]
+		[Header("Game Manager Audio")] [SerializeField]
+		private AudioSource _gameManagerMusic;
 		[SerializeField]
 		private AudioSource _gameManagerAudioSource;
 		[SerializeField]
@@ -376,6 +377,7 @@ namespace MainMenu
 			_loadingPanel.SetActive(true);
 			GameManager.instance.boomBuffDecrease.PlayCoinsDecrease("decrease_dc_x1", 1);
 			PlayAudioMainMenuClip(0);
+			PlayMusicMainMenu(false);
 		}
 		
 		public void PlayGameDD()
@@ -383,6 +385,7 @@ namespace MainMenu
 			_loadingPanel.SetActive(true);
 			GameManager.instance.boomBuffDecrease.PlayCoinsDecrease("decrease_dc_x1", 2);
 			PlayAudioMainMenuClip(0);
+			PlayMusicMainMenu(false);
 		}
 		
 		private void PlayAudioMainMenuClip(int clipIndex)
@@ -391,6 +394,18 @@ namespace MainMenu
 			{
 				_gameManagerAudioSource.clip = _gameManagerClips[clipIndex];
 				_gameManagerAudioSource.Play();
+			}
+		}
+
+		public void PlayMusicMainMenu(bool play)
+		{
+			if (play)
+			{
+				_gameManagerMusic.Play();
+			}
+			else
+			{
+				_gameManagerMusic.Stop();
 			}
 		}
 		

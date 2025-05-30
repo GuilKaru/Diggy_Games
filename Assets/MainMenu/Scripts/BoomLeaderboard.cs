@@ -62,6 +62,9 @@ namespace MainMenu
         
         [SerializeField] public List<Sprite> playerSprites = new List<Sprite>();
         
+        [SerializeField] private GameObject game1LBActive;
+        [SerializeField] private GameObject game2LBActive;
+        
         //[SerializeField] TMP_Text content;
 
         /*private void Awake()
@@ -82,12 +85,16 @@ namespace MainMenu
         {
             leaderboard1.SetActive(true);
             leaderboard2.SetActive(false);
+            game1LBActive.SetActive(true);
+            game2LBActive.SetActive(false);
         }
         
         public void Leaderboard2Open()
         {
             leaderboard1.SetActive(false);
             leaderboard2.SetActive(true);
+            game1LBActive.SetActive(false);
+            game2LBActive.SetActive(true);
         }
         private void LoginDataChangeHandler(MainDataTypes.LoginData data)
         {
