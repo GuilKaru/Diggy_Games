@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 4263e44d6e9911b478e3954d12b92984
+guid: 67e006f47de79454d8df739a02358ab9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7138787248479103271
-    second: DIG_UI_NEWS_HOVER_0
-  - first:
-      213: 4208733354613272298
-    second: DIG_UI_NEWS_HOVER_1
-  - first:
-      213: -7705779243636969168
-    second: DIG_UI_NEWS_HOVER_2
-  - first:
-      213: -3330804897017314019
-    second: DIG_UI_NEWS_HOVER_3
+      213: 6108434632690642510
+    second: DIG_UI_MANTENIMIENTO_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -161,35 +152,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DIG_UI_NEWS_HOVER_0
+      name: DIG_UI_MANTENIMIENTO_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 8
-        width: 2560
-        height: 145
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7296fa8fd21121360800000000000000
-      internalID: 7138787248479103271
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DIG_UI_NEWS_HOVER_1
-      rect:
-        serializedVersion: 2
-        x: 1974
         y: 0
-        width: 9
-        height: 8
+        width: 259
+        height: 89
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -198,52 +167,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: aeeef0cefac686a30800000000000000
-      internalID: 4208733354613272298
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DIG_UI_NEWS_HOVER_2
-      rect:
-        serializedVersion: 2
-        x: 2067
-        y: 0
-        width: 9
-        height: 8
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 031b079da929f0590800000000000000
-      internalID: -7705779243636969168
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DIG_UI_NEWS_HOVER_3
-      rect:
-        serializedVersion: 2
-        x: 1984
-        y: 0
-        width: 82
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: d15c621f79a96c1d0800000000000000
-      internalID: -3330804897017314019
+      spriteID: e4e283f3fe485c450800000000000000
+      internalID: 6108434632690642510
       vertices: []
       indices: 
       edges: []
@@ -262,10 +187,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      DIG_UI_NEWS_HOVER_0: 7138787248479103271
-      DIG_UI_NEWS_HOVER_1: 4208733354613272298
-      DIG_UI_NEWS_HOVER_2: -7705779243636969168
-      DIG_UI_NEWS_HOVER_3: -3330804897017314019
+      DIG_UI_MANTENIMIENTO_0: 6108434632690642510
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
