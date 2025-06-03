@@ -11,19 +11,22 @@ namespace Diggy_MiniGame_3
 
 		public Transform _parentTransform;
 
+		private GameObject currentTurret;
+
 		public void SpawnTurret()
 		{
-			// Randomly choose left or right (never both)
-			bool spawnLeft = Random.value > 0.5f;
+			if (currentTurret != null) return; // A turret already exists
 
-			if (spawnLeft)
-			{
-				Instantiate(turretLeftPrefab, leftSpawnPoint.position, turretLeftPrefab.transform.rotation, _parentTransform);
-			}
-			else
-			{
-				Instantiate(turretRightPrefab, rightSpawnPoint.position, turretRightPrefab.transform.rotation, _parentTransform);
-			}
+			bool spawnLeft = Random.value > 0.5f;
+			Transform spawnPoint = spawnLeft ? leftSpawnPoint : rightSpawnPoint;
+			GameObject turretPrefab = spawnLeft ? turretLeftPrefab : turretRightPrefab;
+
+			currentTurret = Instantiate(turretPrefab, spawnPoint.position, turretPrefab.transform.rotation, _parentTransform);
+
+		}
+		public bool HasActiveTurret()
+		{
+			return currentTurret != null;
 		}
 
 		private void OnDrawGizmos()

@@ -18,7 +18,7 @@ namespace Diggy_MiniGame_3
 			if (timer >= spawnInterval)
 			{
 				timer = 0f;
-				SpawnEnemies();
+				//SpawnEnemies();
 			}
 		}
 
@@ -27,7 +27,7 @@ namespace Diggy_MiniGame_3
 			// Spawn one random enemy from area spawners
 			foreach (var spawner in areaSpawners)
 			{
-				spawner.SpawnRandom();
+				spawner.SpawnRandomWithReturn();
 			}
 
 			// Spawn one turret (left or right, randomly)

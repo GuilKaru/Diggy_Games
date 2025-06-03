@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectionAngle: 36
   detectionRange: 20
-  fireCooldown: 3
+  fireCooldown: 3.5
   bulletPrefab: {fileID: 1950062758738467068, guid: e88695a6202a3d444bb27624bcf3be0b, type: 3}
   firePoint: {fileID: 9022304732538296343}
   _scoreValue: 10

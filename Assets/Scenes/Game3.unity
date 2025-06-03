@@ -210,6 +210,55 @@ Transform:
   - {fileID: 263451970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &180812452
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 180812453}
+  - component: {fileID: 180812454}
+  m_Layer: 0
+  m_Name: DifficultyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &180812453
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180812452}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 894443376}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &180812454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 180812452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67ed136de61a4ba4e8a4e8b2078f166b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreManager: {fileID: 444690940}
+  _enemySpawner: {fileID: 1258482518}
+  _turretSpawner: {fileID: 2057775248}
+  _spawnInterval: 2
+  _maxEnemiesOnScreen: 1
 --- !u!1 &263451969
 GameObject:
   m_ObjectHideFlags: 0
@@ -879,6 +928,7 @@ Transform:
   - {fileID: 1163592783}
   - {fileID: 444690939}
   - {fileID: 914197901}
+  - {fileID: 180812453}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &914197900
@@ -1320,10 +1370,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnableEnemies: 0000000001000000
   enemyPrefabs:
-  - {fileID: 1468874853527699872, guid: 7472369ec66f18943914dca264802346, type: 3}
   - {fileID: 2733120991894010512, guid: dc70dbe78879ed846af01f2bd2d6c64a, type: 3}
+  - {fileID: 1468874853527699872, guid: 7472369ec66f18943914dca264802346, type: 3}
   _parentTransform: {fileID: 342102870}
-  spawnAreaSize: {x: 14, y: 2}
+  spawnAreaSize: {x: 14, y: 1}
 --- !u!1 &1341805512
 GameObject:
   m_ObjectHideFlags: 0
@@ -1708,7 +1758,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2057775247
 Transform:
   m_ObjectHideFlags: 0

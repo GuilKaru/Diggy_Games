@@ -39,7 +39,7 @@ namespace Diggy_MiniGame_3
 			{
 				FireAtPlayer();
 				hasFired = true;
-				StartCoroutine(SelfDestructAfterDelay(3f));
+				
 			}
 		}
 
@@ -73,6 +73,7 @@ namespace Diggy_MiniGame_3
 			{
 				sentryBullet.SetDirection(direction);
 			}
+			StartCoroutine(SelfDestructAfterDelay(3f));
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
