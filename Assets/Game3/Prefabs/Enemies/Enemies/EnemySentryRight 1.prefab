@@ -137,7 +137,7 @@ MonoBehaviour:
   detectionAngle: 36
   detectionRange: 20
   fireCooldown: 4
-  bulletPrefab: {fileID: 1950062758738467068, guid: e88695a6202a3d444bb27624bcf3be0b, type: 3}
+  bulletPrefab: {fileID: 5331190617958450229, guid: 81bf20c534ace094c8103fda997bf5fe, type: 3}
   forwardDirection: {x: 0, y: -4.09}
   firePoint: {fileID: 5542212462015548052}
   _scoreValue: 10
