@@ -8,6 +8,7 @@ namespace Diggy_MiniGame_3
 		[SerializeField] private GameObject _damageAreaPrefab;
 
 		private Vector2 _direction = Vector2.down;
+		private Transform _player;
 
 		public void SetDirection(Vector2 direction)
 		{
@@ -17,6 +18,7 @@ namespace Diggy_MiniGame_3
 		private void Update()
 		{
 			transform.Translate(_direction * _speed * Time.deltaTime);
+
 			CheckOutOfBounds();
 		}
 

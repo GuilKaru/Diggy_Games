@@ -83,7 +83,7 @@
                 {
                     "name": "right",
                     "id": "9db1047d-e2e0-4527-a090-3483c8f4e6d6",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/rightArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -95,6 +95,17 @@
                     "name": "",
                     "id": "9837fb32-82e0-4176-9cb7-7655b91295fe",
                     "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ThrowShovel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cbc17211-bf9b-496a-a819-a879c6b8eacf",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

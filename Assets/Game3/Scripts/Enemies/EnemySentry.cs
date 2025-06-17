@@ -14,6 +14,8 @@ namespace Diggy_MiniGame_3
 		[SerializeField]
 		private GameObject bulletPrefab;
 		[SerializeField]
+		private Vector2 forwardDirection = Vector2.right;
+		[SerializeField]
 		private Transform firePoint;
 
 		[SerializeField]
@@ -51,7 +53,10 @@ namespace Diggy_MiniGame_3
 			if (distance > detectionRange)
 				return false;
 
-			float angle = Vector2.Angle(transform.right, toPlayer.normalized);
+			// Convert local forward direction into world space
+			Vector2 worldForward = transform.TransformDirection(forwardDirection.normalized);
+
+			float angle = Vector2.Angle(worldForward, toPlayer.normalized);
 			return angle < detectionAngle;
 		}
 
@@ -59,6 +64,7 @@ namespace Diggy_MiniGame_3
 		{
 			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 			Vector2 direction = (_player.position - firePoint.position).normalized;
+
 
 			// Find bullet parent in the scene
 			GameObject bulletParent = GameObject.FindGameObjectWithTag("BulletParent");
@@ -95,13 +101,13 @@ namespace Diggy_MiniGame_3
 
 		private void OnDrawGizmos()
 		{
-			// Draw detection range
 			Gizmos.color = Color.red;
 			Gizmos.DrawWireSphere(transform.position, detectionRange);
 
-			// Draw detection cone
-			Vector2 direction1 = Quaternion.Euler(0, 0, detectionAngle) * transform.right;
-			Vector2 direction2 = Quaternion.Euler(0, 0, -detectionAngle) * transform.right;
+			// Draw detection cone using forwardDirection
+			Vector2 forward = transform.TransformDirection(forwardDirection.normalized);
+			Vector2 direction1 = Quaternion.Euler(0, 0, detectionAngle) * forward;
+			Vector2 direction2 = Quaternion.Euler(0, 0, -detectionAngle) * forward;
 
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawRay(transform.position, direction1 * detectionRange);
