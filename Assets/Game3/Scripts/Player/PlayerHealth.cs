@@ -98,6 +98,8 @@ namespace Diggy_MiniGame_3
 			{
 				IsDead = true; // Set IsDead to true
 				_spriteRenderer.enabled = false;
+				GameManager.gameManager.GameOver();
+
 				//_timer.ResetTimer();
 			}
 			StartCoroutine(ToggleSpriteAndCollider(0.2f));
@@ -128,7 +130,14 @@ namespace Diggy_MiniGame_3
 
 
 
-
+		public void ResetPosition()
+		{
+			transform.position = _initialPosition; // Reset to the initial position
+		}
+		public void ResetDeathStatus()
+		{
+			IsDead = false;
+		}
 
 
 		#endregion

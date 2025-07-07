@@ -21,6 +21,9 @@ namespace Diggy_MiniGame_3
 
 		private void Update()
 		{
+			if (!GameManager.gameManager.gameStarted) return;
+			if (GameManager.gameManager.gamePaused) return;
+
 			UpdateDifficulty();
 
 			_spawnTimer += Time.deltaTime;
@@ -81,6 +84,29 @@ namespace Diggy_MiniGame_3
 		{
 			_activeEnemies.RemoveAll(e => e == null);
 		}
+
+
+		public void ResetDifficulty()
+		{
+			_spawnTimer = 0f;
+			_activeEnemies.Clear();
+
+			// Set to initial difficulty state
+			SetSpawnerConfig(new[] { EnemyType.EnemyA }, 1, turretActive: false);
+
+			// Optionally despawn any remaining enemies manually
+			foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+			{
+				Destroy(enemy);
+			}
+
+			// Turn off turret if active
+			if (_turretSpawner.HasActiveTurret())
+			{
+				_turretSpawner.DespawnTurret(); // You’ll need to implement this if not existing
+			}
+		}
+
 	}
 }
 

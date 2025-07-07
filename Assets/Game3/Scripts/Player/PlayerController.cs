@@ -190,6 +190,9 @@ namespace Diggy_MiniGame_3
 
 		private void FixedUpdate()
 		{
+			if (!GameManager.gameManager.gameStarted) return;
+			if (GameManager.gameManager.gamePaused) return;
+
 			// Handle Stun Logic
 			if (_isStunned && Time.time >= _stunEndTime)
 			{
@@ -251,6 +254,9 @@ namespace Diggy_MiniGame_3
 		#region Throw Shovel
 		private void OnShootStart(InputAction.CallbackContext context)
 		{
+			if (!GameManager.gameManager.gameStarted) return;
+			if (GameManager.gameManager.gamePaused) return;
+
 			if (_isPointerOverUI) return;
 			_isShooting = true;
 
@@ -387,7 +393,6 @@ namespace Diggy_MiniGame_3
 			}
 		}
 		#endregion
-
 
 		//Stun
 		#region Stun

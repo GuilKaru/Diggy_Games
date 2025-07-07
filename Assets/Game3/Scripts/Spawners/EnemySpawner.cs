@@ -10,8 +10,10 @@ namespace Diggy_MiniGame_3
 
 		public Vector2 spawnAreaSize = new Vector2(5, 5);
 
+
 		public GameObject SpawnRandomWithReturn()
 		{
+
 			if (spawnableEnemies.Length == 0 || enemyPrefabs.Length == 0)
 				return null;
 

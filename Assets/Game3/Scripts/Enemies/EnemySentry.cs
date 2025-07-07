@@ -35,6 +35,9 @@ namespace Diggy_MiniGame_3
 
 		private void Update()
 		{
+			if (!GameManager.gameManager.gameStarted) return;
+			if (GameManager.gameManager.gamePaused) return;
+
 			_fireTimer += Time.deltaTime;
 
 			if (!hasFired && _player != null && _fireTimer >= fireCooldown && IsPlayerInCone())

@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 7602904175297764609}
   m_Layer: 0
   m_Name: EnemyShoot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -141,6 +141,7 @@ MonoBehaviour:
   _bulletPrefab: {fileID: 1660860926209406385, guid: 9735ec8b71d531f409966b5f4c1e6116, type: 3}
   _firePoint: {fileID: 8949675684293485836}
   _shootInterval: 3
+  _scoreValue: 10
 --- !u!50 &8725132695203372597
 Rigidbody2D:
   serializedVersion: 5

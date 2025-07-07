@@ -9,6 +9,9 @@ namespace Diggy_MiniGame_3
 
 		void Update()
 		{
+			if (!GameManager.gameManager.gameStarted) return;
+			if (GameManager.gameManager.gamePaused) return;
+
 			// Move the rock downward
 			transform.Translate(Vector3.down * _fallSpeed * Time.deltaTime);
 

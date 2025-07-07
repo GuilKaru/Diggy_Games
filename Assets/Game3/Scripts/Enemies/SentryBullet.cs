@@ -17,6 +17,9 @@ namespace Diggy_MiniGame_3
 
 		private void Update()
 		{
+			if (!GameManager.gameManager.gameStarted) return;
+			if (GameManager.gameManager.gamePaused) return;
+
 			transform.Translate(_direction * _speed * Time.deltaTime);
 
 			CheckOutOfBounds();

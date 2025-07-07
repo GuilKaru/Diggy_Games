@@ -31,6 +31,9 @@ namespace Diggy_MiniGame_3
 				return;
 			}
 
+			if (!GameManager.gameManager.gameStarted) return;
+			if (GameManager.gameManager.gamePaused) return;
+
 			// Random position on the X-axis within the spawn range
 			float spawnX = Random.Range(_spawnRangeX.x, _spawnRangeX.y);
 			Vector3 spawnPosition = new Vector3(spawnX, transform.position.y, transform.position.z);

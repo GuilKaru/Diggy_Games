@@ -24,9 +24,19 @@ namespace Diggy_MiniGame_3
 			currentTurret = Instantiate(turretPrefab, spawnPoint.position, turretPrefab.transform.rotation, _parentTransform);
 
 		}
+
 		public bool HasActiveTurret()
 		{
 			return currentTurret != null;
+		}
+
+		public void DespawnTurret()
+		{
+			if (currentTurret != null)
+			{
+				Destroy(currentTurret);
+				currentTurret = null;
+			}
 		}
 
 		private void OnDrawGizmos()

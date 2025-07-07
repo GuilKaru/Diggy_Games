@@ -18,6 +18,7 @@ namespace Diggy_MiniGame_3
 			if (timer >= spawnInterval)
 			{
 				timer = 0f;
+
 				//SpawnEnemies();
 			}
 		}
