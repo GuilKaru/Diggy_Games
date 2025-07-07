@@ -92,6 +92,7 @@ namespace Diggy_MiniGame_3
 			// Update the UI
 			_heartContainer.SetHearts(currentHearts);
 			
+			StartCoroutine(ToggleSpriteAndCollider(0.2f));
 
 			// If health reaches 0, trigger GameOver
 			if (currentHearts <= 0 && !IsDead)
@@ -102,7 +103,6 @@ namespace Diggy_MiniGame_3
 
 				//_timer.ResetTimer();
 			}
-			StartCoroutine(ToggleSpriteAndCollider(0.2f));
 		}
 
 		
@@ -120,15 +120,26 @@ namespace Diggy_MiniGame_3
 
 			while (Time.time < endTime)
 			{
+				// If dead, exit early and do NOT flicker
+				if (IsDead) yield break;
+
 				_spriteRenderer.enabled = !_spriteRenderer.enabled;
 				yield return new WaitForSeconds(_toggleInterval);
 			}
-			_spriteRenderer.enabled = true;
-			_collider2D.enabled = true;
+
+			// Only enable again if not dead
+			if (!IsDead)
+			{
+				_spriteRenderer.enabled = true;
+				_collider2D.enabled = true;
+			}
 
 		}
 
-
+		public void ResetPlayerSpriteRenderer()
+		{
+			_spriteRenderer.enabled = true;
+		}
 
 		public void ResetPosition()
 		{

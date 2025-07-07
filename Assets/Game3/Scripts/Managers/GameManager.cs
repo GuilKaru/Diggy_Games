@@ -129,6 +129,7 @@ namespace Diggy_MiniGame_3
 				playerHealth.SetPlayerHealth(playerHealth.maxHearts); // Reset to max health
 				playerHealth.ResetDeathStatus(); // Clear death status
 				playerHealth.ResetPosition();
+				playerHealth.ResetPlayerSpriteRenderer();
 			}
 
 			// Reset the score
