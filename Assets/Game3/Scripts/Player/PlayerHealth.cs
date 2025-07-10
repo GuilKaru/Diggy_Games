@@ -99,6 +99,7 @@ namespace Diggy_MiniGame_3
 			{
 				IsDead = true; // Set IsDead to true
 				_spriteRenderer.enabled = false;
+				_collider2D.enabled = false;
 				GameManager.gameManager.GameOver();
 
 				//_timer.ResetTimer();
@@ -136,9 +137,10 @@ namespace Diggy_MiniGame_3
 
 		}
 
-		public void ResetPlayerSpriteRenderer()
+		public void ResetPlayerSpriteRendererAndPlayerCollider()
 		{
 			_spriteRenderer.enabled = true;
+			_collider2D.enabled = true;
 		}
 
 		public void ResetPosition()

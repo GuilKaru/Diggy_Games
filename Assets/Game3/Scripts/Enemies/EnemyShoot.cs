@@ -26,6 +26,10 @@ namespace Diggy_MiniGame_3
 		[Header("Score Settings")]
 		[SerializeField]
 		private int _scoreValue = 10;
+
+		[Header("Animation")]
+		[SerializeField]
+		private Animator _animator;
 		#endregion
 
 		//Private Variables
@@ -35,6 +39,8 @@ namespace Diggy_MiniGame_3
 		private float _moveDirection = 1f;
 		private float _moveTimer;
 		private float _shootTimer;
+		private string _currentState;
+		private string _idleAnim = "EnemyShoot_Idle";
 		#endregion
 
 		//Initialization
@@ -46,6 +52,7 @@ namespace Diggy_MiniGame_3
 			_moveTimer = _changeDirectionInterval;
 			_shootTimer = _shootInterval;
 			_moveDirection = Random.Range(0, 2) == 0 ? -1f : 1f;
+			ChangeAnimationState(_idleAnim);
 		}
 
 		private void Update()
@@ -86,6 +93,11 @@ namespace Diggy_MiniGame_3
 				transform.position = new Vector2(_rightBoundary, transform.position.y);
 				_moveDirection = -1f;
 			}
+
+			// Flip sprite based on direction
+			Vector3 localScale = transform.localScale;
+			localScale.x = Mathf.Abs(localScale.x) * (_moveDirection < 0 ? 1 : -1);
+			transform.localScale = localScale;
 		}
 
 		#endregion
@@ -131,6 +143,22 @@ namespace Diggy_MiniGame_3
 				_scoreManager.AddScore(_scoreValue);
 				Destroy(gameObject);
 			}
+		}
+		#endregion
+
+		//Animation
+		#region Animation
+		public void ChangeAnimationState(string newState)
+		{
+			// Avoid transitioning to the same animation
+			if (_currentState == newState) return;
+
+			// Play the new animation
+			_animator.Play(newState);
+
+			// Update the current state
+			_currentState = newState;
+
 		}
 		#endregion
 	}

@@ -16,14 +16,14 @@ namespace Diggy_MiniGame_3
 		public GameObject _mainMenu;
 		[SerializeField]
 		public GameObject _gameCanvas;
-		/*[SerializeField]
-		private GameObject _tutorialCanvas;*/
-
-/*		[SerializeField]
-		public PlayerData _playerData;
-
 		[SerializeField]
-		private TextMeshProUGUI _scoreTextAA;*/
+		private GameObject _tutorialCanvas;
+
+		/*		[SerializeField]
+				public PlayerData _playerData;
+
+				[SerializeField]
+				private TextMeshProUGUI _scoreTextAA;*/
 
 		#endregion
 
@@ -58,10 +58,10 @@ namespace Diggy_MiniGame_3
 			_usernameMenu.SetActive(false);
 		}*/
 
-		/*public void TutorialToggle(bool active)
+		public void TutorialToggle(bool active)
 		{
 			_tutorialCanvas.SetActive(active);
-		}*/
+		}
 
 		public void ScoreUpdateAA()
 		{
