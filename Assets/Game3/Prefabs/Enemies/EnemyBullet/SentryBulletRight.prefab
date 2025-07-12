@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
-  _destroyY: -4
+  _destroyY: -3
   _damageAreaPrefab: {fileID: 1515248500456332301, guid: 0029c067e2fd27346884e77fd9abc2de, type: 3}
 --- !u!58 &2720987601972992018
 CircleCollider2D:
