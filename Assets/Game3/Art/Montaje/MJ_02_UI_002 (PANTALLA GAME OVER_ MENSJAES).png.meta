@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MJ_02_UI_002 (PANTALLA GAME OVER_ MENSJAES)_0: -709516429000470503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

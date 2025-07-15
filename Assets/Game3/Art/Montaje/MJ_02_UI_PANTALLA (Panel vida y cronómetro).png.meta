@@ -186,7 +186,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "MJ_02_UI_PANTALLA (Panel vida y cron\xF3metro)_0": -6353602329859960212
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -36,6 +36,9 @@ namespace Diggy_MiniGame_3
 		[SerializeField]
 		private GameObject _gameOverMenuUI;
 
+		[SerializeField] 
+		private BoomScore boomScore;
+
 		/*[SerializeField]
 		private AudioSource _backgroundMusic;*/
 
@@ -159,8 +162,7 @@ namespace Diggy_MiniGame_3
 		{
 			EndGame();
 			_gameOverMenuUI.SetActive(true);
-			//_boomScore.ActionButtonClickHandler(scoreManager.scoreCount);
-			//_boomGameOver.ActionButtonClickHandler("match_outcome_finish");
+			boomScore.ScoreAction(scoreManager.scoreCount);
 		}
 
 		public void BackToMainMenu()

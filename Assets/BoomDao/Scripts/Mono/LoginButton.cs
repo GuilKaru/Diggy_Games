@@ -53,7 +53,7 @@ namespace Boom.UI
         //Execute Login Request
         public void Handler()
         {
-            loadingPanel.SetActive(true);
+            //loadingPanel.SetActive(true);
             Broadcast.Invoke<UserLoginRequest>();
         }
     }
