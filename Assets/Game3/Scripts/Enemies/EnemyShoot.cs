@@ -30,6 +30,13 @@ namespace Diggy_MiniGame_3
 		[Header("Animation")]
 		[SerializeField]
 		private Animator _animator;
+
+		[Header("Enemy Sentry Audio")]
+		[SerializeField]
+		private AudioSource _enemyShootAudioSource;
+		[SerializeField]
+		private AudioClip[] _enemyShootClips;
+
 		#endregion
 
 		//Private Variables
@@ -120,6 +127,7 @@ namespace Diggy_MiniGame_3
 			if (_bulletPrefab != null && _firePoint != null)
 			{
 				GameObject bullet = Instantiate(_bulletPrefab, _firePoint.position, Quaternion.identity);
+				PlayAudioEnemyShootClip(0);
 
 				// Find bullet parent in the scene
 				GameObject bulletParent = GameObject.FindGameObjectWithTag("BulletParent");
@@ -159,6 +167,18 @@ namespace Diggy_MiniGame_3
 			// Update the current state
 			_currentState = newState;
 
+		}
+		#endregion
+
+		//Audio
+		#region Audio
+		private void PlayAudioEnemyShootClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _enemyShootClips.Length)
+			{
+				_enemyShootAudioSource.clip = _enemyShootClips[clipIndex];
+				_enemyShootAudioSource.Play();
+			}
 		}
 		#endregion
 	}

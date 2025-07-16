@@ -18,6 +18,12 @@ namespace Diggy_MiniGame_3
 		[SerializeField]
 		private Transform firePoint;
 
+		[Header("Enemy Sentry Audio")]
+		[SerializeField]
+		private AudioSource _enemySentryAudioSource;
+		[SerializeField]
+		private AudioClip[] _enemySentryClips;
+
 		[SerializeField]
 		private int _scoreValue = 10;
 
@@ -68,6 +74,7 @@ namespace Diggy_MiniGame_3
 			GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 			Vector2 direction = (_player.position - firePoint.position).normalized;
 
+			PlayAudioEnemySentryClip(0);
 
 			// Find bullet parent in the scene
 			GameObject bulletParent = GameObject.FindGameObjectWithTag("BulletParent");
@@ -115,6 +122,16 @@ namespace Diggy_MiniGame_3
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawRay(transform.position, direction1 * detectionRange);
 			Gizmos.DrawRay(transform.position, direction2 * detectionRange);
+		}
+
+
+		private void PlayAudioEnemySentryClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _enemySentryClips.Length)
+			{
+				_enemySentryAudioSource.clip = _enemySentryClips[clipIndex];
+				_enemySentryAudioSource.Play();
+			}
 		}
 	}
 }

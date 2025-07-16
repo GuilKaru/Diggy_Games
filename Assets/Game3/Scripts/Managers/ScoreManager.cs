@@ -8,6 +8,12 @@ namespace Diggy_MiniGame_3
 		#region SerializeField
 		[SerializeField]
 		private TextMeshProUGUI _scoreText;
+
+		[Header("Score Audio")]
+		[SerializeField]
+		private AudioSource _scoreAudioSource;
+		[SerializeField]
+		private AudioClip[] _scoreClips;
 		#endregion
 
 		// Variables
@@ -22,7 +28,7 @@ namespace Diggy_MiniGame_3
 			scoreCount = Mathf.Max(0, scoreCount + points);
 
 			ScoreUpdate();
-
+			PlayAudioScoreClip(0);
 			Debug.Log("Score updated: " + scoreCount);
 
 		}
@@ -40,12 +46,22 @@ namespace Diggy_MiniGame_3
 		public void ScoreUpdate()
 		{
 			_scoreText.text = scoreCount.ToString();
+
 		}
 
 
 		public int GetScore()
 		{
 			return scoreCount;
+		}
+
+		private void PlayAudioScoreClip(int clipIndex)
+		{
+			if (clipIndex >= 0 && clipIndex < _scoreClips.Length)
+			{
+				_scoreAudioSource.clip = _scoreClips[clipIndex];
+				_scoreAudioSource.Play();
+			}
 		}
 
 		#endregion

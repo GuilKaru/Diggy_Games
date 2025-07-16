@@ -11,10 +11,6 @@ namespace Diggy_MiniGame_3
 		public int maxHearts = 6; // Maximum number of hearts
 		public int currentHearts = 6; // Current number of hearts
 		public GameObject _heartContainerObject;
-/*
-		[Header("Health Bar")]
-		[SerializeField]
-		private HealthBar _healthBar; // Reference to the health bar component*/
 
 		[Header("Player Hit")]
 		[SerializeField]
@@ -24,6 +20,9 @@ namespace Diggy_MiniGame_3
 		[SerializeField]
 		private Collider2D _collider2D;
 
+		[Header("Player Collider")]
+		[SerializeField]
+		private PlayerController _playerController;
 
 		#endregion
 
@@ -32,7 +31,6 @@ namespace Diggy_MiniGame_3
 		public bool IsDead { get; private set; } = false;
 		private HeartContainer _heartContainer;
 		private GameManager _gameManager;
-		//private Timer _timer;
 		public KeyCode invincibilityToggleKey = KeyCode.I; // Key to toggle invincibility
 		private bool _isInvincible = false; // Whether the player is currently invincible
 		private Vector3 _initialPosition;
@@ -84,7 +82,7 @@ namespace Diggy_MiniGame_3
 			// Deduct the health based on heartAmount (1 heart = 2 health points)
 			currentHearts -= heartAmount; // Multiply by 2 to reflect the hearts
 
-			//_healthBar.UpdateHealth(currentHearts);
+			_playerController.PlayAudioPlayerHitClip(0);
 
 			// Clamp the current health to ensure it does not go below 0
 			currentHearts = Mathf.Clamp(currentHearts, 0, maxHearts * 2); // 10 max health

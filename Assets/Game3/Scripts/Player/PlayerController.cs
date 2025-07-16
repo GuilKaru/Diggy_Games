@@ -42,41 +42,15 @@ namespace Diggy_MiniGame_3
 		[SerializeField]
 		private float[] _shotgunSpreadAngles = { -30f, 0f, 30f };
 
-		/*[Header("Knockback")]
-		[SerializeField]
-		private float knockbackDistance = 1f;
-		[SerializeField]
-		private float knockbackDuration = 0.2f;*/
-
-		/*[Header("UI Settings")]
-		[SerializeField]
-		private LayerMask _uiLayerMask; // LayerMask for UI elements
-
-		[Header("Animation")]
-		[SerializeField]
-		private Animator _animator;
-
 		[Header("Player Audio")]
 		[SerializeField]
 		private AudioSource _shovelAudioSource;
 		[SerializeField]
 		private AudioClip[] _shovelClips;
 		[SerializeField]
-		private AudioSource _shovelShotgunAudioSource;
-		[SerializeField]
-		private AudioClip[] _shovelShotgunClips;
-		[SerializeField]
 		private AudioSource _hitAudioSource;
 		[SerializeField]
 		private AudioClip[] _playerHitClip;
-		[SerializeField]
-		private AudioSource _hitLavaAudioSource;
-		[SerializeField]
-		private AudioClip[] _playerHitLavaClip;
-		[SerializeField]
-		private AudioSource _walkAudioSource;
-		[SerializeField]
-		private AudioClip[] _walkClip;*/
 		#endregion
 
 		// Private Variables
@@ -288,7 +262,7 @@ namespace Diggy_MiniGame_3
 
 		private IEnumerator ShootingCoroutine()
 		{
-			float initialDelay = 0.8f; // Adjust this value based on your animation length
+			float initialDelay = 0; // Adjust this value based on your animation length
 			yield return new WaitForSeconds(initialDelay);
 			while (_isShooting)
 			{
@@ -313,7 +287,7 @@ namespace Diggy_MiniGame_3
 			Quaternion _bulletRotation = Quaternion.Euler(0, 0, 0);
 			GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, _bulletRotation, _shovelParent);
 			bullet.GetComponent<Collider2D>().enabled = true;
-			//PlayAudioShovelClip(0);
+			PlayAudioShovelClip(0);
 			Shovel bulletController = bullet.GetComponent<Shovel>();
 			if (bulletController != null)
 			{
@@ -330,7 +304,6 @@ namespace Diggy_MiniGame_3
 				Quaternion _bulletRotation = Quaternion.Euler(0, 0, 270);
 				GameObject bullet = Instantiate(_shovelPrefab, _shovelThrowTransform.position, spreadRotation * _bulletRotation, _shovelParent);
 				bullet.GetComponent<Collider2D>().enabled = true;
-				//PlayAudioShovelShotgunClip(0);
 				Shovel bulletController = bullet.GetComponent<Shovel>();
 				if (bulletController != null)
 				{
@@ -392,68 +365,6 @@ namespace Diggy_MiniGame_3
 				_shootingCoroutine = null;
 			}
 		}
-		#endregion
-
-		//Stun
-		#region Stun
-		public void StunPlayer(float duration)
-		{
-			_isStunned = true;
-			_stunEndTime = Time.time + duration; // Calculate when the stun ends
-			Debug.Log("Player stunned for " + duration + " seconds.");
-			//ChangeAnimationState(_stunAnim);
-		}
-		#endregion
-
-		//Knockback
-		#region Knockback
-		/*private void ApplyKnockback()
-		{
-			// Calculate the interpolation factor
-			float t = (Time.time - _knockbackStartTime) / knockbackDuration; // If the knockback duration is over, stop the knockback
-																			 // Interpolate the player's position
-			if (t >= 1.0f)
-			{
-				_isKnockedBack = false; t = 1.0f;
-			}
-			transform.position = Vector3.Lerp(transform.position, _knockbackTargetPosition, t);
-		}
-
-		private void OnCollisionEnter2D(Collision2D collision)
-		{
-			// Check if the collided object is a barrel or an enemy
-			if (collision.gameObject.CompareTag("Barrel"))
-			{
-				// Knockback logic
-				_knockbackTargetPosition = new Vector3(transform.position.x - knockbackDistance, transform.position.y, transform.position.z);
-				_knockbackStartTime = Time.time;
-				_isKnockedBack = true;
-
-
-			}
-
-		}*/
-
-		#endregion
-
-		//Slow Effect
-		#region Slow Effect
-		/*public void ApplySlowEffect(float slowAmount, float duration)
-		{
-			StartCoroutine(SlowEffectCoroutine(slowAmount, duration));
-		}
-
-		private IEnumerator SlowEffectCoroutine(float slowAmount, float duration)
-		{
-			float originalSpeed = _moveSpeed;
-			_moveSpeed *= slowAmount; // Reduce the movement speed
-			Debug.Log($"Player slowed to {_moveSpeed} for {duration} seconds.");
-
-			yield return new WaitForSeconds(duration);
-
-			_moveSpeed = originalSpeed; // Restore original speed
-			Debug.Log("Player speed restored.");
-		}*/
 		#endregion
 
 		//Buffs Properties
@@ -587,22 +498,13 @@ namespace Diggy_MiniGame_3
 
 		//Player Audio
 		#region Player Audio
-/*
+
 		private void PlayAudioShovelClip(int clipIndex)
 		{
 			if (clipIndex >= 0 && clipIndex < _shovelClips.Length)
 			{
 				_shovelAudioSource.clip = _shovelClips[clipIndex];
 				_shovelAudioSource.Play();
-			}
-		}
-
-		private void PlayAudioShovelShotgunClip(int clipIndex)
-		{
-			if (clipIndex >= 0 && clipIndex < _shovelShotgunClips.Length)
-			{
-				_shovelShotgunAudioSource.clip = _shovelShotgunClips[clipIndex];
-				_shovelShotgunAudioSource.Play();
 			}
 		}
 
@@ -614,24 +516,6 @@ namespace Diggy_MiniGame_3
 				_hitAudioSource.Play();
 			}
 		}
-
-		public void PlayAudioPlayerHitLavaClip(int clipIndex)
-		{
-			if (clipIndex >= 0 && clipIndex < _playerHitLavaClip.Length)
-			{
-				_hitLavaAudioSource.clip = _playerHitLavaClip[clipIndex];
-				_hitLavaAudioSource.Play();
-			}
-		}
-
-		public void PlayAudioWalkClip(int clipIndex)
-		{
-			if (clipIndex >= 0 && clipIndex < _walkClip.Length)
-			{
-				_walkAudioSource.clip = _walkClip[clipIndex];
-				_walkAudioSource.Play();
-			}
-		}*/
 
 		#endregion
 
